@@ -10,19 +10,25 @@
 // limitations under the License.
 //
 
+import getFileDownloadUrl from "./import/getFileDownloadUrl";
+
 console.log('%cStudenti.it %cv%s', 'color: #7ab700', 'color: gray; font-style: italic;', process.env.VERSION);
 
 const appuntiRegex = /appunti\/[a-zA-Z0-9\-/]+\.html/gm;
+const urlPageIdRegex = /\?h=([a-zA-Z0-9\-]+)/gm;
+let pageId: string;
 
 // Check if the page is an appunti page
 if (appuntiRegex.test(window.location.href)) {
-    const nextPageId = getNextPageId();
-    removeAdvertisingLink(nextPageId);
+    pageId = getNextPageId();
+    removeAdvertisingLink(pageId);
 
     // Remove right arrow button
     const rightArrowButtons = document.querySelectorAll(".pager ul li:last-child") as NodeListOf<HTMLLIElement>;
     rightArrowButtons.forEach(btn => btn.parentElement?.removeChild(btn));
 } else {
+    pageId = urlPageIdRegex.exec(window.location.href)!![1];
+
     const relatedPageButton = document.querySelectorAll(".pager ul li a[href*=correlati]") as NodeListOf<HTMLAnchorElement>;
     relatedPageButton.forEach(btn => {
         if (process.env.NODE_ENV !== 'production') {
@@ -36,12 +42,34 @@ if (appuntiRegex.test(window.location.href)) {
         const li = btn.parentElement;
         li?.parentElement?.removeChild(li);
     });
+
+    // Gets the download button
+    const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
+    if (downloadButton) {
+        downloadButton.href = '#';
+        downloadButton?.addEventListener('click', (evt) => {
+            evt.preventDefault();
+
+            if (process.env.NODE_ENV !== 'production') {
+                if (/^it\b/.test(navigator.language)) {
+                    console.log('%cChiedo url download...', 'color: #7ab700;');
+                } else {
+                    console.log('%cRequesting download url...', 'color: #7ab700;');
+                }
+            }
+
+            getFileDownloadUrl(pageId).then(url => {
+                // Open the url
+                window.location.href = url;
+            });
+        });
+    }
 }
 
 function getNextPageId(): string {
     // Grabbing the url from the button
     const nextPageUrl = (document.querySelector(".pager ul li:nth-child(2) a") as HTMLAnchorElement).href;
-    const pageId = /download_2\/([a-zA-Z0-9\-]+)_1\.html/gm;
+    const pageIdRegex = /download_2\/([a-zA-Z0-9\-]+)_1\.html/gm;
 
     if (process.env.NODE_ENV !== 'production') {
         if (/^it\b/.test(navigator.language)) {
@@ -51,7 +79,7 @@ function getNextPageId(): string {
         }
     }
 
-    return pageId.exec(nextPageUrl)!![1];
+    return pageIdRegex.exec(nextPageUrl)!![1];
 }
 
 
