@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Quizlet Paywall Remover",
+    "name": "Quizlet Bypass",
     "version": "1.0",
     "description": "Removes the paywall from the Quizlet page",
     "icons": {
@@ -25,7 +25,7 @@
     },
     "browser_specific_settings": {
         "gecko": {
-            "id": "quizletbypass@marko.it",
+            "id": "quizletbypass@rospino74.github.io",
             "strict_min_version": "42.0"
         }
     },
