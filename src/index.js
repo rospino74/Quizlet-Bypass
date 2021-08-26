@@ -25,7 +25,7 @@ const consoleBigStyles = [
     'font-size: xx-large',
 ].join(';');
 
-// aspetto 2 secondi prima di iniziare
+// aspetto 1.2 secondi prima di iniziare
 setTimeout(() => {
     // Cerco un banner con l'ultima soluzione
     const banner = document.querySelector('.BannerWrapper');
@@ -66,4 +66,4 @@ setTimeout(() => {
             'color: white;', 'Soluzioni Rimanenti:',
             'color: orange; font-weight: bold;', remainingSolutions);
     }
-}, 2000);
+}, 1200);
