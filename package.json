@@ -1,0 +1,31 @@
+{
+  "name": "quizlet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "private": true,
+  "author": "rospino74",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/rospino74/Quizlet-Bypass",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "temp-mail-api": "^1.1.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "archiver": "^5.3.0",
+    "buffer": "^6.0.3",
+    "chance": "^1.1.7",
+    "https": "^1.0.0",
+    "https-browserify": "^1.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0",
+    "webpack": "^5.51.1"
+  }
+}
