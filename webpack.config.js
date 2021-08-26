@@ -29,6 +29,7 @@ const commonConfig = {
             url: require.resolve('url/'),
             buffer: require.resolve('buffer/'),
         },
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         {
@@ -37,6 +38,15 @@ const commonConfig = {
             },
         },
     ],
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
 };
 
 const content = {
@@ -50,7 +60,7 @@ const content = {
 
 const background = {
     ...commonConfig,
-    entry: './src/background.js',
+    entry: './src/background.ts',
     output: {
         path: distPath,
         filename: 'background.js',
