@@ -37,17 +37,8 @@ setTimeout(() => {
 
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
-    // eslint-disable-next-line no-undef
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
         console.log("%cSoluzioni scadute, rinnovo l'account", consoleBigStyles);
-
-        // Notifico il background script di rinnovare i cookies
-        // eslint-disable-next-line no-undef
-        // chrome.runtime.sendMessage({
-        //     // eslint-disable-next-line no-undef
-        //     tab: chrome.tabs.getCurrent(),
-        //     action: 'renew',
-        // });
 
         // Cancello l'account corrente
         deleteQuizletAccount();
@@ -56,22 +47,17 @@ setTimeout(() => {
         makeQuizletAccount();
 
         // Copio i cookies
-        // eslint-disable-next-line no-undef
         chrome.runtime.sendMessage({
-        // eslint-disable-next-line no-undef
             tab: chrome.tabs.getCurrent(),
             action: 'copyCookies',
             value: document.cookie,
         });
 
         // Ricarico la pagina
-        window.location.reload();
-        // eslint-disable-next-line no-undef
-        // chrome.runtime.sendMessage({
-        // // eslint-disable-next-line no-undef
-        //     tab: chrome.tabs.getCurrent(),
-        //     action: 'refresh',
-        // });
+        chrome.runtime.sendMessage({
+            tab: chrome.tabs.getCurrent(),
+            action: 'refresh',
+        });
 
         // Avviso delle soluzioni rimanenti
     } else if (banner.querySelector('.WithAccent')) {

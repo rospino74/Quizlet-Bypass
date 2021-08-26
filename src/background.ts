@@ -10,23 +10,18 @@
 // limitations under the License.
 //
 
-// import makeQuizletAccount from './scripts/background/accountMaker';
+// @ts-ignore
 import replaceQuizletCookies from './scripts/background/cookieReplacer';
 
-// eslint-disable-next-line no-undef
-chrome.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
     console.log('Richiesta ricevuta:', message);
 
     const { action, tab, value } = message;
-    // if (false && action === 'renew') {
-    //     // Allora dobbiamo creare un nuovo account
-    //     makeQuizletAccount(tab);
-    /* } else */ if (action === 'copyCookies') {
+    if (action === 'copyCookies') {
         console.warn('Account cookies recived: ', value);
         replaceQuizletCookies(value);
     } else if (action === 'refresh') {
         console.warn('Refresh received');
-        // eslint-disable-next-line no-undef
-        chrome.tabs.reload(tab.id);
+        chrome.tabs.reload(tab.id!!);
     }
 });
