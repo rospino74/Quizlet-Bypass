@@ -10,25 +10,14 @@
 // limitations under the License.
 //
 
-/* eslint-disable no-undef */
-export default async function replaceQuizletCookies(extensionCookies) {
-    // Ottengo la tab corrente
-//   const currentTab = chrome.tabs.getCurrent();
-
-    // Controllo che sia definita
-    //   if (!currentTab) {
-    //     console.error('Impossibile ottenere la Tab corrente!', currentTab);
-    //     return;
-    //   }
-
+export default async function replaceQuizletCookies(extensionCookies: string): Promise<void> {
     // Itero tutti i cookies dell'estensione
-    extensionCookies.split('; ').forEach(async (cookie) => {
-    // Prendo il valore e il nome del cookie
+    extensionCookies.split('; ').forEach(async (cookie: string): Promise<void> => {
+        // Prendo il valore e il nome del cookie
         const [cookieName, cookieValue] = cookie.split('=');
 
         // Salvo il cookie nel browser
         await chrome.cookies.set({
-            //   url: currentTab.url,
             url: 'quizlet.com',
             name: cookieName,
             value: cookieValue,

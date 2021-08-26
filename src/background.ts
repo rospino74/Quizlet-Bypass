@@ -22,6 +22,8 @@ chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tab
         replaceQuizletCookies(value);
     } else if (action === 'refresh') {
         console.warn('Refresh received');
-        chrome.tabs.reload(tab.id!!);
+        chrome.tabs.reload(tab.id!!).catch(() => {
+            chrome.tabs.update(tab.id!!, {url: tab.url});
+        });
     }
 });
