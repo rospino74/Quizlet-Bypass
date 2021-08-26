@@ -29,6 +29,25 @@ const consoleBigStyles = [
 setTimeout(() => {
     // Cerco un banner con l'ultima soluzione
     const banner = document.querySelector('.BannerWrapper');
+    const notLoggedInPaywall = document.querySelector('.t15hde6e');
+
+    if (notLoggedInPaywall) {
+        // Cancello i bottoni social per il login
+        notLoggedInPaywall.parentElement.removeChild(
+            notLoggedInPaywall.parentElement.querySelector('.lfyx4xv'),
+        );
+
+        // Aggiorno lo stile
+        document.querySelector('.t15hde6e').style.maxWidth = 'unset';
+        notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
+
+        // Cambio il testo nel paywall
+        const bigTitle = notLoggedInPaywall.querySelector('.t1qexa4p');
+        bigTitle.innerText = 'Questo contenuto è bloccato ancora per poco.';
+
+        const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
+        smallTitle.innerHTML = '<a href=# onclick=document.location.reload()>Aggiorna la pagina</a> per visualizzare la soluzione completa.';
+    }
 
     // Nascondo il paywall
     if (banner) {
