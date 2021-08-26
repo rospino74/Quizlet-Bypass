@@ -36,7 +36,7 @@ async function makeAccountCreationRequest(email) {
             'Cache-Control': 'no-cache',
         },
         referrer: 'https://quizlet.com/login',
-        body: `{"TOS":true,"birth_day":"${birthDay.getDate()}","birth_month":"${birthDay.getMonth()}","birth_year":"${birthDay.getFullYear()}","email":"${email}","is_free_teacher":"0","is_parent":false,"password1":"nrka6TWF86FPScH","redir":"https://quizlet.com/","signupOrigin":"signup-tab-on-login-modal","screenName":"Logout/logoutMobileSplash","username":"${randomizer.name().replaceAll(' ', '_')}_${birthDay.getFullYear()}","marketing_opt_out":true}`,
+        body: `{"TOS":true,"birth_day":"${birthDay.getDate()}","birth_month":"${birthDay.getMonth()}","birth_year":"${birthDay.getFullYear()}","email":"${email}","is_free_teacher":"0","is_parent":false,"password1":"nrka6TWF86FPScH","redir":"https://quizlet.com/","signupOrigin":"signup-tab-on-login-modal","screenName":"Logout/logoutMobileSplash","username":"${randomizer.name().replaceAll(' ', '_').slice(0, 15)}_${birthDay.getFullYear()}","marketing_opt_out":true}`,
         method: 'POST',
         mode: 'cors',
     });
