@@ -1,10 +1,12 @@
 <p align="center">
   <img width="200" src="dist/icons/logo-192.png" alt="Quizlet Bypass logo">
 </p>
-
-# Quizlet Bypass
-
-Questa estensione permette di visualizzare tutte le soluzioni dei libri di testo fornite dalla piattaforma Quizlet.
+<h1 align="center">
+  Quizlet Bypass
+</h1>
+<p align="center">
+  Questa estensione permette di visualizzare tutte le soluzioni dei libri di testo fornite dalla piattaforma <a href="htps://qizlet.com/"><i>Quizlet</i></a>.
+</p>
 
 ## Proof of Concept
 Quizlet non usa un captcha nei form di registrazione
