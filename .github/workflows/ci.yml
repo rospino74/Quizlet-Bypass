@@ -25,6 +25,6 @@ jobs:
     - name: Web-Ext check
       run: npx web-ext lint --self-hosted
       working-directory: ./dist
-    - name: Extension test
-      run: npx web-ext run
-      working-directory: ./dist
+    #- name: Extension test
+      #run: npx web-ext run
+      #working-directory: ./dist
