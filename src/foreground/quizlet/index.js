@@ -10,8 +10,8 @@
 // limitations under the License.
 //
 
-import deleteQuizletAccount from './scripts/content/accountDeleter';
-import makeQuizletAccount from './scripts/content/accountMaker';
+import deleteQuizletAccount from './import/accountDeleter';
+import makeQuizletAccount from './import/accountMaker';
 
 const consolePrefixStyles = [
     'color: #fff',
