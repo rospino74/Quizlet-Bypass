@@ -14,7 +14,7 @@
                 "*://*.quizlet.com/explanations/textbook-solutions/*"
             ],
             "js": [
-                "content.js"
+                "quizlet.content.js"
             ]
         }
     ],

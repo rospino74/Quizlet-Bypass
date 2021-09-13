@@ -21,6 +21,17 @@ async function zipExtensionFiles() {
     });
 }
 
+function resolveAllForegroundScripts() {
+    const scripts = {};
+
+    // Leggo tutte le cartelle
+    fs.readdirSync(`${__dirname}/src/foreground`).forEach((directory) => {
+        scripts[directory] = `./src/foreground/${directory}/index.js`;
+    });
+
+    return scripts;
+}
+
 const commonConfig = {
     mode: 'production',
     resolve: {
@@ -61,10 +72,10 @@ const commonConfig = {
 
 const content = {
     ...commonConfig,
-    entry: './src/index.js',
+    entry: resolveAllForegroundScripts,
     output: {
         path: distPath,
-        filename: 'content.js',
+        filename: '[name].content.js',
     },
 };
 
