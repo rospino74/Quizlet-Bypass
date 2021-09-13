@@ -23,7 +23,7 @@
     "webpack-obfuscator": "^3.4.1"
   },
   "dependencies": {
-    "@types/chrome": "^0.0.154",
+    "@types/chrome": "^0.0.157",
     "archiver": "^5.3.0",
     "buffer": "^6.0.3",
     "chance": "^1.1.8",
