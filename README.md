@@ -41,4 +41,4 @@ Quizlet non usa un captcha nei form di registrazione
 ![Ricarica per sbloccare](https://sqleoni.altervista.org/file/png/quizlet-unlock-refresh.png)
 Se visualizzi questo banner, l'estensione sta funzionando correttamente! Segui le istruzioni del banner... 🤦🏽‍♂️.
 
-Se credi che ci sia qualche problema non esitare ad aprire un'issue 😉.
+Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://github.com/rospino74/Quizlet-Bypass/issues/new) 😉.
