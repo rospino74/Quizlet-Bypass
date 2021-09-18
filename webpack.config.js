@@ -68,6 +68,10 @@ const commonConfig = {
             },
         ],
     },
+    performance: {
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
+    },
 };
 
 const content = {
