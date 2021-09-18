@@ -25,6 +25,8 @@ const consoleBigStyles = [
     'font-size: xx-large',
 ].join(';');
 
+console.log('%cQuizlet %cv%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
+
 // aspetto 1.2 secondi prima di iniziare
 setTimeout(() => {
     // Cerco un banner con l'ultima soluzione

@@ -2,6 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
 const WebpackObfuscator = require('webpack-obfuscator');
+const { EnvironmentPlugin } = require('webpack');
+const { version } = require('./package.json');
 
 // Path to the dist folder
 const distPath = path.resolve(__dirname, 'dist');
@@ -57,6 +59,9 @@ const commonConfig = {
             compact: true,
             deadCodeInjection: true,
             deadCodeInjectionThreshold: 0.2,
+        }),
+        new EnvironmentPlugin({
+            VERSION: version,
         }),
     ],
     module: {

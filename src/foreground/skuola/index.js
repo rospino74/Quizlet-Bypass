@@ -18,6 +18,8 @@ const consoleBigStyles = [
 
 const noRightClickElement = document.querySelectorAll('[data-rightclick]');
 
+console.log('%cSkuola Evader %cv%s', 'color: #fee300', 'color: gray; font-style: italic;', process.env.VERSION);
+
 // Rimuovo il box
 const copyWallBox = document.querySelector('#rightclick');
 if (copyWallBox) {
