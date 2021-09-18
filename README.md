@@ -39,6 +39,12 @@ Quizlet non usa un captcha nei form di registrazione
 
 ## La tua estensione non funziona!1!!1
 ![Ricarica per sbloccare](https://sqleoni.altervista.org/file/png/quizlet-unlock-refresh.png)
-Se visualizzi questo banner, l'estensione sta funzionando correttamente! Segui le istruzioni del banner... 🤦🏽‍♂️.
+Se visualizzi questo banner, l'estensione sta funzionando correttamente! Segui le istruzioni... 🤦🏽‍♂️.
 
 Se credi che ci sia qualche problema non esitare ad aprire un'issue 😉.
+
+# Caratteristiche per sito
+| Sito | Funzionalità | Versione |
+|:---|:---| :---: |
+| [Quizlet](https://quizlet.com/) | Possibilità di visualizzare le soluzioni senza registrazione | `1.0.0` |
+| [Skuola.net](https://skuola.net/) | Possibilità di copiare i testi senza registrazione | `1.1.0` |
