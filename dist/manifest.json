@@ -16,6 +16,14 @@
             "js": [
                 "quizlet.content.js"
             ]
+        },
+        {
+            "matches": [
+                "*://*.skuola.net/*"
+            ],
+            "js": [
+                "skuola.content.js"
+            ]
         }
     ],
     "background": {
@@ -31,6 +39,7 @@
     },
     "permissions": [
         "*://*.quizlet.com/*",
+        "*://*.skuola.net/*",
         "webRequest",
         "cookies",
         "tabs"
