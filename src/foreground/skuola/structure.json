@@ -1,0 +1,9 @@
+{
+    "entry": "index.js",
+    "permissions": [
+        "*://*.skuola.net/*"
+    ],
+    "matches": [
+        "*://*.skuola.net/*"
+    ]
+}

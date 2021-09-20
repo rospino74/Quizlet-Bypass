@@ -1,0 +1,12 @@
+{
+    "entry": "index.js",
+    "permissions": [
+        "*://*.quizlet.com/*",
+        "webRequest",
+        "cookies",
+        "tabs"
+    ],
+    "matches": [
+        "*://*.quizlet.com/explanations/textbook-solutions/*"
+    ]
+}
