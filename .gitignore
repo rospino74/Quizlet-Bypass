@@ -79,4 +79,4 @@ typings/
 *.zip
 
 # Build Directory
-dist/*.js
+dist/
