@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" src="dist/icons/logo-192.png" alt="Quizlet Bypass logo">
+  <img width="200" src="public/icons/logo-192.png" alt="Quizlet Bypass logo">
 </p>
 <h1 align="center">
   Quizlet Bypass
