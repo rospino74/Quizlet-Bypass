@@ -90,7 +90,7 @@ const content = {
 
 const background = {
     ...commonConfig,
-    entry: './src/background.ts',
+    entry: './src/background/background.ts',
     output: {
         path: distPath,
         filename: 'background.js',
