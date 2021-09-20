@@ -37,6 +37,10 @@ function buildManifest() {
     manifest.version = version;
     manifest.description = description;
 
+    if (!fs.existsSync(buildPath)) {
+        fs.mkdirSync(buildPath, { recursive: true });
+    }
+
     // salvo il manifest nella cartella di distribuzione
     fs.writeFileSync(`${buildPath}/manifest.json`, JSON.stringify(manifest, null, 2));
 }
