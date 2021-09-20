@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "Quizlet Bypass",
+    "icons": {
+        "48": "icons/logo-48.png",
+        "96": "icons/logo-96.png",
+        "192": "icons/logo-192.png"
+    },
+    "content_scripts": [],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "quizletbypass@rospino74.github.io",
+            "strict_min_version": "48.0"
+        }
+    },
+    "permissions": []
+}
