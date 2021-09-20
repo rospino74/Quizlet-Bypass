@@ -11,7 +11,7 @@
 //
 
 // @ts-ignore
-import replaceQuizletCookies from './background/cookieReplacer';
+import replaceQuizletCookies from './cookieReplacer';
 
 chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
     console.log('Richiesta ricevuta:', message);
