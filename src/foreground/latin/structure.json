@@ -1,0 +1,12 @@
+{
+    "entry": "index.ts",
+    "matches": [
+        "*://*.latin.it/frase/*",
+        "*://*.latin.it/versione/*",
+        "*://*.latin.it/autore/*"
+    ],
+    "permissions": [
+        "*://*.latin.it/*",
+        "https://www-latin-it.translate.goog/*"
+    ]
+}

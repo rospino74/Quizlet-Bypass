@@ -12,6 +12,8 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/rospino74/Quizlet-Bypass",
   "devDependencies": {
+    "@types/node": "^16.9.4",
+    "@types/random-useragent": "^0.3.0",
     "copy-webpack-plugin": "^9.0.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -30,6 +32,7 @@
     "chance": "^1.1.8",
     "https": "^1.0.0",
     "https-browserify": "^1.0.0",
+    "random-useragent": "^0.5.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0",
     "webpack": "^5.53.0"

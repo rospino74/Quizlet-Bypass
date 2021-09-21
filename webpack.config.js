@@ -113,6 +113,7 @@ const content = {
         path: buildPath,
     },
     plugins: [
+        ...commonConfig.plugins,
         {
             apply: (compiler) => {
                 compiler.hooks.compile.tap('BuildManifest', buildManifest);

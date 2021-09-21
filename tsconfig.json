@@ -11,7 +11,8 @@
       "DOM"
     ],
     "types": [
-      "chrome"
+      "chrome",
+      "node"
     ]
   }
 }
