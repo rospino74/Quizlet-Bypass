@@ -3,7 +3,7 @@
     "matches": [
         "*://*.latin.it/frase/*",
         "*://*.latin.it/versione/*",
-        "*: //*.latin.it/autore/*/*/*"
+        "*://*.latin.it/autore/*/*/*"
     ],
     "permissions": [
         "*://*.latin.it/*",
