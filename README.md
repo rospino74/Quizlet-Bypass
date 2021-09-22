@@ -48,3 +48,4 @@ Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://gi
 |:---|:---| :---: |
 | [Quizlet](https://quizlet.com/) | Possibilità di visualizzare le soluzioni senza registrazione | `1.0.0` |
 | [Skuola.net](https://skuola.net/) | Possibilità di copiare i testi senza registrazione | `1.1.0` |
+| [Splash Latino](https://latin.it/) | Possibilità di visualizzare le traduzioni oltre il numero massimo consentito. Su _Firefox_ è presente anche un sistema per permettere la copiatura dei testi. | `1.2.0` |
