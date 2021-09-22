@@ -3,10 +3,12 @@
     "matches": [
         "*://*.latin.it/frase/*",
         "*://*.latin.it/versione/*",
-        "*://*.latin.it/autore/*"
+        "*: //*.latin.it/autore/*/*/*"
     ],
     "permissions": [
         "*://*.latin.it/*",
-        "https://www-latin-it.translate.goog/*"
+        "https://www-latin-it.translate.goog/*",
+        "webRequest",
+        "webRequestBlocking"
     ]
 }

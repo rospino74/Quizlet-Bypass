@@ -26,25 +26,37 @@ else {
     const solutionsText = solutionBox.querySelector('.tdbox')?.children?.item(3)?.textContent ?? '1 brani 0 brani';
     const soluzionsCount = Array.from(solutionsText.matchAll(/([0-9\.]+) brani/g))
 
-    if(soluzionsCount.length < 2)
+    if(soluzionsCount.length < 2) {
         substituteText(url[1], solutionBox);
-    else {
-        const [[, soluzioniDisponibili], [, soluzioniTotali]] = soluzionsCount;
-        console.log("%cHai ancora %s soluzioni disponibili su %s", 'color: #80f5ab', soluzioniDisponibili, soluzioniTotali);
+    } else {
+        const [[, soluzioniUsate], [, soluzioniTotali]] = soluzionsCount;
 
         // Controllo se ci sono soluzioni
-        if (parseInt(soluzioniDisponibili) > parseInt(soluzioniTotali)) {
+        if (parseInt(soluzioniUsate) > parseInt(soluzioniTotali)) {
             substituteText(url[1], solutionBox);
+        } else {
+            console.log("%cHai ancora %s soluzioni disponibili su %s", 'color: #80f5ab', parseInt(soluzioniTotali) - parseInt(soluzioniUsate), soluzioniTotali);
         }
     }
 }
 
 function substituteText(url: string, solutionBox: Element) {
+    console.log("%cSoluzioni terminate!", 'color: #F5AB80');
     getHTMLFromTranslate(url).then(html => {
-            console.log(html);
-
             // Sostituisco il brano con la soluzione
-            if(html)
-                solutionBox.innerHTML = html;            
+            if(html) {
+                if(url.indexOf('autore') != -1) {
+                    solutionBox.innerHTML = html;
+                } else {
+                    const iframe = document.createElement('iframe');
+                    iframe.srcdoc = html;
+                    iframe.style.width = '100%';
+                    iframe.style.height = '150vh';
+                    iframe.style.border = 'none';
+
+                    solutionBox.innerHTML = '';
+                    solutionBox.appendChild(iframe);
+                }
+            }
         });
 }

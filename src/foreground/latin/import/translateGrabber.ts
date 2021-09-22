@@ -11,6 +11,7 @@
 //
 
 import UserAgent from 'random-useragent';
+import userSelectRemover from './userSelectRemover';
 
 const baseUrl = 'https://www-latin-it.translate.goog/';
 const getParams = '_x_tr_sl=it&_x_tr_tl=it&_x_tr_hl=it&_x_tr_pto=ajax,op,elem';
@@ -42,17 +43,16 @@ export default async function getHTMLFromTranslate(url: string): Promise<string 
     const template = document.createElement('template');
     template.innerHTML = await request.text();
 
+    // Rimuovo il no copy
+    const noCopyBoxes = template.content.querySelectorAll("[style*=user-select]") as NodeListOf<HTMLElement>;
+    userSelectRemover(noCopyBoxes);
+
     // Prendo il contenuto del div con classe corpo
-    const body = template.content.querySelector('div.corpo');
+    const body = template.content.querySelector('div.corpo') as HTMLElement;
 
     // Prendo il contenuto del secondo div nel quinto elemento di body
-    let content = body?.children.item(4)?.children.item(1)?.innerHTML;
+    const content = body?.children.item(4)?.children.item(1);
 
     // Rimuovo url a google translate
-    content = content?.replace(baseUrl, '');
-
-    // Rimuovo il no copy
-    content = content?.replace(/style="user-select[^\s]"/, '');
-
-    return content ?? null;
+    return content?.innerHTML?.replace(baseUrl, '') ?? null;
 }

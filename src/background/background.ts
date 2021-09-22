@@ -10,8 +10,11 @@
 // limitations under the License.
 //
 
-// @ts-ignore
 import replaceQuizletCookies from './cookieReplacer';
+import installLatinAjaxInterceptor from './latinAjaxInterceptor';
+
+// Filtro le richieste
+installLatinAjaxInterceptor();
 
 chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
     console.log('Richiesta ricevuta:', message);
