@@ -42,21 +42,25 @@ else {
 
 function substituteText(url: string, solutionBox: Element) {
     console.log("%cSoluzioni terminate!", 'color: #F5AB80');
-    getHTMLFromTranslate(url).then(html => {
-            // Sostituisco il brano con la soluzione
-            if(html) {
-                if(url.indexOf('autore') != -1) {
-                    solutionBox.innerHTML = html;
-                } else {
-                    const iframe = document.createElement('iframe');
-                    iframe.srcdoc = html;
-                    iframe.style.width = '100%';
-                    iframe.style.height = '150vh';
-                    iframe.style.border = 'none';
 
-                    solutionBox.innerHTML = '';
-                    solutionBox.appendChild(iframe);
+    for(let success = false, i = 0; i <= 5 && !success; i++)
+        getHTMLFromTranslate(url).then(html => {
+                // Sostituisco il brano con la soluzione
+                if(html) {
+                    if(url.indexOf('autore') != -1) {
+                        solutionBox.innerHTML = html;
+                    } else {
+                        const iframe = document.createElement('iframe');
+                        iframe.srcdoc = html;
+                        iframe.style.width = '100%';
+                        iframe.style.height = '150vh';
+                        iframe.style.border = 'none';
+
+                        solutionBox.innerHTML = '';
+                        solutionBox.appendChild(iframe);
+                    }
                 }
-            }
-        });
+
+                success = true;
+            });
 }
