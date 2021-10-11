@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/rospino74/Quizlet-Bypass",
   "devDependencies": {
-    "@types/node": "^16.10.1",
+    "@types/node": "^16.10.3",
     "@types/random-useragent": "^0.3.0",
     "copy-webpack-plugin": "^9.0.1",
     "eslint": "^7.32.0",
