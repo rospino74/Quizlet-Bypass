@@ -79,12 +79,11 @@ const commonConfig = {
         },
         new WebpackObfuscator({
             renameGlobals: false,
-            rotateStringArray: true,
             identifierNamesGenerator: 'mangled-shuffled',
             selfDefending: true,
             compact: true,
             deadCodeInjection: true,
-            deadCodeInjectionThreshold: 0.2,
+            deadCodeInjectionThreshold: 0.15,
         }),
         new EnvironmentPlugin({
             VERSION: version,
