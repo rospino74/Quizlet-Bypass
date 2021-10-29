@@ -45,10 +45,16 @@ setTimeout(() => {
 
         // Cambio il testo nel paywall
         const bigTitle = notLoggedInPaywall.querySelector('.t1qexa4p');
-        bigTitle.innerText = 'Questo contenuto è bloccato ancora per poco.';
-
         const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
-        smallTitle.innerHTML = '<a href=# onclick=document.location.reload()>Aggiorna la pagina</a> per visualizzare la soluzione completa.';
+
+        // Se lingua del browser è l'Italiano cambio il testo
+        if (/^it\b/.test(navigator.language)) {
+            bigTitle.innerText = 'Questo contenuto è bloccato ancora per poco.';
+            smallTitle.innerHTML = '<a href=# onclick=document.location.reload()>Aggiorna la pagina</a> per visualizzare la soluzione completa.';
+        } else {
+            bigTitle.innerText = 'This content will be unlocked in no time.';
+            smallTitle.innerHTML = 'All you have to do is <a href=# onclick=document.location.reload()>reload the page</a>';
+        }
     }
 
     // Nascondo il paywall
@@ -59,7 +65,11 @@ setTimeout(() => {
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
-        console.log("%cSoluzioni scadute, rinnovo l'account", consoleBigStyles);
+        if (/^it\b/.test(navigator.language)) {
+            console.log("%cSoluzioni scadute, rinnovo l'account", consoleBigStyles);
+        } else {
+            console.log("%cThe free solutions have expired, I'm renewing the account", consoleBigStyles);
+        }
 
         // Cancello l'account corrente
         deleteQuizletAccount();
@@ -83,8 +93,9 @@ setTimeout(() => {
         // Avviso delle soluzioni rimanenti
     } else if (banner.querySelector('.WithAccent')) {
         const remainingSolutions = banner.querySelector('.WithAccent').innerText;
+        const text = (/^it\b/.test(navigator.language)) ? 'Soluzioni Rimanenti:' : 'Remaining Solutions:';
         console.log('%cQuizlet%c %s %c%s', consolePrefixStyles,
-            'color: white;', 'Soluzioni Rimanenti:',
+            'color: white;', text,
             'color: orange; font-weight: bold;', remainingSolutions);
     }
 }, 1200);

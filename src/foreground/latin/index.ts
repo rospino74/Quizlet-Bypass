@@ -20,7 +20,11 @@ const solutionBox = document.querySelector('div.corpo')?.children.item(4)?.child
 const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href);
 
 if (!url || !solutionBox)
-    console.log("%cNon sono stato caricato in una pagina valida! %cSono davanti a delle frasi, una versione o un brano d'autore?", 'color: #f04747;', 'color: gray; font-style: italic;');
+    if (/^it\b/.test(navigator.language)) {
+        console.log("%cNon sono stato caricato in una pagina valida! %cSono davanti a delle frasi, una versione o un brano d'autore?", 'color: #f04747;', 'color: gray; font-style: italic;');
+    } else {
+        console.log("%cI was not loaded on a valid page! %cAm I in front of a phrase, a version or an author's piece?", 'color: #f04747;', 'color: gray; font-style: italic;');
+    }
 else {
     // Ottengo il numero di soluzioni rimaste
     const solutionsText = solutionBox.querySelector('.tdbox')?.children?.item(3)?.textContent ?? '1 brani 0 brani';
@@ -35,13 +39,21 @@ else {
         if (parseInt(soluzioniUsate) > parseInt(soluzioniTotali)) {
             substituteText(url[1], solutionBox);
         } else {
-            console.log("%cHai ancora %s soluzioni disponibili su %s", 'color: #80f5ab', parseInt(soluzioniTotali) - parseInt(soluzioniUsate), soluzioniTotali);
+            if (/^it\b/.test(navigator.language)) {
+                console.log("%cHai ancora %s soluzioni disponibili su %s", 'color: #80f5ab', parseInt(soluzioniTotali) - parseInt(soluzioniUsate), soluzioniTotali);
+            } else {    
+                console.log("%cYou have %s solutions available on %s", 'color: #80f5ab', parseInt(soluzioniTotali) - parseInt(soluzioniUsate), soluzioniTotali);
+            }
         }
     }
 }
 
 function substituteText(url: string, solutionBox: Element) {
-    console.log("%cSoluzioni terminate!", 'color: #F5AB80');
+    if (/^it\b/.test(navigator.language)) {
+        console.log("%cSoluzioni terminate!", 'color: #F5AB80');
+    } else {
+        console.log("%cYou have reached the maximum number of solutions for today!", 'color: #F5AB80');
+    }
 
     for(let success = false, i = 0; i <= 5 && !success; i++)
         getHTMLFromTranslate(url).then(html => {
