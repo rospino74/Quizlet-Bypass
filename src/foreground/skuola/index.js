@@ -32,4 +32,8 @@ noRightClickElement.forEach((element) => {
     removeListenersOfType(element, ['cut', 'copy', 'paste', 'contextmenu']);
 });
 
-console.log('%cOra puoi copiare tutti i testi che vuoi 😉', consoleBigStyles);
+if (/^it\b/.test(navigator.language)) {
+    console.log('%cOra puoi copiare tutti i testi che vuoi 😉', consoleBigStyles);
+} else {
+    console.log('%cNow you can copy all the articles you want 😉', consoleBigStyles);
+}
