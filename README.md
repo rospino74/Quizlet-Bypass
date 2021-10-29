@@ -8,6 +8,8 @@
   Questa estensione permette di visualizzare tutte le soluzioni dei libri di testo fornite dalla piattaforma <a href="htps://qizlet.com/"><i>Quizlet</i></a>.
 </p>
 
+_This page is also available in <a href="./README.en.md">English</a> 🇬🇧_
+
 ## Proof of Concept
 Quizlet non usa un captcha nei form di registrazione
 
