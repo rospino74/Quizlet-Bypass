@@ -1,0 +1,6 @@
+name: "CodeQL config"
+
+languages: "javascript"
+
+paths:
+  - src
