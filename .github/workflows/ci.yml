@@ -1,6 +1,21 @@
 name: Web Extension CI
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+      - "public/**"
+      - ".github/**"
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - "public/**"
+      - ".github/**"
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   lintBuildAndTest:
