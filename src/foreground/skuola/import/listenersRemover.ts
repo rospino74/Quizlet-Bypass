@@ -10,11 +10,12 @@
 // limitations under the License.
 //
 
-// https://stackoverflow.com/a/46986927
+// https://stackoverflow.com/questions/19469881 & https://stackoverflow.com/a/46986927
 export default function removeListenersOfType(target: EventTarget, type: string | Array<string>): void {
     if (Array.isArray(type)) {
         type.forEach((t) => removeListenersOfType(target, t));
     } else {
+        // This will NOT remove the listeners, but will force the browser to ignore them
         target.addEventListener(type, (event) => {
             event.stopImmediatePropagation();
             return true;
