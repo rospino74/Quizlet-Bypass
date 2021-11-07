@@ -1,0 +1,39 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - src
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+    paths:
+      - src
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  analyze:
+    name: Analyze Code
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: CodeQL initialization
+      uses: github/codeql-action/init@v1
+      with:
+        config-file: ./.github/settings/codeql.yml
+
+    - name: Code Autobuild
+      uses: github/codeql-action/autobuild@v1
+
+    - name: CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
