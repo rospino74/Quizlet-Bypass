@@ -13,9 +13,10 @@
 import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './latinAjaxInterceptor';
 
-// Filtro le richieste
+// Provo ad intercettare le richieste
 installLatinAjaxInterceptor();
 
+// Mi metto in ascolto per possibili messaggi
 chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
     console.log('Richiesta ricevuta:', message);
 
