@@ -7,14 +7,14 @@ on:
       - "public/**"
       - ".github/**"
     branches:
-      - main
+      - master
   pull_request:
     paths-ignore:
       - "**.md"
       - "public/**"
       - ".github/**"
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
