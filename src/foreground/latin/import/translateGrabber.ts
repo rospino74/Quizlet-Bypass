@@ -22,8 +22,8 @@ export default async function getHTMLFromTranslate(url: string): Promise<string 
         'credentials': 'include',
         'headers': {
             'User-Agent': UserAgent.getRandom() as string,
-            'Accept': 'text/html,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3',
+            'Accept': 'text/html,*/*;q=0.8',
+            'Accept-Language': 'it-IT,it;q=0.8,en;q=0.3',
             'Upgrade-Insecure-Requests': '1',
             'Sec-Fetch-Dest': 'document',
             'Sec-Fetch-Mode': 'navigate',

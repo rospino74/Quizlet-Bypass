@@ -15,9 +15,8 @@ export default async function getCSRFToken() {
         credentials: 'include',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0',
-            Accept: '*/*',
-            'Accept-Language': 'it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3',
-            'Content-Type': 'application/json',
+            Accept: 'text/html',
+            'Accept-Language': 'it-IT,it;q=0.8,en;q=0.3',
             Pragma: 'no-cache',
             'Cache-Control': 'no-cache',
         },

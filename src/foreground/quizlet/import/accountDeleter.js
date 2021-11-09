@@ -19,8 +19,8 @@ export default async function deleteQuizletAccount() {
         credentials: 'include',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0',
-            Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3',
+            Accept: 'text/html,*/*;q=0.8',
+            'Accept-Language': 'it-IT,it;q=0.8,en;q=0.3',
             'Content-Type': 'application/x-www-form-urlencoded',
             'Upgrade-Insecure-Requests': '1',
             Pragma: 'no-cache',
