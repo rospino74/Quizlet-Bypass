@@ -16,7 +16,7 @@
     "@types/random-useragent": "^0.3.0",
     "copy-webpack-plugin": "^9.0.1",
     "eslint": "^8.1.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.2",
     "javascript-obfuscator": "^3.0.0",
     "temp-mail-api": "^1.1.1",
