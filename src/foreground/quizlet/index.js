@@ -94,8 +94,13 @@ setTimeout(() => {
     } else if (banner.querySelector('.WithAccent')) {
         const remainingSolutions = banner.querySelector('.WithAccent').innerText;
         const text = (/^it\b/.test(navigator.language)) ? 'Soluzioni Rimanenti:' : 'Remaining Solutions:';
-        console.log('%cQuizlet%c %s %c%s', consolePrefixStyles,
-            'color: white;', text,
-            'color: orange; font-weight: bold;', remainingSolutions);
+        console.log(
+            '%cQuizlet%c %s %c%s',
+            consolePrefixStyles,
+            'color: white;',
+            text,
+            'color: orange; font-weight: bold;',
+            remainingSolutions,
+        );
     }
 }, 1200);
