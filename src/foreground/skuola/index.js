@@ -32,6 +32,9 @@ noRightClickElement.forEach((element) => {
     removeListenersOfType(element, ['cut', 'copy', 'paste', 'contextmenu']);
 });
 
+// Also remove event listeners from the html element
+removeListenersOfType(document.documentElement, ['cut', 'copy', 'paste', 'contextmenu']);
+
 if (/^it\b/.test(navigator.language)) {
     console.log('%cOra puoi copiare tutti i testi che vuoi 😉', consoleBigStyles);
 } else {
