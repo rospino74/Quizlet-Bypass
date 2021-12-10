@@ -70,7 +70,7 @@ async function zipExtensionFiles() {
 }
 
 const commonConfig = {
-    mode: 'production',
+    mode: 'production', // 'development',
     devtool: false,
     resolve: {
         fallback: {

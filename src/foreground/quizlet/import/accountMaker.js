@@ -21,7 +21,10 @@ async function makeAccountCreationRequest(email) {
 
     // CSRF Token per il signup
     const token = await getCSRFToken();
-    console.log('CSRF Token: ', token);
+
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('CSRF Token: ', token);
+    }
 
     const request = await fetch('https://quizlet.com/webapi/3.2/direct-signup', {
         credentials: 'include',
@@ -49,5 +52,8 @@ export default async function makeQuizletAccount(tab) {
 
     // Creo un account
     const result = await makeAccountCreationRequest(address, tab);
-    console.warn('Account creation result: ', result);
+
+    if (process.env.NODE_ENV !== 'production') {
+        console.warn('Account creation result: ', result);
+    }
 }

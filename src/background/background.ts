@@ -16,18 +16,27 @@ import installLatinAjaxInterceptor from './latinAjaxInterceptor';
 // Provo ad intercettare le richieste
 installLatinAjaxInterceptor();
 
-// Mi metto in ascolto per possibili messaggi
+// Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
-    console.log('Richiesta ricevuta:', message);
+
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('Message received from content script:', message);
+    }
 
     const { action, tab, value } = message;
     if (action === 'copyCookies') {
-        console.warn('Account cookies recived: ', value);
+        if (process.env.NODE_ENV !== 'production') {
+            console.warn('Account cookies recived: ', value);
+        }
+
         replaceQuizletCookies(value);
     } else if (action === 'refresh') {
-        console.warn('Refresh received');
+        if (process.env.NODE_ENV !== 'production') {
+            console.warn('Refresh received');
+        }
+
         chrome.tabs.reload(tab.id!!).catch(() => {
-            chrome.tabs.update(tab.id!!, {url: tab.url});
+            chrome.tabs.update(tab.id!!, { url: tab.url });
         });
     }
 });

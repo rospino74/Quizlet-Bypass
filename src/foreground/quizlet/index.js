@@ -65,10 +65,12 @@ setTimeout(() => {
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
-        if (/^it\b/.test(navigator.language)) {
-            console.log("%cSoluzioni scadute, rinnovo l'account", consoleBigStyles);
-        } else {
-            console.log("%cThe free solutions have expired, I'm renewing the account", consoleBigStyles);
+        if (process.env.NODE_ENV !== 'production') {
+            if (/^it\b/.test(navigator.language)) {
+                console.log("%cSoluzioni scadute, rinnovo l'account", consoleBigStyles);
+            } else {
+                console.log("%cThe free solutions have expired, I'm renewing the account", consoleBigStyles);
+            }
         }
 
         // Cancello l'account corrente
@@ -90,8 +92,8 @@ setTimeout(() => {
             action: 'refresh',
         });
 
-        // Avviso delle soluzioni rimanenti
-    } else if (banner.querySelector('.WithAccent')) {
+        // Warning about remaining solutions
+    } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
         const remainingSolutions = banner.querySelector('.WithAccent').innerText;
         const text = (/^it\b/.test(navigator.language)) ? 'Soluzioni Rimanenti:' : 'Remaining Solutions:';
         console.log(
