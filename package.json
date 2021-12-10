@@ -17,7 +17,7 @@
     "copy-webpack-plugin": "^10.0.0",
     "eslint": "^8.1.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.25.3",
     "javascript-obfuscator": "^3.0.0",
     "temp-mail-api": "^1.1.1",
     "ts-loader": "^9.2.6",
