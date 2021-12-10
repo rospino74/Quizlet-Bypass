@@ -7,8 +7,11 @@
     ],
     "permissions": [
         "*://*.latin.it/*",
-        "https://www-latin-it.translate.goog/*",
+        "*://www-latin-it.translate.goog/*",
         "webRequest",
         "webRequestBlocking"
+    ],
+    "host_permissions": [
+        "*://www-latin-it.translate.goog/*"
     ]
 }

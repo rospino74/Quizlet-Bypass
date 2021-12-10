@@ -19,11 +19,20 @@ const entryScripts = {};
 function buildManifest() {
     // Leggo tutte le cartelle
     fs.readdirSync(srcForegroundPath).forEach((directory) => {
-    // eslint-disable-next-line import/no-dynamic-require, global-require
-        const { permissions, matches, entry } = require(`${srcForegroundPath}/${directory}/structure.json`);
+        const {
+            // eslint-disable-next-line camelcase
+            permissions, host_permissions, matches, entry,
+            // eslint-disable-next-line import/no-dynamic-require, global-require
+        } = require(`${srcForegroundPath}/${directory}/structure.json`);
 
         // Aggiungo informazioni sui permessi
         manifest.permissions = [...new Set([...manifest.permissions, ...permissions])];
+
+        // eslint-disable-next-line camelcase
+        if (host_permissions) {
+            // eslint-disable-next-line camelcase
+            manifest.host_permissions = [...new Set([...manifest.host_permissions, ...host_permissions])];
+        }
 
         // e quelle sull'entrypoint
         manifest.content_scripts.push({
@@ -62,6 +71,7 @@ async function zipExtensionFiles() {
 
 const commonConfig = {
     mode: 'production',
+    devtool: false,
     resolve: {
         fallback: {
             https: require.resolve('https-browserify'),
