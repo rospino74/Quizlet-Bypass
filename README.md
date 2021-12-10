@@ -14,10 +14,14 @@ _This page is also available in <a href="./README.en.md">English</a> 🇬🇧_
 Quizlet non usa un captcha nei form di registrazione
 
 ## Installazione
-### Microsoft Edge
-1. Apri _[edge://extensions/](edge://extensions/)_
-2. Trascina lo zip associato all'estensione sulla pagina
-3. Goditi le soluzioni
+### Microsoft Edge e Google Chrome
+1. Scarica _extension.zip_ da [qui](https://github.com/rospino74/Quizlet-Bypass/releases/latest)
+2. Estrai l'archivio in un posto sicuro
+3. Recati su _[edge://extensions/](edge://extensions/)_ (per Edge) oppure su _[chrome://extensions/](chrome://extensions/)_ (per Chrome).
+4. Attiva la _Modalità Sviluppatore_ in basso a destra (per Edge) o in alto a sinistra (per Chrome).
+5. Premi sul pulsante _Carica decompressa_ in alto.
+6. Scegli la cartella dove hai estratto l'estensione.
+7. Goditi le soluzioni
 
 ### Mozilla Firefox
 1. Apri _[about:config](about:config)_
@@ -34,11 +38,6 @@ Quizlet non usa un captcha nei form di registrazione
 6. Trascina lo zip associato all'estensione sulla pagina
 7. Goditi le soluzioni
 
-### Google Chrome
-1. Apri _[chrome://extensions](chrome://extensions/)_
-2. Trascina lo zip associato all'estensione sulla pagina
-3. Goditi le soluzioni
-
 ## La tua estensione non funziona!1!!1
 ![Ricarica per sbloccare](https://sqleoni.altervista.org/file/png/quizlet-unlock-refresh.png)
 Se visualizzi questo banner, l'estensione sta funzionando correttamente! Segui le istruzioni... 🤦🏽‍♂️.
@@ -50,4 +49,4 @@ Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://gi
 |:---|:---| :---: |
 | [Quizlet](https://quizlet.com/) | Possibilità di visualizzare le soluzioni senza registrazione | `1.0.0` |
 | [Skuola.net](https://skuola.net/) | Possibilità di copiare i testi senza registrazione | `1.1.0` |
-| [Splash Latino](https://latin.it/) | Possibilità di visualizzare le traduzioni oltre il numero massimo consentito. Su _Firefox_ è presente anche un sistema per permettere la copiatura dei testi. | `1.2.0` |
+| [Splash Latino](https://latin.it/) | Possibilità di visualizzare le traduzioni oltre il numero massimo consentito | `1.2.0` |
