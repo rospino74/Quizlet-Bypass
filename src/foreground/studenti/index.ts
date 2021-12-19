@@ -12,7 +12,7 @@
 
 import getFileDownloadUrl from "./import/getFileDownloadUrl";
 
-console.log('%cStudenti.it %cv%s', 'color: #7ab700', 'color: gray; font-style: italic;', process.env.VERSION);
+console.log('%cStudenti.it %cv%s', 'color: #7ab700;', 'color: gray; font-style: italic;', process.env.VERSION);
 
 const appuntiRegex = /appunti\/[a-zA-Z0-9\-/]+\.html/gm;
 const urlPageIdRegex = /\?h=([a-zA-Z0-9\-]+)/gm;
@@ -24,12 +24,12 @@ if (appuntiRegex.test(window.location.href)) {
     removeAdvertisingLink(pageId);
 
     // Remove right arrow button
-    const rightArrowButtons = document.querySelectorAll(".pager ul li:last-child") as NodeListOf<HTMLLIElement>;
+    const rightArrowButtons = document.querySelectorAll<HTMLLIElement>(".pager ul li:last-child");
     rightArrowButtons.forEach(btn => btn.parentElement?.removeChild(btn));
 } else {
     pageId = urlPageIdRegex.exec(window.location.href)!![1];
 
-    const relatedPageButton = document.querySelectorAll(".pager ul li a[href*=correlati]") as NodeListOf<HTMLAnchorElement>;
+    const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a[href*=correlati]");
     relatedPageButton.forEach(btn => {
         if (process.env.NODE_ENV !== 'production') {
             if (/^it\b/.test(navigator.language)) {
@@ -42,6 +42,15 @@ if (appuntiRegex.test(window.location.href)) {
         const li = btn.parentElement;
         li?.parentElement?.removeChild(li);
     });
+
+    // Modifing the total count of pages
+    const totalPageCounters = document.querySelectorAll<HTMLElement>(".pager span b:nth-child(2)");
+    if (totalPageCounters) {
+        totalPageCounters.forEach(counter => {
+            const currentPageCount = parseInt(counter.innerText) - 1;
+            counter.innerText = currentPageCount.toString();
+        });
+    }
 
     // Gets the download button
     const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
@@ -68,14 +77,14 @@ if (appuntiRegex.test(window.location.href)) {
 
 function getNextPageId(): string {
     // Grabbing the url from the button
-    const nextPageUrl = (document.querySelector(".pager ul li:nth-child(2) a") as HTMLAnchorElement).href;
+    const nextPageUrl = document.querySelector<HTMLAnchorElement>(".pager ul li:nth-child(2) a")!!.href;
     const pageIdRegex = /download_2\/([a-zA-Z0-9\-]+)_1\.html/gm;
 
     if (process.env.NODE_ENV !== 'production') {
         if (/^it\b/.test(navigator.language)) {
-            console.log('%cIndirizzo prossima pagina: %s', 'color: #7ab700', nextPageUrl);
+            console.log('%cIndirizzo prossima pagina: %s', 'color: #7ab700;', nextPageUrl);
         } else {
-            console.log('%cNext page url: %s', 'color: #7ab700', nextPageUrl);
+            console.log('%cNext page url: %s', 'color: #7ab700;', nextPageUrl);
         }
     }
 
@@ -86,7 +95,7 @@ function getNextPageId(): string {
 function removeAdvertisingLink(id: string) {
     const baseUrl = `https://doc.studenti.it/vedi_tutto/index.php?h=${id}`;
 
-    const nextPageButton = document.querySelectorAll(".pager ul li a") as NodeListOf<HTMLAnchorElement>;
+    const nextPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a");
     nextPageButton.forEach(btn => {
         let pageNumber = parseInt(btn.innerText);
 
@@ -103,9 +112,9 @@ function removeAdvertisingLink(id: string) {
 
         if (process.env.NODE_ENV !== 'production') {
             if (/^it\b/.test(navigator.language)) {
-                console.log("%cCambio URL %c%s %c-> %c%s", 'color: #7ab700', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
+                console.log("%cCambio URL %c%s %c-> %c%s", 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
             } else {
-                console.log("%cChanging URL %c%s %c-> %c%s", 'color: #7ab700', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
+                console.log("%cChanging URL %c%s %c-> %c%s", 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
             }
         }
         btn.href = `${baseUrl}&pag=${pageNumber - 1}`;
