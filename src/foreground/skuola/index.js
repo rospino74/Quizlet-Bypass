@@ -10,6 +10,7 @@
 // limitations under the License.
 //
 import removeListenersOfType from './import/listenersRemover.ts';
+import manipulateVideoAds from './import/autoplayRemover.ts';
 
 const consoleBigStyles = [
     'color: #fee300',
@@ -42,3 +43,6 @@ if (process.env.NODE_ENV !== 'production') {
         console.log('%cNow you can copy all the articles you want 😉', consoleBigStyles);
     }
 }
+
+// Prevents video ads from auto playing
+manipulateVideoAds();
