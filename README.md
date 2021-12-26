@@ -10,7 +10,7 @@
 
 _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 
-## Installation steps
+## Installation steps 📲
 ### Microsoft Edge and Google Chrome
 1. Download _extension.zip_ from [here](https://github.com/rospino74/Quizlet-Bypass/releases/latest)
 2. Unzip the file in a safe place
@@ -35,11 +35,20 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 6. Drag and drop the extension artifact onto the page
 7. Enjoy the solutions!
 
-If you think there is a problem with the extension don't hesitate to [open an issue](https://github.com/rospino74/Quizlet-Bypass/issues/new) 😉.
+## Additional Notes ⚠️
+* Be aware that this extension will log you out of your quizlet account every time you open a textbook solution.
+* Chromium browsers may bother you about having extensions in developer mode, just dismiss the alert to keep the extension running.
+* If you think there is a problem with the extension feel free to [open an issue](https://github.com/rospino74/Quizlet-Bypass/issues/new) 😉.
 
-# Supported Websites
+## Supported Websites 🌐
 | Website | Feature | Version |
 |:---|:---| :---: |
 | [Quizlet](https://quizlet.com/) | Ability to view solutions without registration | `1.0.0` |
 | [Skuola.net](https://skuola.net/) | Ability to copy and paste texts without restrictions | `1.1.0` |
 | [Splash Latino](https://latin.it/) | Ability to view translations beyond the maximum number allowed | `1.2.0` |
+
+## Other extensions you might be interested in...
+_Just in case you want to cheat the big multinationals_
+* [Return Youtube Dislike](https://github.com/Anarios/return-youtube-dislike)
+* [Bypass Paywalls](https://github.com/iamadamdev/bypass-paywalls-chrome)
+* [uBlock Origin](https://github.com/gorhill/uBlock)
