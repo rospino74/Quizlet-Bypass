@@ -24,28 +24,26 @@ jobs:
       matrix:
         node-version: [12.x, 14.x, 16.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Node set-up
-      run: |
-        npm ci
-        npm install --save-dev web-ext
-    - name: ESLint check
-      run: npx eslint .
-    - name: Extension build
-      run: npm run build --if-present
-    - name: Web-Ext check
-      run: npx web-ext lint --self-hosted
-      working-directory: ./dist/build
-    - uses: actions/upload-artifact@v2
-      with:
-        name: extension.zip
-        path: ./dist/extension.zip
-        if-no-files-found: error
-    #- name: Extension test
-      #run: npx web-ext run
-      #working-directory: ./dist
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Node set-up
+        run: |
+          npm ci
+          npm install --save-dev web-ext
+      - name: ESLint check
+        run: npx eslint .
+      - name: Extension build
+        run: npm run build --if-present
+      - name: Web-Ext check
+        run: npx web-ext lint --self-hosted
+        working-directory: ./dist/build
+      - uses: actions/upload-artifact@v2
+        if: ${{ matrix.node-version }} == "16.x"
+        with:
+          name: extension.zip
+          path: ./dist/build
+          if-no-files-found: error
