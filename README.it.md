@@ -53,6 +53,7 @@ Se visualizzi questo banner, l'estensione sta funzionando correttamente! Segui l
 | [Quizlet](https://quizlet.com/) | Possibilità di visualizzare le soluzioni senza registrazione | `1.0.0` |
 | [Skuola.net](https://skuola.net/) | Possibilità di copiare i testi senza registrazione | `1.1.0` |
 | [Splash Latino](https://latin.it/) | Possibilità di visualizzare le traduzioni oltre il numero massimo consentito | `1.2.0` |
+| [Studenti.it](https://www.studenti.it/) | Rimossi intermezzi pubblicitari quando si clicca su un link | `1.4.0` |
 
 ## Altre estensioni che potrebbero interessarti...
 _Nel caso non voglia sottostare al potere delle grandi multinazionali_

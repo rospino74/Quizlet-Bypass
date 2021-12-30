@@ -46,6 +46,7 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 | [Quizlet](https://quizlet.com/) | Ability to view solutions without registration | `1.0.0` |
 | [Skuola.net](https://skuola.net/) | Ability to copy and paste texts without restrictions | `1.1.0` |
 | [Splash Latino](https://latin.it/) | Ability to view translations beyond the maximum number allowed | `1.2.0` |
+| [Studenti.it](https://www.studenti.it/) | Advertising interludes removed when clicking on links | `1.4.0` |
 
 ## Other extensions you might be interested in...
 _Just in case you want to cheat the big multinationals_
