@@ -36,10 +36,16 @@ jobs:
         npm install --save-dev web-ext
     - name: ESLint check
       run: npx eslint .
-    - run: npm run build --if-present
+    - name: Extension build
+      run: npm run build --if-present
     - name: Web-Ext check
       run: npx web-ext lint --self-hosted
       working-directory: ./dist/build
+    - uses: actions/upload-artifact@v2
+      with:
+        name: extension.zip
+        path: ./dist/extension.zip
+        if-no-files-found: error
     #- name: Extension test
       #run: npx web-ext run
       #working-directory: ./dist
