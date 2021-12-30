@@ -1,7 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
-const WebpackObfuscator = require('webpack-obfuscator');
 const { EnvironmentPlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const { version, description } = require('./package.json');
@@ -70,8 +70,6 @@ async function zipExtensionFiles() {
 }
 
 const commonConfig = {
-    mode: 'production', // 'development',
-    devtool: false,
     resolve: {
         fallback: {
             https: require.resolve('https-browserify'),
@@ -87,14 +85,6 @@ const commonConfig = {
                 compiler.hooks.afterEmit.tap('ZipItPlugin', zipExtensionFiles);
             },
         },
-        new WebpackObfuscator({
-            renameGlobals: false,
-            identifierNamesGenerator: 'mangled-shuffled',
-            selfDefending: true,
-            compact: true,
-            deadCodeInjection: true,
-            deadCodeInjectionThreshold: 0.15,
-        }),
         new EnvironmentPlugin({
             VERSION: version,
         }),
