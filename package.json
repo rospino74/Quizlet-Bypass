@@ -18,7 +18,7 @@
     "copy-webpack-plugin": "^10.2.0",
     "eslint": "^8.5.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.25.4",
     "https": "^1.0.0",
     "https-browserify": "^1.0.0",
     "javascript-obfuscator": "^3.0.0",
