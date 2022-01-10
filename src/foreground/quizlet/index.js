@@ -15,7 +15,7 @@ import makeQuizletAccount from './import/accountMaker';
 
 const consolePrefixStyles = [
     'color: #fff',
-    'background-color: #4257b2',
+    'background-color: #4255ff',
     'padding: 4px 6px',
     'border-radius: 5px',
 ].join(';');
@@ -29,8 +29,9 @@ console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: it
 
 // aspetto 1.2 secondi prima di iniziare
 setTimeout(() => {
-    // Cerco un banner con l'ultima soluzione
+    // Finding paywall banners
     const banner = document.querySelector('.BannerWrapper');
+    const lockIcon = document.querySelector('.b13f8pd6');
     const notLoggedInPaywall = document.querySelector('.t15hde6e');
 
     if (notLoggedInPaywall) {
@@ -60,6 +61,9 @@ setTimeout(() => {
     // Removing the paywall from the DO
     if (banner) {
         banner.parentElement.remove();
+    }
+    if (lockIcon) {
+        lockIcon.remove();
     }
 
     // Verifico che il banner esista e che non abbia un figlio
