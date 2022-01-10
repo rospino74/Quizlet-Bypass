@@ -33,6 +33,7 @@ setTimeout(() => {
     const banner = document.querySelector('.BannerWrapper');
     const lockIcon = document.querySelector('.b13f8pd6');
     const notLoggedInPaywall = document.querySelector('.t15hde6e');
+    const upgradePlanButton = document.querySelector('.TopNavigation .AssemblyPrimaryButton--upgrade');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
@@ -62,8 +63,13 @@ setTimeout(() => {
     if (banner) {
         banner.parentElement.remove();
     }
+
     if (lockIcon) {
         lockIcon.remove();
+    }
+
+    if (upgradePlanButton) {
+        upgradePlanButton.remove();
     }
 
     // Verifico che il banner esista e che non abbia un figlio
