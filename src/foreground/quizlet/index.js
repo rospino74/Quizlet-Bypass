@@ -57,9 +57,9 @@ setTimeout(() => {
         }
     }
 
-    // Nascondo il paywall
+    // Removing the paywall from the DO
     if (banner) {
-        banner.style.display = 'none';
+        banner.parentElement.remove();
     }
 
     // Verifico che il banner esista e che non abbia un figlio
