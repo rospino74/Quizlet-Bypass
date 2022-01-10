@@ -1,4 +1,4 @@
-// Copyright 2021 rospino74
+// Copyright 2021-2022 rospino74
 //
 // Licensed under the Apache License, Version 2.0 (the 'License');
 // you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ function remove(element: HTMLElement): void {
         element.style.MozUserSelect = 'text';
         /// @ts-ignore
         element.style.WebkitUserSelect = 'text';
-    } catch {}
-    
+    } catch { }
+
     // Proprietà standard
     element.style.userSelect = 'text';
 }
