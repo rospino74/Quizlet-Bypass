@@ -12,7 +12,7 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 
 ## Installation steps 📲
 ### Microsoft Edge and Google Chrome
-1. Download _extension.zip_ from [here](https://github.com/rospino74/Quizlet-Bypass/releases/latest)
+1. Download _extension.zip_ from [here](https://github.com/rospino74/Quizlet-Bypass/releases/latest/download/extension.zip)
 2. Unzip the file in a safe place
 3. Browse to _[edge://extensions/](edge://extensions/)_ (for Edge) or _[chrome://extensions/](chrome://extensions/)_ (for Chrome).
 4. Enable _Developer mode_ at the bottom-left (for Edge) or at top-right (for Chrome).
@@ -21,6 +21,12 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 7. Enjoy the solutions!
 
 ### Mozilla Firefox
+1. Download _extension-firefox.xpi_ from [here](https://github.com/rospino74/Quizlet-Bypass/releases/latest/download/extension-firefox.xpi)
+2. Click the _Install_ button that just appeared on the top left.
+3. Enjoy the solutions!
+
+#### or
+
 1. Browse to _[about:config](about:config)_
 2. Dismiss the warning screen
 

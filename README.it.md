@@ -15,7 +15,7 @@ Quizlet non usa un captcha nei form di registrazione
 
 ## Installazione 📲
 ### Microsoft Edge e Google Chrome
-1. Scarica _extension.zip_ da [qui](https://github.com/rospino74/Quizlet-Bypass/releases/latest)
+1. Scarica _extension.zip_ da [qui](https://github.com/rospino74/Quizlet-Bypass/releases/latest/download/extension.zip)
 2. Estrai l'archivio in un posto sicuro
 3. Recati su _[edge://extensions/](edge://extensions/)_ (per Edge) oppure su _[chrome://extensions/](chrome://extensions/)_ (per Chrome).
 4. Attiva la _Modalità Sviluppatore_ in basso a destra (per Edge) o in alto a sinistra (per Chrome).
@@ -24,6 +24,12 @@ Quizlet non usa un captcha nei form di registrazione
 7. Goditi le soluzioni
 
 ### Mozilla Firefox
+1. Scarica _extension-firefox.xpi_ da [qui](https://github.com/rospino74/Quizlet-Bypass/releases/latest/download/extension-firefox.xpi)
+2. Premi su _Prosegui con l'installazione_ e poi su _Installa_.
+7. Goditi le soluzioni
+
+#### oppure
+
 1. Apri _[about:config](about:config)_
 2. Accetta la schermata di avvertimento
 
