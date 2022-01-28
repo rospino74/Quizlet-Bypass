@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tab
     const { action, tab, value } = message;
     if (action === 'copyCookies') {
         if (process.env.NODE_ENV !== 'production') {
-            console.warn('Account cookies recived: ', value);
+            console.warn('Account cookies received: ', value);
         }
 
         replaceQuizletCookies(value);
