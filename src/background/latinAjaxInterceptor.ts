@@ -14,15 +14,19 @@ import userSelectRemover from '../foreground/latin/import/userSelectRemover';
 
 function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
     // @ts-ignore
-    let filter = browser.webRequest.filterResponseData(details.requestId);
-    let decoder = new TextDecoder('utf-8');
-    let encoder = new TextEncoder();
+    const filter = browser.webRequest.filterResponseData(details.requestId);
+    const decoder = new TextDecoder('utf-8');
+    const encoder = new TextEncoder();
 
     filter.ondata = (event: any) => {
         let str = decoder.decode(event.data, { stream: true });
 
         // If the string is protected, we don't modify it
         if (str.includes('Protected')) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Protected page detected, not modifying');
+            }
+
             filter.write(encoder.encode(str));
             filter.disconnect();
             return;
@@ -30,6 +34,10 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
         // Elimino l'anty copy
         str = parseAndRemove(str);
+
+        if (process.env.NODE_ENV !== 'production') {
+            console.log(`Modified HTML:\n${str}`)
+        }
 
         // Invio la risposta
         filter.write(encoder.encode(str));
@@ -46,7 +54,7 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     xhr.send();
 
     if (process.env.NODE_ENV !== 'production') {
-        console.log(`Resfonse recieved from ${details.url} with HTTP status code ${xhr.status} ${xhr.statusText}`);
+        console.log(`Response recieved from ${details.url} with HTTP status code ${xhr.status} ${xhr.statusText}`);
     }
 
     if (xhr.status !== 200 || xhr.responseText.includes('Protected'))
