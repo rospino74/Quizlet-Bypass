@@ -21,7 +21,7 @@ const consolePrefixStyles = [
 ].join(';');
 
 const consoleBigStyles = [
-    'color: #4257b2',
+    'color: #4255ff',
     'font-size: xx-large',
 ].join(';');
 
