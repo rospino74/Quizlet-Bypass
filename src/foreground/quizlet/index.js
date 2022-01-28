@@ -31,7 +31,7 @@ console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: it
 setTimeout(() => {
     // Finding paywall banners
     const banner = document.querySelector('.BannerWrapper');
-    const lockIcon = document.querySelector('.b13f8pd6');
+    const lockIcon = document.querySelector('.b1bw4718');
     const notLoggedInPaywall = document.querySelector('.t15hde6e');
     const upgradePlanButton = document.querySelector('.TopNavigation .AssemblyPrimaryButton--upgrade');
 
