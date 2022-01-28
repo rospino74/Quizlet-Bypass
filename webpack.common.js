@@ -4,6 +4,7 @@ const fs = require('fs');
 const archiver = require('archiver');
 const { EnvironmentPlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const { merge } = require('webpack-merge');
 const { version, description } = require('./package.json');
 const manifest = require('./public/manifest.json');
 
@@ -79,6 +80,9 @@ const commonConfig = {
         },
         extensions: ['.tsx', '.ts', '.js'],
     },
+    output: {
+        chunkLoadingGlobal: 'quizletBypassJsonp',
+    },
     plugins: [
         {
             apply: (compiler) => {
@@ -104,15 +108,13 @@ const commonConfig = {
     },
 };
 
-const content = {
-    ...commonConfig,
+const content = merge(commonConfig, {
     entry: () => entryScripts,
     output: {
         filename: '[name].content.js',
         path: buildPath,
     },
     plugins: [
-        ...commonConfig.plugins,
         {
             apply: (compiler) => {
                 compiler.hooks.compile.tap('BuildManifest', buildManifest);
@@ -124,16 +126,15 @@ const content = {
             ],
         }),
     ],
-};
+});
 
-const background = {
-    ...commonConfig,
+const background = merge(commonConfig, {
     entry: './src/background/background.ts',
     output: {
         filename: 'background.js',
         path: buildPath,
     },
-};
+});
 
 module.exports = [
     content, background,
