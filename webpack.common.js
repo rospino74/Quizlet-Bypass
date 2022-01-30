@@ -5,8 +5,9 @@ const archiver = require('archiver');
 const { EnvironmentPlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const { merge } = require('webpack-merge');
-const { version, description } = require('./package.json');
+const { version } = require('./package.json');
 const manifest = require('./public/manifest.json');
+const ManifestCompilationPlugin = require('./utils/manifest-plugin');
 
 // Path to the dist folder
 const distPath = path.resolve(__dirname, 'dist');
@@ -16,43 +17,18 @@ const srcForegroundPath = path.resolve(__dirname, 'src', 'foreground');
 
 // Array di informazioni sugli entrypoint
 const entryScripts = {};
+const contentScriptStruture = [];
 
 function buildManifest() {
     // Leggo tutte le cartelle
     fs.readdirSync(srcForegroundPath).forEach((directory) => {
-        const {
-            // eslint-disable-next-line camelcase
-            permissions, host_permissions, matches, entry,
-            // eslint-disable-next-line import/no-dynamic-require, global-require
-        } = require(`${srcForegroundPath}/${directory}/structure.json`);
+        // eslint-disable-next-line import/no-dynamic-require, global-require
+        const structure = require(`${srcForegroundPath}/${directory}/structure.json`);
+        const { entry } = structure;
 
-        // Aggiungo informazioni sui permessi
-        manifest.permissions = [...new Set([...manifest.permissions, ...permissions])];
-
-        // eslint-disable-next-line camelcase
-        if (host_permissions) {
-            // eslint-disable-next-line camelcase
-            manifest.host_permissions = [...new Set([...manifest.host_permissions, ...host_permissions])];
-        }
-
-        // e quelle sull'entrypoint
-        manifest.content_scripts.push({
-            matches,
-            js: [`${directory}.content.js`],
-        });
         entryScripts[directory] = `./src/foreground/${directory}/${entry}`;
+        contentScriptStruture.push({ ...structure, name: directory });
     });
-
-    // Aggiorna versione e descrizione nel manifest
-    manifest.version = version;
-    manifest.description = description;
-
-    if (!fs.existsSync(buildPath)) {
-        fs.mkdirSync(buildPath, { recursive: true });
-    }
-
-    // salvo il manifest nella cartella di distribuzione
-    fs.writeFileSync(`${buildPath}/manifest.json`, JSON.stringify(manifest, null, 2));
 }
 
 async function zipExtensionFiles() {
@@ -133,6 +109,10 @@ const content = merge(commonConfig, {
             patterns: [
                 { from: `${publicPath}/icons`, to: `${buildPath}/icons` },
             ],
+        }),
+        new ManifestCompilationPlugin({
+            content: contentScriptStruture,
+            model: manifest,
         }),
     ],
 });
