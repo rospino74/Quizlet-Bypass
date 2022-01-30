@@ -65,7 +65,16 @@ async function zipExtensionFiles() {
             .on('error', (err) => reject(err))
             .pipe(stream);
 
-        stream.on('close', () => resolve());
+        stream.on('close', () => {
+            try {
+                // Copyes the extension in the firefox format
+                fs.copyFileSync(`${distPath}/extension.zip`, `${distPath}/extension-firefox.xpi`);
+
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
         archive.finalize();
     });
 }
