@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@types/random-useragent": "^0.3.1",
-    "@types/chrome": "^0.0.176",
+    "@types/chrome": "^0.0.177",
     "archiver": "^5.3.0",
     "buffer": "^6.0.3",
     "chance": "^1.1.8",
