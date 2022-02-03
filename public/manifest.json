@@ -1,6 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Quizlet Bypass",
+    "default_locale": "en",
     "icons": {
         "48": "icons/logo-48.png",
         "96": "icons/logo-96.png",
