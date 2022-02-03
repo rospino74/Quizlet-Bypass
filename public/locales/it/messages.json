@@ -1,0 +1,26 @@
+{
+    "messageFromContentScript": {
+        "message": "Messaggio ricevuto dal content script: "
+    },
+    "cookiesReceived": {
+        "message": "Cookie ricevuti: "
+    },
+    "refreshRequested": {
+        "message": "Richiesta di refresh ricevuta"
+    },
+    "unableToInstallLatinAjaxInterceptor": {
+        "message": "%cImpossibile intercettare le risposte. Il sistema anti anti copiatura è pienamente supportato solo Firefox. %cL'anti-copy evader non sarà disponibile.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
+    },
+    "successfullyInstalledLatinAjaxInterceptor": {
+        "message": "%cSistema anti-anti-copiatura installato.%c%c%c "
+    },
+    "successfullyInstalledLatinAjaxInterceptorChrome": {
+        "message": "%cSistema anti-anti-copiatura installato. %cL'anti-copy evader è supportato pienamente solo su Firefox.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
+    },
+    "protectedPageDetected": {
+        "message": "Pagina protetta rilevata, non modifico il contenuto"
+    },
+    "modifiedHtml": {
+        "message": "HTML Modificato:\n"
+    }
+}

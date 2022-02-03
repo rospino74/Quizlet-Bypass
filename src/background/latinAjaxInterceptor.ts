@@ -24,7 +24,9 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         // If the string is protected, we don't modify it
         if (str.includes('Protected')) {
             if (process.env.NODE_ENV !== 'production') {
-                console.warn('Protected page detected, not modifying');
+                console.warn(
+                    chrome.i18n.getMessage("protectedPageDetected"),
+                );
             }
 
             filter.write(encoder.encode(str));
@@ -36,7 +38,10 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         str = parseAndRemove(str);
 
         if (process.env.NODE_ENV !== 'production') {
-            console.log(`Modified HTML:\n${str}`)
+            console.log(
+                chrome.i18n.getMessage("modifiedHtml"),
+                str
+            );
         }
 
         // Invio la risposta
@@ -57,14 +62,24 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
         console.log(`Response recieved from ${details.url} with HTTP status code ${xhr.status} ${xhr.statusText}`);
     }
 
-    if (xhr.status !== 200 || xhr.responseText.includes('Protected'))
+    if (xhr.status !== 200 || xhr.responseText.includes('Protected')) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.warn(
+                chrome.i18n.getMessage("protectedPageDetected"),
+            );
+        }
+
         return {};
+    }
 
     // Remove the anti-copy system
     const parsed = parseAndRemove(xhr.responseText);
 
     if (process.env.NODE_ENV !== 'production') {
-        console.log(`Modified HTML:\n${parsed}`)
+        console.log(
+            chrome.i18n.getMessage("modifiedHtml"),
+            parsed
+        );
     }
 
     // Getting the modified data url and redirecting the user
@@ -98,27 +113,41 @@ export default function installLatinAjaxInterceptor() {
                 ['blocking']
             );
             if (process.env.NODE_ENV !== 'production') {
-                if (/^it\b/.test(navigator.language)) {
-                    console.log("%cSistema anti-anti-copiatura installato. %cL'anti-copy evader è supportato pienamente solo su Firefox, per info: https://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #80f5ab;', 'color: gray; font-style: italic;');
-                } else {
-                    console.log("%cThe anti-anti-copy system has been installed. %cThe anti-copy evader is fully supported on Firefox only, for info: https://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #80f5ab;', 'color: gray; font-style: italic;');
-                }
+                console.log(
+                    chrome.i18n.getMessage('successfullyInstalledLatinAjaxInterceptor'),
+                    'color: #80f5ab;',
+                    'color: gray; font-style: italic;',
+                    'color: #009dd9;',
+                    'color: gray; font-style: italic;'
+                );
             }
+
         } else {
             chrome.webRequest.onBeforeRequest.addListener(
                 chromeListener,
                 { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
                 ['blocking']
             );
+
+            console.log(
+                chrome.i18n.getMessage('successfullyInstalledLatinAjaxInterceptorChrome'),
+                'color: #f5cf80;',
+                'color: gray; font-style: italic;',
+                'color: #009dd9;',
+                'color: gray; font-style: italic;'
+            );
         }
     } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
-            if (/^it\b/.test(navigator.language)) {
-                console.log("%cImpossibile intercettare le risposte. Il sistema anti anti copiatura è pienamente supportato solo Firefox. %cL'anti-copy evader non sarà disponibile.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #f04747;', 'color: gray; font-style: italic;', 'color: #009dd9;', 'color: gray; font-style: italic;');
-            } else {
-                console.log("%cUnable to intercept solutions. The anti-anti-copy system is fully supported only Firefox. %cThe anti-copy evader will not be available.\n\n%cFor info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #f04747;', 'color: gray; font-style: italic;', 'color: #009dd9;', 'color: gray; font-style: italic;');
-            }
-            console.error(e);
+            console.log(
+                chrome.i18n.getMessage('unableToInstallLatinAjaxInterceptor'),
+                'color: #f04747;',
+                'color: gray; font-style: italic;',
+                'color: #009dd9;',
+                'color: gray; font-style: italic;'
+            );
         }
+        console.error(e);
     }
 }
+

@@ -25,7 +25,10 @@ installQuizletInterceptor();
 chrome.runtime.onMessage.addListener((message: { action: string; value: string; }, sender: chrome.runtime.MessageSender, reply) => {
 
     if (process.env.NODE_ENV !== 'production') {
-        console.log('Message received from content script:', message);
+        console.info(
+            chrome.i18n.getMessage("messageFromContentScript"),
+            message
+        );
     }
 
     const { action, value } = message;
@@ -33,7 +36,10 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
     switch (action) {
         case 'copyCookies': {
             if (process.env.NODE_ENV !== 'production') {
-                console.warn('Account cookies received: ', value);
+                console.info(
+                    chrome.i18n.getMessage("cookiesReceived"),
+                    value
+                );
             }
             replaceQuizletCookies(value, tab?.url);
             break;
@@ -41,7 +47,9 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
 
         case 'refresh': {
             if (process.env.NODE_ENV !== 'production') {
-                console.warn('Refresh received');
+                console.info(
+                    chrome.i18n.getMessage("refreshRequested"),
+                );
             }
 
             chrome.tabs.reload(tab?.id!!).catch(() => {
@@ -57,6 +65,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
             const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
             const newValue = (oldValue + 1).toString();
             localStorage.setItem(`stats.${value}`, newValue);
+            break;
         }
         case 'getStats': {
             if (process.env.NODE_ENV !== 'production') {
@@ -65,6 +74,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
 
             const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
             reply(oldValue);
+            break;
         }
     }
 });
