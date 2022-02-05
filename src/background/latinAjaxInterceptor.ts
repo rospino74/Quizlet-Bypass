@@ -129,13 +129,15 @@ export default function installLatinAjaxInterceptor() {
                 ['blocking']
             );
 
-            console.log(
-                chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
-                'color: #f5cf80;',
-                'color: gray; font-style: italic;',
-                'color: #009dd9;',
-                'color: gray; font-style: italic;'
-            );
+            if (process.env.NODE_ENV !== 'production') {
+                console.log(
+                    chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
+                    'color: #f5cf80;',
+                    'color: gray; font-style: italic;',
+                    'color: #009dd9;',
+                    'color: gray; font-style: italic;'
+                );
+            }
         }
     } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
