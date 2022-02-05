@@ -5,22 +5,22 @@
     "cookiesReceived": {
         "message": "Cookie ricevuti: "
     },
-    "refreshRequested": {
+    "debugRefreshRequested": {
         "message": "Richiesta di refresh ricevuta"
     },
-    "unableToInstallLatinAjaxInterceptor": {
+    "debugUnableToInstallLatinAjaxInterceptor": {
         "message": "%cImpossibile intercettare le risposte. Il sistema anti anti copiatura è pienamente supportato solo Firefox. %cL'anti-copy evader non sarà disponibile.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
     },
-    "successfullyInstalledLatinAjaxInterceptor": {
+    "debugSuccessfullyInstalledLatinAjaxInterceptor": {
         "message": "%cSistema anti-anti-copiatura installato.%c%c%c "
     },
-    "successfullyInstalledLatinAjaxInterceptorChrome": {
+    "debugSuccessfullyInstalledLatinAjaxInterceptorChrome": {
         "message": "%cSistema anti-anti-copiatura installato. %cL'anti-copy evader è supportato pienamente solo su Firefox.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
     },
-    "protectedPageDetected": {
+    "debugProtectedPageDetected": {
         "message": "Pagina protetta rilevata, non modifico il contenuto"
     },
-    "modifiedHtml": {
+    "debugModifiedHtml": {
         "message": "HTML Modificato:\n"
     },
     "lockedContent": {
@@ -29,13 +29,13 @@
     "pressToReload": {
         "message": "$1Aggiorna la pagina$2 per visualizzare la soluzione completa."
     },
-    "expiredSolutions": {
+    "debugExpiredSolutions": {
         "message": "Le soluzioni gratuite sono terminate, sto rinnovando l'account..."
     },
-    "remainigSolutions": {
+    "debugRemainingSolutions": {
         "message": "Ti rimangono %s soluzioni gratis."
     },
-    "accountCreationResult": {
+    "debugAccountCreationResult": {
         "message": "Risultato della creazione dell'account: %o"
     }
 }

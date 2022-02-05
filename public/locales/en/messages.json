@@ -5,22 +5,22 @@
     "cookiesReceived": {
         "message": "Received cookies: "
     },
-    "refreshRequested": {
+    "debugRefreshRequested": {
         "message": "Received refresh request"
     },
-    "unableToInstallLatinAjaxInterceptor": {
+    "debugUnableToInstallLatinAjaxInterceptor": {
         "message": "%cUnable to intercept solutions. The anti-anti-copy system is fully supported only Firefox. %cThe anti-copy evader will not be available.\n\n%cMore about that: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
     },
-    "successfullyInstalledLatinAjaxInterceptor": {
+    "debugSuccessfullyInstalledLatinAjaxInterceptor": {
         "message": "%cThe anti-anti-copy system has been installed.%c%c%c "
     },
-    "successfullyInstalledLatinAjaxInterceptorChrome": {
+    "debugSuccessfullyInstalledLatinAjaxInterceptorChrome": {
         "message": "%cThe anti-anti-copy system has been installed. %cThe anti-copy evader is fully supported on Firefox only.\n\n%cMore about that: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
     },
-    "protectedPageDetected": {
+    "debugProtectedPageDetected": {
         "message": "Modified page detected. Not altering the page."
     },
-    "modifiedHtml": {
+    "debugModifiedHtml": {
         "message": "Modified HTML:\n"
     },
     "lockedContent": {
@@ -29,13 +29,13 @@
     "pressToReload": {
         "message": "All you have to do is $1reload the page$2."
     },
-    "expiredSolutions": {
+    "debugExpiredSolutions": {
         "message": "The free solutions have expired, I'm renewing the account"
     },
-    "remainigSolutions": {
+    "debugRemainingSolutions": {
         "message": "You have %s solutions left"
     },
-    "accountCreationResult": {
+    "debugAccountCreationResult": {
         "message": "Account creation result: %o"
     }
 }

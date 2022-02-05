@@ -55,7 +55,7 @@ export default async function makeQuizletAccount(tab) {
 
     if (process.env.NODE_ENV !== 'production') {
         console.log(
-            chrome.i18n.getMessage('accountCreationResult'),
+            chrome.i18n.getMessage('debugAccountCreationResult'),
             result,
         );
     }

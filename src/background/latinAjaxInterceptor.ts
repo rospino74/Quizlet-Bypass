@@ -25,7 +25,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         if (str.includes('Protected')) {
             if (process.env.NODE_ENV !== 'production') {
                 console.warn(
-                    chrome.i18n.getMessage("protectedPageDetected"),
+                    chrome.i18n.getMessage("debugProtectedPageDetected"),
                 );
             }
 
@@ -39,7 +39,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
         if (process.env.NODE_ENV !== 'production') {
             console.log(
-                chrome.i18n.getMessage("modifiedHtml"),
+                chrome.i18n.getMessage("debugModifiedHtml"),
                 str
             );
         }
@@ -65,7 +65,7 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     if (xhr.status !== 200 || xhr.responseText.includes('Protected')) {
         if (process.env.NODE_ENV !== 'production') {
             console.warn(
-                chrome.i18n.getMessage("protectedPageDetected"),
+                chrome.i18n.getMessage("debugProtectedPageDetected"),
             );
         }
 
@@ -77,7 +77,7 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
     if (process.env.NODE_ENV !== 'production') {
         console.log(
-            chrome.i18n.getMessage("modifiedHtml"),
+            chrome.i18n.getMessage("debugModifiedHtml"),
             parsed
         );
     }
@@ -114,7 +114,7 @@ export default function installLatinAjaxInterceptor() {
             );
             if (process.env.NODE_ENV !== 'production') {
                 console.log(
-                    chrome.i18n.getMessage('successfullyInstalledLatinAjaxInterceptor'),
+                    chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptor'),
                     'color: #80f5ab;',
                     'color: gray; font-style: italic;',
                     'color: #009dd9;',
@@ -130,7 +130,7 @@ export default function installLatinAjaxInterceptor() {
             );
 
             console.log(
-                chrome.i18n.getMessage('successfullyInstalledLatinAjaxInterceptorChrome'),
+                chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
                 'color: #f5cf80;',
                 'color: gray; font-style: italic;',
                 'color: #009dd9;',
@@ -140,7 +140,7 @@ export default function installLatinAjaxInterceptor() {
     } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
             console.log(
-                chrome.i18n.getMessage('unableToInstallLatinAjaxInterceptor'),
+                chrome.i18n.getMessage('debugUnableToInstallLatinAjaxInterceptor'),
                 'color: #f04747;',
                 'color: gray; font-style: italic;',
                 'color: #009dd9;',

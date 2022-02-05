@@ -101,7 +101,7 @@ async function loadedHandler() {
             console.log(
                 '%c%s',
                 consoleBigStyles,
-                chrome.i18n.getMessage('expiredSolutions'),
+                chrome.i18n.getMessage('debugExpiredSolutions'),
             );
         }
 
@@ -133,14 +133,14 @@ async function loadedHandler() {
 
         // Warning about remaining solutions
     } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
-        const remainingSolutions = banner.querySelector('.WithAccent').innerText;
+        const debugRemainingSolutions = banner.querySelector('.WithAccent').innerText;
         console.log(
             '%cQuizlet%c %s %c%s',
             consolePrefixStyles,
             'color: white;',
-            chrome.i18n.getMessage('remainingSolutions'),
+            chrome.i18n.getMessage('debugRemainingSolutions'),
             'color: orange; font-weight: bold;',
-            remainingSolutions,
+            debugRemainingSolutions,
         );
     }
 }
