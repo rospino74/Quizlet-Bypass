@@ -22,5 +22,20 @@
     },
     "modifiedHtml": {
         "message": "Modified HTML:\n"
+    },
+    "lockedContent": {
+        "message": "This content will be unlocked in no time."
+    },
+    "pressToReload": {
+        "message": "All you have to do is $1reload the page$2."
+    },
+    "expiredSolutions": {
+        "message": "The free solutions have expired, I'm renewing the account"
+    },
+    "remainigSolutions": {
+        "message": "You have %s solutions left"
+    },
+    "accountCreationResult": {
+        "message": "Account creation result: %o"
     }
 }

@@ -54,6 +54,9 @@ export default async function makeQuizletAccount(tab) {
     const result = await makeAccountCreationRequest(address, tab);
 
     if (process.env.NODE_ENV !== 'production') {
-        console.warn('Account creation result: ', result);
+        console.log(
+            chrome.i18n.getMessage('accountCreationResult'),
+            result,
+        );
     }
 }

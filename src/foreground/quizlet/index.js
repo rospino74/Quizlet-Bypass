@@ -71,13 +71,11 @@ function handleMutation(mutation) {
         const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
 
         // Se lingua del browser è l'Italiano cambio il testo
-        if (/^it\b/.test(navigator.language)) {
-            bigTitle.innerText = 'Questo contenuto è bloccato ancora per poco.';
-            smallTitle.innerHTML = '<a href=# onclick=document.location.reload()>Aggiorna la pagina</a> per visualizzare la soluzione completa.';
-        } else {
-            bigTitle.innerText = 'This content will be unlocked in no time.';
-            smallTitle.innerHTML = 'All you have to do is <a href=# onclick=document.location.reload()>reload the page</a>';
-        }
+        bigTitle.innerText = chrome.i18n.getMessage('lockedContent');
+        smallTitle.innerHtml = chrome.i18n.getMessage('pressToReload', [
+            '<a href="#" onclick="window.location.reload();">',
+            '</a>',
+        ]);
     }
 }
 
@@ -100,11 +98,11 @@ async function loadedHandler() {
     // con la classe "WithAccent"
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
         if (process.env.NODE_ENV !== 'production') {
-            if (/^it\b/.test(navigator.language)) {
-                console.log("%cSoluzioni scadute, rinnovo l'account", consoleBigStyles);
-            } else {
-                console.log("%cThe free solutions have expired, I'm renewing the account", consoleBigStyles);
-            }
+            console.log(
+                '%c%s',
+                consoleBigStyles,
+                chrome.i18n.getMessage('expiredSolutions'),
+            );
         }
 
         // Removing the old account
@@ -136,12 +134,11 @@ async function loadedHandler() {
         // Warning about remaining solutions
     } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
         const remainingSolutions = banner.querySelector('.WithAccent').innerText;
-        const text = (/^it\b/.test(navigator.language)) ? 'Soluzioni Rimanenti:' : 'Remaining Solutions:';
         console.log(
             '%cQuizlet%c %s %c%s',
             consolePrefixStyles,
             'color: white;',
-            text,
+            chrome.i18n.getMessage('remainingSolutions'),
             'color: orange; font-weight: bold;',
             remainingSolutions,
         );

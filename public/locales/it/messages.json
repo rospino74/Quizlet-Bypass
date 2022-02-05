@@ -22,5 +22,20 @@
     },
     "modifiedHtml": {
         "message": "HTML Modificato:\n"
+    },
+    "lockedContent": {
+        "message": "Questo contenuto è bloccato ancora per poco."
+    },
+    "pressToReload": {
+        "message": "$1Aggiorna la pagina$2 per visualizzare la soluzione completa."
+    },
+    "expiredSolutions": {
+        "message": "Le soluzioni gratuite sono terminate, sto rinnovando l'account..."
+    },
+    "remainigSolutions": {
+        "message": "Ti rimangono %s soluzioni gratis."
+    },
+    "accountCreationResult": {
+        "message": "Risultato della creazione dell'account: %o"
     }
 }
