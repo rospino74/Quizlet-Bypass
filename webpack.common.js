@@ -91,6 +91,10 @@ const commonConfig = {
         maxEntrypointSize: 512000,
         maxAssetSize: 512000,
     },
+    optimization: {
+        usedExports: true,
+        innerGraph: true,
+    },
 };
 
 const content = merge(commonConfig, {
