@@ -27,13 +27,13 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
-// aspetto 1.2 secondi prima di iniziare
+// aspetto 1.5 secondi prima di iniziare
 setTimeout(() => {
     // Finding paywall banners
     const banner = document.querySelector('.BannerWrapper');
-    const lockIcon = document.querySelector('.b1bw4718');
+    const lockIcon = document.querySelector('img[data-testid="premiumBrandingBadge-lock"]');
     const notLoggedInPaywall = document.querySelector('.t15hde6e');
-    const upgradePlanButton = document.querySelector('.TopNavigation .AssemblyPrimaryButton--upgrade');
+    const upgradePlanButtons = document.querySelectorAll('.AssemblyPrimaryButton--upgrade');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
@@ -44,6 +44,7 @@ setTimeout(() => {
         // Aggiorno lo stile
         document.querySelector('.t15hde6e').style.maxWidth = 'unset';
         notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
+        notLoggedInPaywall.parentElement.style.backgroundImage = 'none';
 
         // Cambio il testo nel paywall
         const bigTitle = notLoggedInPaywall.querySelector('.t1qexa4p');
@@ -57,19 +58,6 @@ setTimeout(() => {
             bigTitle.innerText = 'This content will be unlocked in no time.';
             smallTitle.innerHTML = 'All you have to do is <a href=# onclick=document.location.reload()>reload the page</a>';
         }
-    }
-
-    // Removing the paywall from the DO
-    if (banner) {
-        banner.parentElement.remove();
-    }
-
-    if (lockIcon) {
-        lockIcon.remove();
-    }
-
-    if (upgradePlanButton) {
-        upgradePlanButton.remove();
     }
 
     // Verifico che il banner esista e che non abbia un figlio
@@ -91,16 +79,16 @@ setTimeout(() => {
 
         // Copio i cookies
         chrome.runtime.sendMessage({
-            tab: chrome.tabs.getCurrent(),
+            // tab: chrome.tabs.getCurrent(),
             action: 'copyCookies',
             value: document.cookie,
         });
 
         // Ricarico la pagina
-        chrome.runtime.sendMessage({
-            tab: chrome.tabs.getCurrent(),
-            action: 'refresh',
-        });
+        // chrome.runtime.sendMessage({
+        //     tab: chrome.tabs.getCurrent(),
+        //     action: 'refresh',
+        // });
 
         // Warning about remaining solutions
     } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
@@ -115,4 +103,15 @@ setTimeout(() => {
             remainingSolutions,
         );
     }
-}, 1200);
+
+    // Removing the paywall from the DO
+    if (banner) {
+        banner.parentElement.remove();
+    }
+
+    if (lockIcon) {
+        lockIcon.remove();
+    }
+
+    upgradePlanButtons.forEach((button) => button.remove());
+}, 1500);
