@@ -113,7 +113,6 @@ const content = merge(commonConfig, {
         new CopyPlugin({
             patterns: [
                 { from: `${publicPath}/icons`, to: `${buildPath}/icons` },
-                { from: `${publicPath}/locales`, to: `${buildPath}/_locales` },
             ],
         }),
         new ManifestCompilationPlugin({
