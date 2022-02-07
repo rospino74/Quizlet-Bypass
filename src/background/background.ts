@@ -12,9 +12,14 @@
 
 import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './latinAjaxInterceptor';
+import installQuizletInterceptor from './quizletInterceptor';
+
 
 // Provo ad intercettare le richieste
 installLatinAjaxInterceptor();
+
+// Install an interceptor to remove quizlet anti adblocker
+installQuizletInterceptor();
 
 // Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
