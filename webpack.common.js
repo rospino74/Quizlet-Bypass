@@ -90,6 +90,7 @@ const commonConfig = {
     performance: {
         maxEntrypointSize: 512000,
         maxAssetSize: 512000,
+		hints: false,
     },
     optimization: {
         usedExports: true,
