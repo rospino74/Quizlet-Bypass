@@ -43,7 +43,7 @@ class ManifestCompilationPlugin {
     buildContent() {
         this.content.forEach(({
             // eslint-disable-next-line camelcase
-            permissions, host_permissions, matches, name,
+            permissions, matches, name,
         }) => {
             this.manifest.content_scripts.push({
                 matches,
@@ -52,12 +52,6 @@ class ManifestCompilationPlugin {
 
             // Aggiungo informazioni sui permessi
             this.manifest.permissions = [...new Set([...this.manifest.permissions, ...permissions])];
-
-            // eslint-disable-next-line camelcase
-            if (host_permissions) {
-                // eslint-disable-next-line camelcase
-                this.manifest.host_permissions = [...new Set([...this.manifest.host_permissions, ...host_permissions])];
-            }
         });
     }
 

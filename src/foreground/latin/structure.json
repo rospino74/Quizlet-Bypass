@@ -10,8 +10,5 @@
         "*://www-latin-it.translate.goog/*",
         "webRequest",
         "webRequestBlocking"
-    ],
-    "host_permissions": [
-        "*://www-latin-it.translate.goog/*"
     ]
 }
