@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
             console.warn('Account cookies received: ', value);
         }
 
-        replaceQuizletCookies(value);
+        replaceQuizletCookies(value, tab?.url);
     } else if (action === 'refresh') {
         if (process.env.NODE_ENV !== 'production') {
             console.warn('Refresh received');
