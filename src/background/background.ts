@@ -22,13 +22,14 @@ installLatinAjaxInterceptor();
 installQuizletInterceptor();
 
 // Listening for messages from the content script
-chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tabs.Tab; value: string; }) => {
+chrome.runtime.onMessage.addListener((message: { action: string; value: string; }, sender: chrome.runtime.MessageSender) => {
 
     if (process.env.NODE_ENV !== 'production') {
         console.log('Message received from content script:', message);
     }
 
-    const { action, tab, value } = message;
+    const { action, value } = message;
+    const { tab } = sender;
     if (action === 'copyCookies') {
         if (process.env.NODE_ENV !== 'production') {
             console.warn('Account cookies received: ', value);
@@ -40,8 +41,8 @@ chrome.runtime.onMessage.addListener((message: { action: string; tab: chrome.tab
             console.warn('Refresh received');
         }
 
-        chrome.tabs.reload(tab.id!!).catch(() => {
-            chrome.tabs.update(tab.id!!, { url: tab.url });
+        chrome.tabs.reload(tab?.id!!).catch(() => {
+            chrome.tabs.update(tab?.id!!, { url: tab?.url });
         });
     }
 });
