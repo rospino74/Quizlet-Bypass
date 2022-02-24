@@ -31,33 +31,6 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
     return {};
 }
-
-function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
-    // Fetching the response body via XMLHttpRequest
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', details.url, false);
-    xhr.send();
-
-    if (process.env.NODE_ENV !== 'production') {
-        console.log(`Response recieved from ${details.url} with HTTP status code ${xhr.status} ${xhr.statusText}`);
-    }
-
-    if (xhr.status !== 200)
-        return {};
-
-    const parsed = parseAndRemove(xhr.responseText);
-
-    if (process.env.NODE_ENV !== 'production') {
-        console.log(`Modified HTML:\n${parsed}`)
-    }
-
-    // Getting the modified data url and redirecting the user
-    const dataURL = `data:text/html,${encodeURIComponent(parsed)}`;
-    return {
-        redirectUrl: dataURL,
-    };
-}
-
 function parseAndRemove(str: string): string {
     // Getting the only the div with one of his many classes __isAdBlockerEnabled
     const div = str.match(/<div class="[^>"]*__isAdBlockerEnabled[^>]*>([\s\S]*?)<\/div>/g)![0];
@@ -90,11 +63,7 @@ export default function installQuizletInterceptor() {
                 }
             }
         } else {
-            chrome.webRequest.onBeforeRequest.addListener(
-                chromeListener,
-                { urls: ['https://quizlet.com/explanations/textbook-solutions/*'] },
-                ['blocking']
-            );
+            throw Error('Chromium Browsers not supported');
         }
     } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
