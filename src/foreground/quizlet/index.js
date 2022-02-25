@@ -12,6 +12,7 @@
 
 import deleteQuizletAccount from './import/accountDeleter';
 import makeQuizletAccount from './import/accountMaker';
+import { insertionQ } from './import/insertionQuery';
 
 const consolePrefixStyles = [
     'color: #fff',
@@ -27,13 +28,26 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
-// aspetto 1.5 secondi prima di iniziare
-setTimeout(() => {
+insertionQ.config({
+    timeout: 0
+})
+// remove paywall messages immediately
+insertionQ(".BannerWrapper").every(el => {
+    el.parentElement.remove();
+});
+
+insertionQ('img[data-testid="premiumBrandingBadge-lock"]').every(el => {
+    el.remove();
+});
+
+insertionQ('.AssemblyPrimaryButton--upgrade').every(el => {
+    el.remove();
+});
+
+// check paywall when main document has loaded
+window.addEventListener("DOMContentLoaded", () => {
     // Finding paywall banners
-    const banner = document.querySelector('.BannerWrapper');
-    const lockIcon = document.querySelector('img[data-testid="premiumBrandingBadge-lock"]');
     const notLoggedInPaywall = document.querySelector('.t15hde6e');
-    const upgradePlanButtons = document.querySelectorAll('.AssemblyPrimaryButton--upgrade');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
@@ -103,15 +117,4 @@ setTimeout(() => {
             remainingSolutions,
         );
     }
-
-    // Removing the paywall from the DO
-    if (banner) {
-        banner.parentElement.remove();
-    }
-
-    if (lockIcon) {
-        lockIcon.remove();
-    }
-
-    upgradePlanButtons.forEach((button) => button.remove());
-}, 1500);
+});
