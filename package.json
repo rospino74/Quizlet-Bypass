@@ -1,6 +1,6 @@
 {
   "name": "quizlet",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Removes the paywall from the Quizlet page and other sites",
   "main": "src/index.js",
   "scripts": {

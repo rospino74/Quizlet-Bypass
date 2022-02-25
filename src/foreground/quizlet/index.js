@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 // Copyright 2021-2022 rospino74
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +13,6 @@
 
 import deleteQuizletAccount from './import/accountDeleter';
 import makeQuizletAccount from './import/accountMaker';
-import { insertionQ } from './import/insertionQuery';
 
 const consolePrefixStyles = [
     'color: #fff',
@@ -28,24 +28,16 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
-insertionQ.config({
-    timeout: 0
-})
-// remove paywall messages immediately
-insertionQ(".BannerWrapper").every(el => {
-    el.parentElement.remove();
-});
-
-insertionQ('img[data-testid="premiumBrandingBadge-lock"]').every(el => {
-    el.remove();
-});
-
-insertionQ('.AssemblyPrimaryButton--upgrade').every(el => {
-    el.remove();
-});
-
 // check paywall when main document has loaded
-window.addEventListener("DOMContentLoaded", () => {
+function loadedHandler() {
+    const banner = document.querySelector('.BannerWrapper');
+    try {
+        banner.parentElement.remove();
+        document.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
+        document.querySelectorAll('.AssemblyPrimaryButton--upgrade').forEach((e) => e.remove());
+    } catch (err) {
+        console.error(err);
+    }
     // Finding paywall banners
     const notLoggedInPaywall = document.querySelector('.t15hde6e');
 
@@ -117,4 +109,10 @@ window.addEventListener("DOMContentLoaded", () => {
             remainingSolutions,
         );
     }
-});
+}
+
+document.addEventListener('DOMContentLoaded', loadedHandler);
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    loadedHandler();
+}
