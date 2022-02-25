@@ -28,18 +28,22 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
-// check paywall when main document has loaded
-function loadedHandler() {
-    const banner = document.querySelector('.BannerWrapper');
-    try {
-        banner.parentElement.remove();
-        document.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
-        document.querySelectorAll('.AssemblyPrimaryButton--upgrade').forEach((e) => e.remove());
-    } catch (err) {
-        console.error(err);
+let banner = null;
+
+function handleMutation(mutation) {
+    banner = mutation.target.querySelector('.BannerWrapper');
+    if (banner) {
+        try {
+            banner.parentElement.remove();
+            mutation.target.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
+            mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade').forEach((e) => e.remove());
+        } catch (err) {
+            console.error(err);
+        }
     }
+
     // Finding paywall banners
-    const notLoggedInPaywall = document.querySelector('.t15hde6e');
+    const notLoggedInPaywall = mutation.target.querySelector('.t15hde6e');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
@@ -48,7 +52,7 @@ function loadedHandler() {
         );
 
         // Aggiorno lo stile
-        document.querySelector('.t15hde6e').style.maxWidth = 'unset';
+        notLoggedInPaywall.style.maxWidth = 'unset';
         notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
         notLoggedInPaywall.parentElement.style.backgroundImage = 'none';
 
@@ -65,6 +69,30 @@ function loadedHandler() {
             smallTitle.innerHTML = 'All you have to do is <a href=# onclick=document.location.reload()>reload the page</a>';
         }
     }
+}
+
+// remove banner/paywalls on creation
+const observer = new MutationObserver((mutationList) => {
+    mutationList.forEach(handleMutation);
+});
+
+// Start observing
+observer.observe(document, { childList: true, subtree: true });
+// stop observing
+setTimeout(observer.disconnect, 1500);
+
+// check once at load
+handleMutation({ target: document });
+
+// check paywall when main document has loaded
+function loadedHandler() {
+    // try {
+    //     banner.parentElement.remove();
+    //     document.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
+    //     document.querySelectorAll('.AssemblyPrimaryButton--upgrade').forEach((e) => e.remove());
+    // } catch (err) {
+    //     console.error(err);
+    // }
 
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
@@ -111,8 +139,4 @@ function loadedHandler() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadedHandler);
-
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    loadedHandler();
-}
+setTimeout(loadedHandler, 1000);
