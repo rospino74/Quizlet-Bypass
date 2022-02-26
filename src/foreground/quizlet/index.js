@@ -27,13 +27,32 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
-// aspetto 1.5 secondi prima di iniziare
-setTimeout(() => {
+let banner = null;
+
+function handleMutation(mutation) {
+    banner = mutation.target.querySelector('.BannerWrapper');
+    if (banner) {
+        try {
+            banner.parentElement.remove();
+            mutation.target.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
+        } catch (err) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
+        }
+    }
+
+    try {
+        const upgradeButtons = mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade');
+        upgradeButtons.forEach((e) => e.remove());
+    } catch (err) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(err);
+        }
+    }
+
     // Finding paywall banners
-    const banner = document.querySelector('.BannerWrapper');
-    const lockIcon = document.querySelector('img[data-testid="premiumBrandingBadge-lock"]');
-    const notLoggedInPaywall = document.querySelector('.t15hde6e');
-    const upgradePlanButtons = document.querySelectorAll('.AssemblyPrimaryButton--upgrade');
+    const notLoggedInPaywall = mutation.target.querySelector('.t15hde6e');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
@@ -42,7 +61,7 @@ setTimeout(() => {
         );
 
         // Aggiorno lo stile
-        document.querySelector('.t15hde6e').style.maxWidth = 'unset';
+        notLoggedInPaywall.style.maxWidth = 'unset';
         notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
         notLoggedInPaywall.parentElement.style.backgroundImage = 'none';
 
@@ -59,7 +78,23 @@ setTimeout(() => {
             smallTitle.innerHTML = 'All you have to do is <a href=# onclick=document.location.reload()>reload the page</a>';
         }
     }
+}
 
+// remove banner/paywalls on creation
+const observer = new MutationObserver((mutationList) => {
+    mutationList.forEach(handleMutation);
+});
+
+// Start observing
+observer.observe(document, { childList: true, subtree: true });
+// stop observing
+setTimeout(observer.disconnect, 1500);
+
+// check once at load
+handleMutation({ target: document });
+
+// check paywall when main document has loaded
+function loadedHandler() {
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
@@ -103,15 +138,6 @@ setTimeout(() => {
             remainingSolutions,
         );
     }
+}
 
-    // Removing the paywall from the DO
-    if (banner) {
-        banner.parentElement.remove();
-    }
-
-    if (lockIcon) {
-        lockIcon.remove();
-    }
-
-    upgradePlanButtons.forEach((button) => button.remove());
-}, 1500);
+setTimeout(loadedHandler, 1000);
