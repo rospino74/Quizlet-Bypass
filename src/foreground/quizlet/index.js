@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 // Copyright 2021-2022 rospino74
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,8 +35,18 @@ function handleMutation(mutation) {
         try {
             banner.parentElement.remove();
             mutation.target.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
-            mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade').forEach((e) => e.remove());
         } catch (err) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
+        }
+    }
+
+    try {
+        const upgradeButtons = mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade');
+        upgradeButtons.forEach((e) => e.remove());
+    } catch (err) {
+        if (process.env.NODE_ENV !== 'production') {
             console.error(err);
         }
     }
@@ -86,14 +95,6 @@ handleMutation({ target: document });
 
 // check paywall when main document has loaded
 function loadedHandler() {
-    // try {
-    //     banner.parentElement.remove();
-    //     document.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
-    //     document.querySelectorAll('.AssemblyPrimaryButton--upgrade').forEach((e) => e.remove());
-    // } catch (err) {
-    //     console.error(err);
-    // }
-
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
