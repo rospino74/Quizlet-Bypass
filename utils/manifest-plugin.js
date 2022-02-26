@@ -48,6 +48,7 @@ class ManifestCompilationPlugin {
             this.manifest.content_scripts.push({
                 matches,
                 js: [`${name}.content.js`],
+                run_at: name === 'quizlet' ? 'document_start' : 'document_idle',
             });
 
             // Aggiungo informazioni sui permessi
