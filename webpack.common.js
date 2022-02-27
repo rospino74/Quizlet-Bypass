@@ -130,6 +130,21 @@ const background = merge(commonConfig, {
     },
 });
 
+const popup = merge(commonConfig, {
+    entry: './src/action/index.ts',
+    output: {
+        filename: 'index.js',
+        path: `${buildPath}/action`,
+    },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: '*.{html,css}', to: `${buildPath}/action/`, context: './src/action/' },
+            ],
+        }),
+    ],
+});
+
 module.exports = [
-    content, background,
+    content, background, popup,
 ];
