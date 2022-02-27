@@ -22,7 +22,7 @@ installLatinAjaxInterceptor();
 installQuizletInterceptor();
 
 // Listening for messages from the content script
-chrome.runtime.onMessage.addListener((message: { action: string; value: string; }, sender: chrome.runtime.MessageSender) => {
+chrome.runtime.onMessage.addListener((message: { action: string; value: string; }, sender: chrome.runtime.MessageSender, reply) => {
 
     if (process.env.NODE_ENV !== 'production') {
         console.log('Message received from content script:', message);
@@ -30,19 +30,55 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
 
     const { action, value } = message;
     const { tab } = sender;
-    if (action === 'copyCookies') {
-        if (process.env.NODE_ENV !== 'production') {
-            console.warn('Account cookies received: ', value);
+    switch (action) {
+        case 'copyCookies': {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Account cookies received: ', value);
+            }
+            replaceQuizletCookies(value, tab?.url);
+            break;
         }
 
-        replaceQuizletCookies(value, tab?.url);
-    } else if (action === 'refresh') {
-        if (process.env.NODE_ENV !== 'production') {
-            console.warn('Refresh received');
-        }
+        case 'refresh': {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Refresh received');
+            }
 
-        chrome.tabs.reload(tab?.id!!).catch(() => {
-            chrome.tabs.update(tab?.id!!, { url: tab?.url });
-        });
+            chrome.tabs.reload(tab?.id!!).catch(() => {
+                chrome.tabs.update(tab?.id!!, { url: tab?.url });
+            });
+            break;
+        }
+        case 'incrementStats': {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Increment stats received');
+            }
+
+            const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
+            const newValue = (oldValue + 1).toString();
+            localStorage.setItem(`stats.${value}`, newValue);
+        }
+        case 'getStats': {
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('Get stats received');
+            }
+
+            const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
+            reply(oldValue);
+        }
+    }
+});
+
+chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+    let { url } = changeInfo;
+
+    if (!url) {
+        url = tab.url!!;
+    }
+
+    if (url.includes('quizlet.com')) {
+        chrome.browserAction.enable(tabId);
+    } else {
+        chrome.browserAction.disable(tabId);
     }
 });

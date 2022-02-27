@@ -127,6 +127,12 @@ async function loadedHandler() {
             });
         }
 
+        // Increases the statistics counter
+        chrome.runtime.sendMessage({
+            action: 'incrementStats',
+            value: 'accounts_created',
+        });
+
         // Warning about remaining solutions
     } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
         const remainingSolutions = banner.querySelector('.WithAccent').innerText;
