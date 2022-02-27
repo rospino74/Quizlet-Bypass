@@ -28,6 +28,7 @@ const consoleBigStyles = [
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
 let banner = null;
+let notLoggedInPaywall = null;
 
 function handleMutation(mutation) {
     banner = mutation.target.querySelector('.BannerWrapper');
@@ -52,7 +53,7 @@ function handleMutation(mutation) {
     }
 
     // Finding paywall banners
-    const notLoggedInPaywall = mutation.target.querySelector('.t15hde6e');
+    notLoggedInPaywall = mutation.target.querySelector('.t15hde6e');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
@@ -94,7 +95,7 @@ setTimeout(observer.disconnect, 1500);
 handleMutation({ target: document });
 
 // check paywall when main document has loaded
-function loadedHandler() {
+async function loadedHandler() {
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
     if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
@@ -106,24 +107,25 @@ function loadedHandler() {
             }
         }
 
-        // Cancello l'account corrente
+        // Removing the old account
         deleteQuizletAccount();
 
-        // Rinnovo l'account
-        makeQuizletAccount();
+        // Creating a new Quizlet account
+        await makeQuizletAccount();
 
-        // Copio i cookies
+        // Copying the account auth cookies
+
         chrome.runtime.sendMessage({
-            // tab: chrome.tabs.getCurrent(),
             action: 'copyCookies',
             value: document.cookie,
         });
 
-        // Ricarico la pagina
-        // chrome.runtime.sendMessage({
-        //     tab: chrome.tabs.getCurrent(),
-        //     action: 'refresh',
-        // });
+        // Refreshing the page to get the new account logged in
+        if (notLoggedInPaywall) {
+            chrome.runtime.sendMessage({
+                action: 'refresh',
+            });
+        }
 
         // Warning about remaining solutions
     } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
