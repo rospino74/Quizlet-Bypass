@@ -26,6 +26,11 @@ html {
     --text-color: hsl(226, 18%, 23%);
 }
 
+html.dark {
+    --background-color: hsl(242, 67%, 11%);
+    --text-color: hsl(228, 38%, 97%);
+}
+
 body {
     width: 250px;
     padding: 25px;

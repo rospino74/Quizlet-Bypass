@@ -27,3 +27,9 @@ try {
 } catch (e) {
     console.error(e);
 }
+
+// Detects if the user is uing dark mode
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+if (isDarkMode) {
+    document.documentElement.classList.add("dark");
+}
