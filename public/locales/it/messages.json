@@ -52,5 +52,23 @@
     },
     "foundMultipleVideoElement": {
         "message": "Trovati %d video: %o"
+    },
+    "debugRemovingLastButton": {
+        "message": "%cRimuovo l'ultimo bottone: %o"
+    },
+    "debugAskForURL": {
+        "message": "%cChiedo URL download..."
+    },
+    "debugDownloadURL": {
+        "message": "%cIndirizzo del download: %c%s"
+    },
+    "debugNextPageAddress": {
+        "message": "%cIndirizzo prossima pagina: %s"
+    },
+    "debugSkippingFirstButton": {
+        "message": "%cSalto il primo bottone: %o"
+    },
+    "debugChangingButtonURL": {
+        "message": "%cCambio URL %c%s %c-> %c%s"
     }
 }

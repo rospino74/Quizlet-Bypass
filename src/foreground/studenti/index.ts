@@ -32,11 +32,7 @@ if (appuntiRegex.test(window.location.href)) {
     const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a[href*=correlati]");
     relatedPageButton.forEach(btn => {
         if (process.env.NODE_ENV !== 'production') {
-            if (/^it\b/.test(navigator.language)) {
-                console.log("%cRimuovo l'ultimo bottone: %o", 'color: #7ab700', btn);
-            } else {
-                console.log("%cRemoving last button: %o", 'color: #7ab700', btn);
-            }
+            console.log(chrome.i18n.getMessage('debugRemovingLastButton'), 'color: #7ab700', btn);
         }
 
         const li = btn.parentElement;
@@ -60,11 +56,7 @@ if (appuntiRegex.test(window.location.href)) {
             evt.preventDefault();
 
             if (process.env.NODE_ENV !== 'production') {
-                if (/^it\b/.test(navigator.language)) {
-                    console.log('%cChiedo url download...', 'color: #7ab700;');
-                } else {
-                    console.log('%cRequesting download url...', 'color: #7ab700;');
-                }
+                console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
             }
 
             getFileDownloadUrl(pageId).then(url => {
@@ -81,11 +73,7 @@ function getNextPageId(): string {
     const pageIdRegex = /download_2\/([a-zA-Z0-9\-]+)_1\.html/gm;
 
     if (process.env.NODE_ENV !== 'production') {
-        if (/^it\b/.test(navigator.language)) {
-            console.log('%cIndirizzo prossima pagina: %s', 'color: #7ab700;', nextPageUrl);
-        } else {
-            console.log('%cNext page url: %s', 'color: #7ab700;', nextPageUrl);
-        }
+        console.log(chrome.i18n.getMessage('debugNextPageAddress'), 'color: #7ab700;', nextPageUrl);
     }
 
     return pageIdRegex.exec(nextPageUrl)!![1];
@@ -101,21 +89,13 @@ function removeAdvertisingLink(id: string) {
 
         if (pageNumber === 1) {
             if (process.env.NODE_ENV !== 'production') {
-                if (/^it\b/.test(navigator.language)) {
-                    console.log('%cSalto il primo bottone: %o', 'color: #7ab700', btn);
-                } else {
-                    console.log('%cSkipping first button: %o', 'color: #7ab700', btn);
-                }
+                console.log(chrome.i18n.getMessage('debugSkippingFirstButton'), 'color: #7ab700', btn);
             }
             return;
         }
 
         if (process.env.NODE_ENV !== 'production') {
-            if (/^it\b/.test(navigator.language)) {
-                console.log("%cCambio URL %c%s %c-> %c%s", 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
-            } else {
-                console.log("%cChanging URL %c%s %c-> %c%s", 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
-            }
+            console.log(chrome.i18n.getMessage('debugChangingButtonURL'), 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
         }
         btn.href = `${baseUrl}&pag=${pageNumber - 1}`;
     });

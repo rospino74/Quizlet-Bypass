@@ -52,5 +52,23 @@
     },
     "foundMultipleVideoElement": {
         "message": "Found %d video elements: %o"
+    },
+    "debugRemovingLastButton": {
+        "message": "%cRemoving last button: %o"
+    },
+    "debugAskForURL": {
+        "message": "%cRequesting download URL..."
+    },
+    "debugDownloadURL": {
+        "message": "%cDownload URL: %c%s"
+    },
+    "debugNextPageAddress": {
+        "message": "%cNext page URL: %s"
+    },
+    "debugSkippingFirstButton": {
+        "message": "%cSkipping first button: %o"
+    },
+    "debugChangingButtonURL": {
+        "message": "%cChanging URL %c%s %c-> %c%s"
     }
 }

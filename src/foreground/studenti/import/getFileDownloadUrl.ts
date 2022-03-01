@@ -41,11 +41,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
     }
 
     if (process.env.NODE_ENV !== 'production') {
-        if (/^it\b/.test(navigator.language)) {
-            console.log('%cIndirizzo del download: %c%s', 'color: #7ab700;', 'color: gray;', json.link);
-        } else {
-            console.log('%cDownload url: %c%s', 'color: #7ab700;', 'color: gray;', json.link);
-        }
+        console.log(chrome.i18n.getMessage('debugDownloadURL'), 'color: #7ab700;', 'color: gray;', json.link);
     }
 
     return json.link;
