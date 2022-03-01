@@ -36,13 +36,7 @@ noRightClickElement.forEach((element) => {
 // Also remove event listeners from the html element
 removeListenersOfType(document.documentElement, ['cut', 'copy', 'paste', 'contextmenu']);
 
-if (process.env.NODE_ENV !== 'production') {
-    if (/^it\b/.test(navigator.language)) {
-        console.log('%cOra puoi copiare tutti i testi che vuoi 😉', consoleBigStyles);
-    } else {
-        console.log('%cNow you can copy all the articles you want 😉', consoleBigStyles);
-    }
-}
+console.log(chrome.i18n.getMessage('nowYouCanCopyEverything'), consoleBigStyles);
 
 // Prevents video ads from auto playing
 manipulateVideoAds();

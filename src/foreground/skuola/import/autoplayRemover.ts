@@ -37,11 +37,7 @@ function observerCallback(mutations: MutationRecord[], observer: MutationObserve
                 videoElement.pause();
 
                 if (process.env.NODE_ENV !== 'production') {
-                    if (/^it\b/.test(navigator.language)) {
-                        console.log('Ho intercettato un video: %o', videoElement);
-                    } else {
-                        console.log('Found a video: %o', videoElement);
-                    }
+                    console.log(chrome.i18n.getMessage('foundVideoElement'), videoElement);
                 }
 
                 observer.disconnect();
@@ -54,11 +50,7 @@ export default function manipulateVideoAds() {
     const videoContainers = document.querySelectorAll<HTMLDivElement>('#video_ads');
 
     if (process.env.NODE_ENV !== 'production' && videoContainers.length > 0) {
-        if (/^it\b/.test(navigator.language)) {
-            console.log('Trovati %d video: %o', videoContainers.length, videoContainers);
-        } else {
-            console.log('Found %d video elements: %o', videoContainers.length, videoContainers);
-        }
+        console.log(chrome.i18n.getMessage('foundMultipleVideoElement'), videoContainers.length, videoContainers);
     }
 
     // Iterate over all video ads to add a ready event listener

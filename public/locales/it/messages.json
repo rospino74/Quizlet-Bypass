@@ -43,5 +43,14 @@
     },
     "debugExpiredSolutionsLatin": {
         "message": "%cHai raggiunto il numero massimo di soluzioni per oggi!"
+    },
+    "nowYouCanCopyEverything": {
+        "message": "%cOra puoi copiare tutti i testi che vuoi 😉"
+    },
+    "foundVideoElement": {
+        "message": "Ho intercettato un video: %o"
+    },
+    "foundMultipleVideoElement": {
+        "message": "Trovati %d video: %o"
     }
 }
