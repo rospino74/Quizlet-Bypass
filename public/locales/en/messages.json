@@ -37,5 +37,11 @@
     },
     "debugAccountCreationResult": {
         "message": "Account creation result: %o"
+    },
+    "debugNotLoadedOnAValidPage": {
+        "message": "%cI was not loaded on a valid page! %cAm I in front of a phrase, a version or an author's piece?"
+    },
+    "debugExpiredSolutionsLatin": {
+        "message": "%cYou have reached the maximum number of solutions for today!"
     }
 }

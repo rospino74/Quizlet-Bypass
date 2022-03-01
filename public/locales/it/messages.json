@@ -37,5 +37,11 @@
     },
     "debugAccountCreationResult": {
         "message": "Risultato della creazione dell'account: %o"
+    },
+    "debugNotLoadedOnAValidPage": {
+        "message": "Non sono stato caricato in una pagina valida! %cSono davanti a delle frasi, una versione o un brano d'autore?"
+    },
+    "debugExpiredSolutionsLatin": {
+        "message": "%cHai raggiunto il numero massimo di soluzioni per oggi!"
     }
 }
