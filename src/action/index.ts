@@ -12,14 +12,11 @@
 
 try {
     const counterValue = document.querySelector<HTMLElement>(".counter-value")!!;
-    const counterSubtitle = document.querySelector<HTMLElement>(".counter-subtitle")!!;
 
     // Sets the counter subtitle based on the current language
-    if (/^it\b/.test(navigator.language)) {
-        counterSubtitle.textContent = "Paywall evitati";
-    } else {
-        counterSubtitle.textContent = "Avoided paywalls";
-    }
+    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(e => {
+        e.innerText = chrome.i18n.getMessage(e.dataset.i18n!!);
+    })
 
     // Sets the counter value
     const count = localStorage.getItem("stats.accounts_created") || "0";

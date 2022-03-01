@@ -27,7 +27,7 @@
             "96": "icons/logo-96.png",
             "192": "icons/logo-192.png"
         },
-        "default_title": "Quizlet Bypass Statistics",
+        "default_title": "__MSG_actionTitle__",
         "default_popup": "action/popup.html"
     }
 }

@@ -70,5 +70,14 @@
     },
     "debugChangingButtonURL": {
         "message": "%cChanging URL %c%s %c-> %c%s"
+    },
+    "actionTitle": {
+        "message": "Quizlet Bypass Statistics"
+    },
+    "popupTitle": {
+        "message": "Statistics"
+    },
+    "popupCounterSubtitle": {
+        "message": "Avoided paywalls"
     }
 }
