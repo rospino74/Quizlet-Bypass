@@ -148,8 +148,8 @@ export default function installLatinAjaxInterceptor() {
                 'color: #009dd9;',
                 'color: gray; font-style: italic;'
             );
+            console.error(e);
         }
-        console.error(e);
     }
 }
 

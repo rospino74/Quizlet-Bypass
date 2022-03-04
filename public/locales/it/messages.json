@@ -17,6 +17,12 @@
     "debugSuccessfullyInstalledLatinAjaxInterceptorChrome": {
         "message": "%cSistema anti-anti-copiatura installato. %cL'anti-copy evader è supportato pienamente solo su Firefox.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
     },
+    "debugSuccessfullyInstalledQuizletInterceptor": {
+        "message": "%cSistema anti-anti-adblock installato."
+    },
+    "debugUnableToInstallQuizletInterceptor": {
+        "message": "%cSistema anti-anti-adblock non installato. %cIl sistema è supportato esclusivamente su Firefox.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058"
+    },
     "debugProtectedPageDetected": {
         "message": "Pagina protetta rilevata, non modifico il contenuto"
     },

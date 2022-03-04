@@ -22,7 +22,10 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         str = parseAndRemove(str);
 
         if (process.env.NODE_ENV !== 'production') {
-            console.log(`Modified HTML:\n${str}`)
+            console.log(
+                chrome.i18n.getMessage("debugModifiedHtml"),
+                str
+            );
         }
 
         filter.write(encoder.encode(str));
@@ -56,22 +59,23 @@ export default function installQuizletInterceptor() {
                 ['blocking']
             );
             if (process.env.NODE_ENV !== 'production') {
-                if (/^it\b/.test(navigator.language)) {
-                    console.log("%cSistema anti-anti-copiatura installato. %cL'anti-copy evader è supportato pienamente solo su Firefox, per info: https://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #80f5ab;', 'color: gray; font-style: italic;');
-                } else {
-                    console.log("%cThe anti-anti-copy system has been installed. %cThe anti-copy evader is fully supported on Firefox only, for info: https://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #80f5ab;', 'color: gray; font-style: italic;');
-                }
+                console.log(
+                    chrome.i18n.getMessage('debugSuccessfullyInstalledQuizletInterceptor'),
+                    'color: #f5cf80;',
+                );
             }
         } else {
             throw Error('Chromium Browsers not supported');
         }
     } catch (e) {
         if (process.env.NODE_ENV !== 'production') {
-            if (/^it\b/.test(navigator.language)) {
-                console.log("%cImpossibile intercettare le risposte. Il sistema anti anti copiatura è pienamente supportato solo Firefox. %cL'anti-copy evader non sarà disponibile.\n\n%cPer info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #f04747;', 'color: gray; font-style: italic;', 'color: #009dd9;', 'color: gray; font-style: italic;');
-            } else {
-                console.log("%cUnable to intercept solutions. The anti-anti-copy system is fully supported only Firefox. %cThe anti-copy evader will not be available.\n\n%cFor info: %chttps://bugs.chromium.org/p/chromium/issues/detail?id=104058", 'color: #f04747;', 'color: gray; font-style: italic;', 'color: #009dd9;', 'color: gray; font-style: italic;');
-            }
+            console.log(
+                chrome.i18n.getMessage('debugUnableToInstallQuizletInterceptor'),
+                'color: #f04747;',
+                'color: gray; font-style: italic;',
+                'color: #009dd9;',
+                'color: gray; font-style: italic;'
+            );
             console.error(e);
         }
     }
