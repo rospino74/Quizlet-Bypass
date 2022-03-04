@@ -112,7 +112,6 @@ async function loadedHandler() {
         await makeQuizletAccount();
 
         // Copying the account auth cookies
-
         chrome.runtime.sendMessage({
             action: 'copyCookies',
             value: document.cookie,
