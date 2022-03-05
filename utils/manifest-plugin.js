@@ -5,6 +5,7 @@ class ManifestCompilationPlugin {
     constructor({
         content,
         model: template,
+        isMV3,
     } = {}) {
         if (!content) {
             throw new Error('Must provide at least one content script!');
@@ -16,6 +17,7 @@ class ManifestCompilationPlugin {
 
         this.content = content;
         this.manifest = template;
+        this.isMV3 = isMV3 || false;
     }
 
     apply(compiler) {
@@ -43,8 +45,7 @@ class ManifestCompilationPlugin {
 
     buildContent() {
         this.content.forEach(({
-            // eslint-disable-next-line camelcase
-            permissions, matches, name,
+            permissions, matches, name, urls,
         }) => {
             this.manifest.content_scripts.push({
                 matches,
@@ -52,8 +53,18 @@ class ManifestCompilationPlugin {
                 run_at: name === 'quizlet' ? 'document_start' : 'document_idle',
             });
 
-            // Aggiungo informazioni sui permessi
-            this.manifest.permissions = [...new Set([...this.manifest.permissions, ...permissions])];
+            // Add the permissions and the host_permissions if they exist
+            this.manifest.permissions = [...new Set([
+                ...this.manifest.permissions,
+                ...(permissions || []),
+                ...(!this.isMV3 ? urls : []),
+            ])];
+            if (this.isMV3) {
+                this.manifest.host_permissions = [...new Set([
+                    ...(this.manifest.host_permissions || []),
+                    ...(urls || []),
+                ])];
+            }
         });
     }
 
@@ -70,6 +81,23 @@ class ManifestCompilationPlugin {
             }
         } catch (e) {
             // Do nothing
+        }
+
+        if (this.isMV3) {
+            this.manifest.manifest_version = 3;
+
+            // Using a service worker
+            // eslint-disable-next-line prefer-destructuring
+            this.manifest.background.service_worker = this.manifest.background.scripts[0];
+            delete this.manifest.background.scripts;
+
+            // Migrating page action
+            this.manifest.action = this.manifest.browser_action;
+            delete this.manifest.browser_action;
+
+            // Remove the webRequest permission
+            this.manifest.permissions = this.manifest.permissions.filter((permission) => permission !== 'webRequest' && permission !== 'webRequestBlocking');
+            this.manifest.permissions.push('declarativeNetRequest');
         }
     }
 }
