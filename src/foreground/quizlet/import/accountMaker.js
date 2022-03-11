@@ -56,11 +56,11 @@ async function makeAccountCreationRequest(email) {
     return JSON.parse(request);
 }
 
-export default async function makeQuizletAccount(tab) {
+export default async function makeQuizletAccount() {
     const address = new Chance().email();
 
     // Creo un account
-    const result = await makeAccountCreationRequest(address, tab);
+    const result = await makeAccountCreationRequest(address);
 
     if (process.env.NODE_ENV !== 'production') {
         console.log(
