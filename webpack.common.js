@@ -22,6 +22,10 @@ const contentScriptStruture = [];
 function buildManifest() {
     // Leggo tutte le cartelle
     fs.readdirSync(srcForegroundPath).forEach((directory) => {
+        if (directory === 'common') {
+            return;
+        }
+
         // eslint-disable-next-line import/no-dynamic-require, global-require
         const structure = require(`${srcForegroundPath}/${directory}/structure.json`);
         const { entry } = structure;
@@ -76,6 +80,7 @@ const commonConfig = {
         },
         new EnvironmentPlugin({
             VERSION: version || '1.0.0',
+            IS_MV3: false,
         }),
     ],
     module: {
@@ -122,6 +127,7 @@ const content = merge(commonConfig, {
         new ManifestCompilationPlugin({
             content: contentScriptStruture,
             model: manifest,
+            isMV3: false,
         }),
     ],
 });
