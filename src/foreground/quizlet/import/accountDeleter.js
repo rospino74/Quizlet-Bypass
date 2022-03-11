@@ -11,24 +11,17 @@
 //
 
 import getCSRFToken from './CSRFTokenGrabber';
+import makeWebRequest from '../../common/makeWebRequest.ts';
 
 export default async function deleteQuizletAccount() {
     const CSRFToken = await getCSRFToken();
 
-    return fetch('https://quizlet.com/delete-account', {
-        credentials: 'include',
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0',
-            Accept: 'text/html,*/*;q=0.8',
-            'Accept-Language': 'it-IT,it;q=0.8,en;q=0.3',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Upgrade-Insecure-Requests': '1',
-            Pragma: 'no-cache',
-            'Cache-Control': 'no-cache',
-        },
-        referrer: 'https://quizlet.com/delete-account',
-        body: `doDelete=&cstoken=${CSRFToken}&cstokenV2=${CSRFToken}&cstokenFieldCount=1&cstokenSetByJs=1`,
-        method: 'POST',
-        mode: 'cors',
-    });
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Pragma: 'no-cache',
+        'Cache-Control': 'no-cache',
+    };
+    const body = `doDelete=&cstoken=${CSRFToken}&cstokenV2=${CSRFToken}&cstokenFieldCount=1&cstokenSetByJs=1`;
+
+    return makeWebRequest('https://quizlet.com/delete-account', 'POST', body, headers);
 }

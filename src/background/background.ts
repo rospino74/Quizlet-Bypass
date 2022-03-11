@@ -13,6 +13,7 @@
 import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './latinAjaxInterceptor';
 import installQuizletInterceptor from './quizletInterceptor';
+import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 
 // Shitty banner here
 (() => {
@@ -43,7 +44,7 @@ installLatinAjaxInterceptor();
 installQuizletInterceptor();
 
 // Listening for messages from the content script
-chrome.runtime.onMessage.addListener((message: { action: string; value: string; }, sender: chrome.runtime.MessageSender, reply) => {
+chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object; }, sender: chrome.runtime.MessageSender, sendResponse) => {
 
     if (process.env.NODE_ENV !== 'production') {
         console.info(
@@ -62,7 +63,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
                     value
                 );
             }
-            replaceQuizletCookies(value, tab?.url);
+            replaceQuizletCookies(value as string, tab?.url);
             break;
         }
 
@@ -94,9 +95,28 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
             }
 
             const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
-            reply(oldValue);
+            sendResponse(oldValue);
             break;
         }
+        case 'makeWebRequest': {
+            if (process.env.NODE_ENV !== 'production') {
+                console.info(
+                    chrome.i18n.getMessage("debugWebRequestResponse"),
+                    value
+                );
+            }
+
+            const { method, url, body, headers } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; };
+            makeBackgroundWebRequest(url, method, body, headers).then((response: Response): void => {
+                response.text().then((text: string): void => {
+                    sendResponse(text);
+                });
+            }).catch((e) => {
+                console.error(e);
+                sendResponse(e);
+            });
+        }
+            return true;
     }
 });
 

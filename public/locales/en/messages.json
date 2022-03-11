@@ -91,5 +91,8 @@
     },
     "debugNoStudentiPageId": {
         "message": "I was unable to find the current page ID. I'm sorry, but I can't do anything."
+    },
+    "debugWebRequestResponse": {
+        "message": "%cRequest response: %c%o"
     }
 }

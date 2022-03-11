@@ -91,5 +91,8 @@
     },
     "debugNoStudentiPageId": {
         "message": "Non trovo un ID per la pagina corrente, non posso procedere oltre."
+    },
+    "debugWebRequestResponse": {
+        "message": "%cRisposta della richiesta: %c%o"
     }
 }
