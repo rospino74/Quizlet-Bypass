@@ -85,5 +85,8 @@
     },
     "popupCounterSubtitle": {
         "message": "Avoided paywalls"
+    },
+    "debugWebRequestResponse": {
+        "message": "%cRequest response: %c%o"
     }
 }

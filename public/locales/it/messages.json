@@ -85,5 +85,8 @@
     },
     "popupCounterSubtitle": {
         "message": "Paywall evitati"
+    },
+    "debugWebRequestResponse": {
+        "message": "%cRisposta della richiesta: %c%o"
     }
 }

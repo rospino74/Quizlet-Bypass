@@ -10,21 +10,14 @@
 // limitations under the License.
 //
 
+import makeWebRequest from '../../common/makeWebRequest.ts';
+
 export default async function getCSRFToken() {
-    const request = await fetch('https://quizlet.com/latest', {
-        credentials: 'include',
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0',
-            Accept: 'text/html',
-            'Accept-Language': 'it-IT,it;q=0.8,en;q=0.3',
-            Pragma: 'no-cache',
-            'Cache-Control': 'no-cache',
-        },
-        referrer: 'https://quizlet.com/latest',
-        method: 'GET',
-        mode: 'cors',
-    });
-    const content = await request.text();
+    const headers = {
+        Pragma: 'no-cache',
+        'Cache-Control': 'no-cache',
+    };
+    const content = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, headers);
 
     // Cerco il nome del token
     const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i);
