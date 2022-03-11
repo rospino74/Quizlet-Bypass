@@ -84,9 +84,13 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
                 console.info('Increment stats received');
             }
 
-            const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
-            const newValue = (oldValue + 1).toString();
-            localStorage.setItem(`stats.${value}`, newValue);
+            chrome.storage.sync.get('stats', (result: any) => {
+                const key = value as string;
+                const newValue = (result[key] || 0) + 1
+                result[key] = newValue;
+                chrome.storage.sync.set({ stats: result });
+            });
+
             break;
         }
         case 'getStats': {
@@ -94,8 +98,11 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
                 console.info('Get stats received');
             }
 
-            const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
-            sendResponse(oldValue);
+            chrome.storage.sync.get('stats', (result: any) => {
+                const key = value as string;
+                const statsValue = result[key] || 0;
+                sendResponse(statsValue);
+            });
             break;
         }
         case 'makeWebRequest': {
