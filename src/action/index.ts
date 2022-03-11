@@ -19,8 +19,17 @@ try {
     })
 
     // Sets the counter value
-    const count = localStorage.getItem("stats.accounts_created") || "0";
-    counterValue.innerText = count;
+    // const count = localStorage.getItem("stats.accounts_created") || "0";
+    // counterValue.innerText = count;
+    chrome.runtime.sendMessage({
+        action: 'getStats',
+        value: 'accounts_created'
+    }, (response?: string) => {
+        if (response) {
+            console.log(response);
+            counterValue.innerText = response;
+        }
+    });
 } catch (e) {
     console.error(e);
 }
