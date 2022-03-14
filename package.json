@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/node": "^17.0.21",
     "copy-webpack-plugin": "^10.2.4",
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "https": "^1.0.0",
