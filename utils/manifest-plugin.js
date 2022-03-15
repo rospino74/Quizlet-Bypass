@@ -1,3 +1,4 @@
+const { execSync } = require('child_process');
 const { version, description } = require('../package.json');
 
 class ManifestCompilationPlugin {
@@ -57,8 +58,21 @@ class ManifestCompilationPlugin {
     }
 
     setManifestValues() {
-        this.manifest.version = version || '0.0.0';
+        this.manifest.version = version || '1.0.0';
         this.manifest.description = description || '';
+
+        // Check the number of commits from the last release, if any add it to the version
+        try {
+            const lastTagHash = execSync('git rev-list --tags --no-walk --max-count=1').toString();
+            let commitsCount = execSync(`git rev-list --count ${lastTagHash}..HEAD`).toString();
+            if (commitsCount) {
+                // Remove the leading '\n' if it exists
+                commitsCount = commitsCount.replace('\n', '');
+                this.manifest.version += `.${commitsCount}`;
+            }
+        } catch (e) {
+            // Do nothing
+        }
     }
 }
 
