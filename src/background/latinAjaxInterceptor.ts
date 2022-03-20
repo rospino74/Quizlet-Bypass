@@ -116,20 +116,24 @@ export default function installLatinAjaxInterceptor() {
             }
 
         } else {
-            chrome.webRequest.onBeforeRequest.addListener(
-                chromeListener,
-                { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
-                ['blocking']
-            );
-
-            if (process.env.NODE_ENV !== 'production') {
-                console.log(
-                    chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
-                    'color: #f5cf80;',
-                    'color: gray; font-style: italic;',
-                    'color: #009dd9;',
-                    'color: gray; font-style: italic;'
+            if (process.env.IS_MV3) {
+                throw new Error("Manifest Version 3 not supported.");
+            } else {
+                chrome.webRequest.onBeforeRequest.addListener(
+                    chromeListener,
+                    { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
+                    ['blocking']
                 );
+
+                if (process.env.NODE_ENV !== 'production') {
+                    console.log(
+                        chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
+                        'color: #f5cf80;',
+                        'color: gray; font-style: italic;',
+                        'color: #009dd9;',
+                        'color: gray; font-style: italic;'
+                    );
+                }
             }
         }
     } catch (e) {
