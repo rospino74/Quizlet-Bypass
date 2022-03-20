@@ -96,7 +96,7 @@ class ManifestCompilationPlugin {
             delete this.manifest.browser_action;
 
             // Remove the webRequest permission
-            this.manifest.permissions = this.manifest.permissions.filter((permission) => permission !== 'webRequest' && permission !== 'webRequestBlocking');
+            this.manifest.permissions = this.manifest.permissions.filter((permission) => permission !== 'webRequestBlocking');
             this.manifest.permissions.push('declarativeNetRequest');
         }
     }
