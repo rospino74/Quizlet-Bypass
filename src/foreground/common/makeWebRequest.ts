@@ -10,7 +10,12 @@
 // limitations under the License.
 //
 
-export default function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<string> {
+export interface WebRequestResponse {
+    content: string,
+    cookies: string
+}
+
+export default function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<WebRequestResponse> {
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             action: 'makeWebRequest',
@@ -20,7 +25,7 @@ export default function makeWebRequest(url: string, method: 'GET' | 'POST', body
                 body,
                 headers
             }
-        }, (response?: string) => {
+        }, (response?: WebRequestResponse) => {
             if (process.env.NODE_ENV !== 'production') {
                 console.log(
                     chrome.i18n.getMessage("debugWebRequestResponse"),

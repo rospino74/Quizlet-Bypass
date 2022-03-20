@@ -17,7 +17,7 @@ export default async function getCSRFToken() {
         Pragma: 'no-cache',
         'Cache-Control': 'no-cache',
     };
-    const content = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, headers);
+    const { content } = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, headers);
 
     // Cerco il nome del token
     const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i);
