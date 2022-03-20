@@ -1,6 +1,6 @@
 {
     "entry": "index.ts",
-    "permissions": [
+    "urls": [
         "*://*.studenti.it/*"
     ],
     "matches": [
