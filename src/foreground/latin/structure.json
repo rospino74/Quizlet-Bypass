@@ -5,9 +5,11 @@
         "*://*.latin.it/versione/*",
         "*://*.latin.it/autore/*/*/*"
     ],
-    "permissions": [
+    "urls": [
         "*://*.latin.it/*",
-        "*://www-latin-it.translate.goog/*",
+        "*://www-latin-it.translate.goog/*"
+    ],
+    "permissions": [
         "webRequest",
         "webRequestBlocking"
     ]

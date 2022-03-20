@@ -1,6 +1,6 @@
 {
     "entry": "index.js",
-    "permissions": [
+    "urls": [
         "*://*.skuola.net/*"
     ],
     "matches": [

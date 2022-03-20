@@ -1,10 +1,12 @@
 {
     "entry": "index.ts",
     "permissions": [
-        "*://*.quizlet.com/*",
         "webRequest",
         "cookies",
         "tabs"
+    ],
+    "urls": [
+        "*://*.quizlet.com/*"
     ],
     "matches": [
         "*://*.quizlet.com/explanations/textbook-solutions/*",
