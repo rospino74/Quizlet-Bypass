@@ -35,17 +35,14 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
     return {};
 }
 function parseAndRemove(str: string): string {
-    // Getting the only the div with one of his many classes __isAdBlockerEnabled
-    const div = str.match(/<div class="[^>"]*__isAdBlockerEnabled[^>]*>([\s\S]*?)<\/div>/g)![0];
+    const regex = /<div class="([^>"]*)__isAdBlockerEnabled[^>]*>([\s\S]*?)<\/div>/gm;
+    const matches = regex.exec(str);
 
-    const template = document.createElement('template');
-    template.innerHTML = div;
+    if (matches) {
+        return str.replace(matches[1], '');
+    }
 
-    const adblockerFishingHook = template.content.querySelector<HTMLDivElement>('.__isAdBlockerEnabled');
-    adblockerFishingHook!.className = "__isAdBlockerEnabled";
-
-    // Updating the HTML
-    return str.replace(div, template.innerHTML);
+    return str;
 }
 
 export default function installQuizletInterceptor() {

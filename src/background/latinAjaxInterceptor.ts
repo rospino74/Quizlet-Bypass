@@ -10,8 +10,6 @@
 // limitations under the License.
 //
 
-import userSelectRemover from '../foreground/latin/import/userSelectRemover';
-
 function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
     // @ts-ignore
     const filter = browser.webRequest.filterResponseData(details.requestId);
@@ -44,7 +42,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
             );
         }
 
-        // Invio la risposta
+        // Just send back the response
         filter.write(encoder.encode(str));
         filter.disconnect();
     }
@@ -90,16 +88,11 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
 }
 
 function parseAndRemove(str: string): string {
-    // Creo un elemento template
-    const template = document.createElement('template');
-    template.innerHTML = str;
+    // Regex to find all kind of user select
+    const regex = /-?(moz|webkit|khtml|ms|o)?-?user-select: none;?/gm;
 
-    // Elimino l'anty copy
-    const noCopyBoxes = template.content.querySelectorAll('[style*=user-select]') as NodeListOf<HTMLElement>;
-    userSelectRemover(noCopyBoxes);
-
-    // Estraggo html
-    return template.innerHTML;
+    // Just removes it
+    return str.replace(regex, '');
 }
 
 export default function installLatinAjaxInterceptor() {
