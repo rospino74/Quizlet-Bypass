@@ -52,8 +52,10 @@ async function makeAccountCreationRequest(email) {
         marketing_opt_out: true,
     };
 
-    const request = await makeWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', JSON.stringify(body), headers);
-    return JSON.parse(request);
+
+    const { content } = await makeWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', JSON.stringify(body), headers);
+
+    return JSON.parse(content);
 }
 
 export default async function makeQuizletAccount() {
