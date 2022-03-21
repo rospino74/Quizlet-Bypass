@@ -12,32 +12,24 @@
 
 import UserAgent from 'random-useragent';
 import userSelectRemover from './userSelectRemover';
+import makeWebRequest from '../../common/makeWebRequest';
 
 const baseUrl = 'https://www-latin-it.translate.goog/';
 const getParams = '_x_tr_sl=it&_x_tr_tl=it&_x_tr_hl=it&_x_tr_pto=ajax,op,elem';
 
 export default async function getHTMLFromTranslate(url: string): Promise<string | null> {
     // Prendo il contenuto da Google Traduttore
-    const request = await fetch(baseUrl + url + (url.indexOf('?') == -1 ? '?' : '&') + getParams, {
-        'credentials': 'include',
-        'headers': {
-            'User-Agent': UserAgent.getRandom() as string,
-            'Accept': 'text/html,*/*;q=0.8',
-            'Accept-Language': 'it-IT,it;q=0.8,en;q=0.3',
-            'Upgrade-Insecure-Requests': '1',
-            'Cache-Control': 'max-age=0',
-        },
-        'method': 'GET',
-        'mode': 'cors'
-    });
-
-    if (request.status != 200) {
-        return null;
+    const headers = {
+        'User-Agent': UserAgent.getRandom() as string,
+        'Cache-Control': 'max-age=0',
+        Pragma: 'no-cache',
     }
+
+    const response = await makeWebRequest(baseUrl + url + (url.indexOf('?') == -1 ? '?' : '&') + getParams, 'GET', undefined, headers)
 
     // Creo un elemento template
     const template = document.createElement('template');
-    template.innerHTML = await request.text();
+    template.innerHTML = response.content;
 
     // Rimuovo il no copy
     const noCopyBoxes = template.content.querySelectorAll("[style*=user-select]") as NodeListOf<HTMLElement>;
