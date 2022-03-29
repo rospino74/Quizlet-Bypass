@@ -4,10 +4,9 @@
   "description": "Removes the paywall from the Quizlet page and other sites",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix ./src",
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack --config webpack.dev.js"
+    "dev": "webpack --config webpack.dev.js"
   },
   "private": true,
   "author": "rospino74",
