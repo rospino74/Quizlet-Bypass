@@ -43,6 +43,13 @@
           "gecko": {
             "strict_min_version": "48.0"
           }
+        },
+        {
+          "version": "1.4.3",
+          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.2/extension.zip",
+          "gecko": {
+            "strict_min_version": "57"
+          }
         }
       ]
     }
