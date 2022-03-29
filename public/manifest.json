@@ -16,7 +16,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "quizletbypass@rospino74.github.io",
-            "strict_min_version": "48.0",
+            "strict_min_version": "57",
             "update_url": "https://github.com/rospino74/Quizlet-Bypass/raw/master/public/updates.json"
         }
     },
