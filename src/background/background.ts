@@ -14,6 +14,37 @@ import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './latinAjaxInterceptor';
 import installQuizletInterceptor from './quizletInterceptor';
 
+// Shtty banner here
+(() => {
+    let special_style = [
+        "font-weight: bold",
+        "font-size:32px",
+        "color: white"
+    ].join(";");
+
+    const colors = [
+        "hsl(0, 70%, 60%)",
+        "hsl(40, 70%, 60%)",
+        "hsl(60, 70%, 60%)",
+        "hsl(100, 70%, 60%)",
+        "hsl(170, 70%, 60%)",
+        "hsl(230, 70%, 60%)",
+        "hsl(270, 70%, 60%)",
+    ];
+
+    special_style += "; text-shadow: "
+    for (let i = 1; i < colors.length; i++) {
+        const color = colors[i - 1];
+        special_style += `${1.5 * i}px ${1.2 * i}px 0px ${color}`;
+        if (i < colors.length - 1) {
+            special_style += ", ";
+        } else {
+            special_style += ";";
+        }
+    }
+
+    console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', special_style, 'color: gray; font-style: italic;', process.env.VERSION);
+})();
 
 // Provo ad intercettare le richieste
 installLatinAjaxInterceptor();
