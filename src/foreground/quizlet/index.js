@@ -34,8 +34,7 @@ function handleMutation(mutation) {
     banner = mutation.target.querySelector('.BannerWrapper');
     if (banner) {
         try {
-            banner.parentElement.remove();
-            mutation.target.querySelector('img[data-testid="premiumBrandingBadge-lock"]').remove();
+            banner.parentElement.style.display = 'none';
         } catch (err) {
             if (process.env.NODE_ENV !== 'production') {
                 console.error(err);
@@ -43,9 +42,30 @@ function handleMutation(mutation) {
         }
     }
 
+    // Hiding lock icons
+    try {
+        const locks = mutation.target.querySelectorAll('img[data-testid="premiumBrandingBadge-lock"]');
+        locks.forEach((e) => { e.style.display = 'none'; });
+    } catch (err) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(err);
+        }
+    }
+
+    // Hiding the upgrade button
     try {
         const upgradeButtons = mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade');
-        upgradeButtons.forEach((e) => e.remove());
+        upgradeButtons.forEach((e) => { e.style.display = 'none'; });
+    } catch (err) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(err);
+        }
+    }
+
+    // Hiding the ad box
+    try {
+        const adboxes = mutation.target.querySelectorAll('.SiteAd');
+        adboxes.forEach((e) => { e.parentElement.style.display = 'none'; });
     } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
             console.error(err);
@@ -57,20 +77,19 @@ function handleMutation(mutation) {
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
-        notLoggedInPaywall.parentElement.removeChild(
-            notLoggedInPaywall.parentElement.querySelector('.lfyx4xv'),
-        );
+        const social = notLoggedInPaywall.parentElement.querySelector('.lfyx4xv');
+        if (social) {
+            social.style.display = 'none';
+        }
 
-        // Aggiorno lo stile
         notLoggedInPaywall.style.maxWidth = 'unset';
         notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
         notLoggedInPaywall.parentElement.style.backgroundImage = 'none';
 
-        // Cambio il testo nel paywall
+        // Changing the paywall banner text
         const bigTitle = notLoggedInPaywall.querySelector('.t1qexa4p');
         const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
 
-        // Se lingua del browser è l'Italiano cambio il testo
         bigTitle.innerText = chrome.i18n.getMessage('lockedContent');
         smallTitle.innerHtml = chrome.i18n.getMessage('pressToReload', [
             '<a href="#" onclick="window.location.reload();">',
@@ -86,8 +105,6 @@ const observer = new MutationObserver((mutationList) => {
 
 // Start observing
 observer.observe(document, { childList: true, subtree: true });
-// stop observing
-setTimeout(observer.disconnect, 1500);
 
 // check once at load
 handleMutation({ target: document });
