@@ -37,12 +37,12 @@ if (!url || !solutionBox) {
     } else {
         const [[, soluzioniUsate], [, soluzioniTotali]] = soluzionsCount;
 
-        // Controllo se ci sono soluzioni
-        if (parseInt(soluzioniUsate) > parseInt(soluzioniTotali)) {
+        // Checking if we still have solutions available
+        if (parseInt(soluzioniTotali) < 5) {
             substituteText(url[1], solutionBox);
         } else {
             if (process.env.NODE_ENV !== 'production') {
-                console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', parseInt(soluzioniTotali) - parseInt(soluzioniUsate));
+                console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', soluzioniTotali);
             }
         }
     }
