@@ -24,8 +24,12 @@ if (!url || !solutionBox) {
         console.log(chrome.i18n.getMessage('debugNotLoadedOnAValidPage'), 'color: #f04747;', 'color: gray; font-style: italic;');
     }
 } else {
-    // Ottengo il numero di soluzioni rimaste
-    const solutionsText = solutionBox.querySelector('.tdbox')?.children?.item(3)?.textContent ?? '1 brani 0 brani';
+    // Getting the count of the remaining solutions
+    let solutionsText = solutionBox.querySelector('.tdbox')?.children?.item(3)?.textContent;
+    if (!solutionsText) {
+        solutionsText = solutionBox.querySelector('div[style*="color: #000 !important;"]')?.textContent ?? '1 brani 0 brani';
+    }
+
     const soluzionsCount = Array.from(solutionsText.matchAll(/([0-9\.]+) brani/g))
 
     if (soluzionsCount.length < 2) {
