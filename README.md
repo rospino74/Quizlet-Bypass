@@ -44,7 +44,7 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 ## Additional Notes ⚠️
 * Be aware that this extension will log you out of your quizlet account every time you open a textbook solution.
 * Chromium browsers may bother you about having extensions in developer mode, just dismiss the alert to keep the extension running.
-* If you think there is a problem with the extension feel free to [open an issue](https://github.com/rospino74/Quizlet-Bypass/issues/new) 😉.
+* If you think there is a problem with the extension feel free to [open an issue](https://github.com/rospino74/Quizlet-Bypass/issues/new/choose) 😉.
 
 ## Supported Websites 🌐
 | Website | Feature | Version |
