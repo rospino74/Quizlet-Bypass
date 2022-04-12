@@ -47,7 +47,7 @@ Quizlet non usa un captcha nei form di registrazione
 ## Informazioni aggiuntive ⚠️
 * Ogni volta che visiterai una pagina di _Quizlet_ per le soluzioni verrai disconnesso.
 * I browser basati su _Chromium_ potrebbero avvertirti a causa di un estensione eseguita in modalità sviluppatore, per continuare ad usarla chiudi il popup con la _X_.
-* Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://github.com/rospino74/Quizlet-Bypass/issues/new) 😉.
+* Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://github.com/rospino74/Quizlet-Bypass/issues/new/choose) 😉.
 
 ### La tua estensione non funziona!1!!1
 ![Ricarica per sbloccare](https://sqleoni.altervista.org/file/png/quizlet-unlock-refresh.png)
