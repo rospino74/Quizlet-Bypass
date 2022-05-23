@@ -14,29 +14,19 @@ import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './latinAjaxInterceptor';
 import installQuizletInterceptor from './quizletInterceptor';
 
-// Shtty banner here
+// Shitty banner here
 (() => {
     let special_style = [
         "font-weight: bold",
-        "font-size:32px",
+        "font-size: 32px",
         "color: white"
     ].join(";");
 
-    const colors = [
-        "hsl(0, 70%, 60%)",
-        "hsl(40, 70%, 60%)",
-        "hsl(60, 70%, 60%)",
-        "hsl(100, 70%, 60%)",
-        "hsl(170, 70%, 60%)",
-        "hsl(230, 70%, 60%)",
-        "hsl(270, 70%, 60%)",
-    ];
-
+    const hue = [0, 40, 60, 100, 170, 230, 270];
     special_style += "; text-shadow: "
-    for (let i = 1; i < colors.length; i++) {
-        const color = colors[i - 1];
-        special_style += `${1.5 * i}px ${1.2 * i}px 0px ${color}`;
-        if (i < colors.length - 1) {
+    for (let i = 1; i < hue.length; i++) {
+        special_style += `${1.5 * i}px ${1.2 * i}px 0px hsl(${hue[i - 1]}, 70%, 60%)`;
+        if (i < hue.length - 1) {
             special_style += ", ";
         } else {
             special_style += ";";
