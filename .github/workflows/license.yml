@@ -3,6 +3,7 @@ name: Licence years updater
 on:
   schedule:
     - cron: "0 0 1 1 *"
+  workflow_dispatch:
 
 jobs:
   update-license-year:
