@@ -85,5 +85,11 @@
     },
     "popupCounterSubtitle": {
         "message": "Avoided paywalls"
+    },
+    "fetchError": {
+        "message": "%cError while fetching the page: %o"
+    },
+    "debugNoStudentiPageId": {
+        "message": "I was unable to find the current page ID. I'm sorry, but I can't do anything."
     }
 }

@@ -10,25 +10,24 @@
 // limitations under the License.
 //
 
+import getPageId from "./import/getPageId";
 import getFileDownloadUrl from "./import/getFileDownloadUrl";
 
 console.log('%cStudenti.it %cv%s', 'color: #7ab700;', 'color: gray; font-style: italic;', process.env.VERSION);
 
 const appuntiRegex = /appunti\/[a-zA-Z0-9\-/]+\.html/gm;
-const urlPageIdRegex = /\?h=([a-zA-Z0-9\-]+)/gm;
-let pageId: string;
+
+const pageIdPromise = getPageId();
+pageIdPromise.then(patchDownloadLink);
 
 // Check if the page is an appunti page
 if (appuntiRegex.test(window.location.href)) {
-    pageId = getNextPageId();
-    removeAdvertisingLink(pageId);
+    pageIdPromise.then(removeAdvertisingLink);
 
     // Remove right arrow button
     const rightArrowButtons = document.querySelectorAll<HTMLLIElement>(".pager ul li:last-child");
     rightArrowButtons.forEach(btn => btn.parentElement?.removeChild(btn));
 } else {
-    pageId = urlPageIdRegex.exec(window.location.href)!![1];
-
     const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a[href*=correlati]");
     relatedPageButton.forEach(btn => {
         if (process.env.NODE_ENV !== 'production') {
@@ -47,7 +46,9 @@ if (appuntiRegex.test(window.location.href)) {
             counter.innerText = currentPageCount.toString();
         });
     }
+}
 
+function patchDownloadLink(pageId: string) {
     // Gets the download button
     const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
     if (downloadButton) {
@@ -66,19 +67,6 @@ if (appuntiRegex.test(window.location.href)) {
         });
     }
 }
-
-function getNextPageId(): string {
-    // Grabbing the url from the button
-    const nextPageUrl = document.querySelector<HTMLAnchorElement>(".pager ul li:nth-child(2) a")!!.href;
-    const pageIdRegex = /download_2\/([a-zA-Z0-9\-]+)_1\.html/gm;
-
-    if (process.env.NODE_ENV !== 'production') {
-        console.log(chrome.i18n.getMessage('debugNextPageAddress'), 'color: #7ab700;', nextPageUrl);
-    }
-
-    return pageIdRegex.exec(nextPageUrl)!![1];
-}
-
 
 function removeAdvertisingLink(id: string) {
     const baseUrl = `https://doc.studenti.it/vedi_tutto/index.php?h=${id}`;

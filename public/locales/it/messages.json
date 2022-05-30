@@ -85,5 +85,11 @@
     },
     "popupCounterSubtitle": {
         "message": "Paywall evitati"
+    },
+    "fetchError": {
+        "message": "%cErrore durante una richiesta fetch: %o"
+    },
+    "debugNoStudentiPageId": {
+        "message": "Non trovo un ID per la pagina corrente, non posso procedere oltre."
     }
 }
