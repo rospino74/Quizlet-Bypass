@@ -52,6 +52,19 @@ function handleMutation(mutation) {
         }
     }
 
+    // Hiding premium badges
+    try {
+        const badges = mutation.target.querySelectorAll('.AssemblyPill--plus');
+        badges.forEach((e) => {
+            e.style.display = 'none';
+            e.parentElement.style.display = 'none';
+        });
+    } catch (err) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error(err);
+        }
+    }
+
     // Hiding the upgrade button
     try {
         const upgradeButtons = mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade');
@@ -73,14 +86,12 @@ function handleMutation(mutation) {
     }
 
     // Finding paywall banners
-    notLoggedInPaywall = mutation.target.querySelector('.t15hde6e');
+    notLoggedInPaywall = mutation.target.querySelector('.LoginWall');
 
     if (notLoggedInPaywall) {
         // Cancello i bottoni social per il login
         const social = notLoggedInPaywall.parentElement.querySelector('.lfyx4xv');
-        if (social) {
-            social.style.display = 'none';
-        }
+        if (social) { social.style.display = 'none'; }
 
         notLoggedInPaywall.style.maxWidth = 'unset';
         notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
@@ -88,13 +99,15 @@ function handleMutation(mutation) {
 
         // Changing the paywall banner text
         const bigTitle = notLoggedInPaywall.querySelector('.t1qexa4p');
-        const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
+        if (bigTitle) { bigTitle.innerText = chrome.i18n.getMessage('lockedContent'); }
 
-        bigTitle.innerText = chrome.i18n.getMessage('lockedContent');
-        smallTitle.innerHtml = chrome.i18n.getMessage('pressToReload', [
-            '<a href="#" onclick="window.location.reload();">',
-            '</a>',
-        ]);
+        const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
+        if (smallTitle) {
+            smallTitle.innerHtml = chrome.i18n.getMessage('pressToReload', [
+                '<a href="#" onclick="window.location.reload();">',
+                '</a>',
+            ]);
+        }
     }
 }
 
