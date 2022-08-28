@@ -19,16 +19,23 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
     filter.ondata = (event: any) => {
         let str = decoder.decode(event.data, { stream: true });
 
-        str = parseAndRemove(str);
+        try {
+            const new_str = parseAndRemove(str);
 
-        if (process.env.NODE_ENV !== 'production') {
-            console.log(
-                chrome.i18n.getMessage("debugModifiedHtml"),
-                str
-            );
+            if (process.env.NODE_ENV !== 'production') {
+                console.log(
+                    chrome.i18n.getMessage("debugModifiedHtml"),
+                    new_str
+                );
+            }
+            filter.write(encoder.encode(new_str));
+        } catch (e) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(e);
+            }
+            filter.write(encoder.encode(str));
         }
 
-        filter.write(encoder.encode(str));
         filter.disconnect();
     }
 
@@ -36,7 +43,8 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
 }
 function parseAndRemove(str: string): string {
     // Getting the only the div with one of his many classes __isAdBlockerEnabled
-    const div = str.match(/<div class="[^>"]*__isAdBlockerEnabled[^>]*>([\s\S]*?)<\/div>/g)![0];
+    // const div = str.match(/<div class="[^>"]*__isAdBlockerEnabled[^>]*>([\s\S]*?)<\/div>/g)![0];
+    const div = str.match(/<div class="[^>"]*__isAdBlockerEnabled[^>]*>&nbsp;<\/div>/g)![0];
 
     const template = document.createElement('template');
     template.innerHTML = div;
