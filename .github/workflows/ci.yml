@@ -39,9 +39,9 @@ jobs:
         run: yarn eslint .
       - name: Extension build
         run: yarn build
-      - name: Web-Ext check
-        run: yarn web-ext lint --self-hosted
-        working-directory: ./dist/build
+#       - name: Web-Ext check
+#         run: yarn web-ext lint --self-hosted
+#         working-directory: ./dist/build
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.node-version }} == "16.x"
         with:
