@@ -96,6 +96,10 @@ const commonConfig = {
         usedExports: true,
         innerGraph: true,
     },
+	cache: {
+		type: 'filesystem',
+		cacheDirectory: `${distPath}/.cache/`,  
+	},
 };
 
 const content = merge(commonConfig, {
