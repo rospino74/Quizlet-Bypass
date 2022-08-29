@@ -1,63 +1,64 @@
 {
-  "addons": {
-    "quizletbypass@rospino74.github.io": {
-      "updates": [
-        {
-          "version": "1.2.1",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.2.1/extension.zip",
-          "gecko": {
-            "strict_min_version": "48.0"
-          }
-        },
-        {
-          "version": "1.2.2",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.2.2/extension.zip",
-          "gecko": {
-            "strict_min_version": "48.0"
-          }
-        },
-        {
-          "version": "1.3.0",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.3.0/extension.zip",
-          "gecko": {
-            "strict_min_version": "48.0"
-          }
-        },
-        {
-          "version": "1.4.0",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.0/extension.zip",
-          "gecko": {
-            "strict_min_version": "48.0"
-          }
-        },
-        {
-          "version": "1.4.1",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.1/extension.zip",
-          "gecko": {
-            "strict_min_version": "48.0"
-          }
-        },
-        {
-          "version": "1.4.2",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.2/extension.zip",
-          "gecko": {
-            "strict_min_version": "48.0"
-          }
-        },
-        {
-          "version": "1.4.3",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.3/extension.zip",
-          "gecko": {
-            "strict_min_version": "57"
-          },
-        {
-          "version": "1.4.4",
-          "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.4/extension.zip",
-          "gecko": {
-            "strict_min_version": "57"
-          }
-        }
-      ]
-    }
-  }
+   "addons":{
+      "quizletbypass@rospino74.github.io":{
+         "updates":[
+            {
+               "version":"1.2.1",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.2.1/extension.zip",
+               "gecko":{
+                  "strict_min_version":"48.0"
+               }
+            },
+            {
+               "version":"1.2.2",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.2.2/extension.zip",
+               "gecko":{
+                  "strict_min_version":"48.0"
+               }
+            },
+            {
+               "version":"1.3.0",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.3.0/extension.zip",
+               "gecko":{
+                  "strict_min_version":"48.0"
+               }
+            },
+            {
+               "version":"1.4.0",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.0/extension.zip",
+               "gecko":{
+                  "strict_min_version":"48.0"
+               }
+            },
+            {
+               "version":"1.4.1",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.1/extension.zip",
+               "gecko":{
+                  "strict_min_version":"48.0"
+               }
+            },
+            {
+               "version":"1.4.2",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.2/extension.zip",
+               "gecko":{
+                  "strict_min_version":"48.0"
+               }
+            },
+            {
+               "version":"1.4.3",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.3/extension.zip",
+               "gecko":{
+                  "strict_min_version":"57"
+               }
+            },
+            {
+               "version":"1.4.4",
+               "update_link":"https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.4.4/extension.zip",
+               "gecko":{
+                  "strict_min_version":"57"
+               }
+            }
+         ]
+      }
+   }
 }
