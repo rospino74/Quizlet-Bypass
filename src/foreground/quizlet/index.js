@@ -12,6 +12,7 @@
 
 import deleteQuizletAccount from './import/accountDeleter';
 import makeQuizletAccount from './import/accountMaker';
+import './import/annoyanceRemover.ts';
 
 const consolePrefixStyles = [
     'color: #fff',
@@ -32,67 +33,33 @@ let notLoggedInPaywall = null;
 
 function handleMutation(mutation) {
     banner = mutation.target.querySelector('.BannerWrapper');
-    if (banner) {
-        try {
-            banner.parentElement.style.display = 'none';
-        } catch (err) {
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(err);
-            }
-        }
-    }
+
+    // Hiding the paywall banner
+    mutation.target.removeAnnoyance('.BannerWrapper');
 
     // Hiding lock icons
-    try {
-        const locks = mutation.target.querySelectorAll('img[data-testid="premiumBrandingBadge-lock"]');
-        locks.forEach((e) => { e.style.display = 'none'; });
-    } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(err);
-        }
-    }
+    mutation.target.removeAnnoyance('img[data-testid="premiumBrandingBadge-lock"]', false);
 
     // Hiding premium badges
-    try {
-        const badges = mutation.target.querySelectorAll('.AssemblyPill--plus');
-        badges.forEach((e) => {
-            e.style.display = 'none';
-            e.parentElement.style.display = 'none';
-        });
-    } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(err);
-        }
-    }
+    mutation.target.removeAnnoyance('.AssemblyPill--plus');
 
     // Hiding the upgrade button
-    try {
-        const upgradeButtons = mutation.target.querySelectorAll('.AssemblyPrimaryButton--upgrade');
-        upgradeButtons.forEach((e) => { e.style.display = 'none'; });
-    } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(err);
-        }
-    }
+    mutation.target.removeAnnoyance('.AssemblyPrimaryButton--upgrade', false);
 
     // Hiding the ad box
-    try {
-        const adboxes = mutation.target.querySelectorAll('.SiteAd');
-        adboxes.forEach((e) => { e.parentElement.style.display = 'none'; });
-    } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(err);
-        }
-    }
+    mutation.target.removeAnnoyance('.SiteAd');
+
+    // QuizletPlus popup
+    mutation.target.removeAnnoyance('.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false);
 
     // Finding paywall banners
     notLoggedInPaywall = mutation.target.querySelector('.LoginWall');
 
     if (notLoggedInPaywall) {
-        // Cancello i bottoni social per il login
-        const social = notLoggedInPaywall.parentElement.querySelector('.lfyx4xv');
-        if (social) { social.style.display = 'none'; }
+        // Removing the social login buttons
+        notLoggedInPaywall.parentElement.removeAnnoyance('.lfyx4xv', false);
 
+        // Adjust the stile of the login wall
         notLoggedInPaywall.style.maxWidth = 'unset';
         notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
         notLoggedInPaywall.parentElement.style.backgroundImage = 'none';
