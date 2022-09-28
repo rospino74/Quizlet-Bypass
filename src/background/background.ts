@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
         }
         case 'incrementStats': {
             if (process.env.NODE_ENV !== 'production') {
-                console.warn('Increment stats received');
+                console.info('Increment stats received');
             }
 
             const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
@@ -90,7 +90,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string; 
         }
         case 'getStats': {
             if (process.env.NODE_ENV !== 'production') {
-                console.warn('Get stats received');
+                console.info('Get stats received');
             }
 
             const oldValue = parseInt(localStorage.getItem(`stats.${value}`) || '0', 10);
