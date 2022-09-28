@@ -60,27 +60,33 @@ function handleMutation(mutation: MutationRecord) {
 
     if (notLoggedInPaywall) {
         const parent = notLoggedInPaywall.parentElement;
-        
+
         if (parent) {
             // Removing the social login buttons
             removeAnnoyance(parent, '.lfyx4xv', false);
-
-            // Adjust the stile of the login wall
-            notLoggedInPaywall.style.maxWidth = 'unset';
-            parent.style.backgroundColor = '#df1326';
-            parent.style.backgroundImage = 'none';
         }
+
+        // Adjust the stile of the login wall
+        notLoggedInPaywall.style.maxWidth = 'unset';
+        notLoggedInPaywall.style.backgroundColor = '#df1326';
+        notLoggedInPaywall.style.backgroundImage = 'none';
 
         // Changing the paywall banner text
         const bigTitle = notLoggedInPaywall.querySelector<HTMLElement>('.t1qexa4p');
-        if (bigTitle) { bigTitle.innerText = chrome.i18n.getMessage('lockedContent'); }
+        if (bigTitle && !bigTitle.dataset.modified) {
+            bigTitle.innerText = chrome.i18n.getMessage('lockedContent');
 
-        const smallTitle = notLoggedInPaywall.querySelector<HTMLElement>('.ssg8684');
-        if (smallTitle) {
+            // Creating the reload button
+            const smallTitle = document.createElement('h3');
             smallTitle.innerHTML = chrome.i18n.getMessage('pressToReload', [
                 '<a href="#" onclick="window.location.reload();">',
                 '</a>',
             ]);
+            smallTitle.style.color = 'white';
+            bigTitle.parentElement?.appendChild(smallTitle);
+
+            // Marking the element as modified to prevent infinite reading
+            bigTitle.dataset.modified = 'true';
         }
     }
 }
