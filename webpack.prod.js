@@ -15,10 +15,9 @@ common.forEach((config, index) => {
             new WebpackObfuscator({
                 renameGlobals: false,
                 identifierNamesGenerator: 'mangled-shuffled',
-                selfDefending: true,
+                selfDefending: false,
                 compact: true,
-                deadCodeInjection: true,
-                deadCodeInjectionThreshold: 0.1,
+                deadCodeInjection: false,
             }),
         ],
     });
