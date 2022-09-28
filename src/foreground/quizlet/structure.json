@@ -1,5 +1,5 @@
 {
-    "entry": "index.js",
+    "entry": "index.ts",
     "permissions": [
         "*://*.quizlet.com/*",
         "webRequest",

@@ -10,13 +10,9 @@
 // limitations under the License.
 //
 
-interface HTMLElement {
-    removeAnnoyance(selector: string, hideParent: boolean): boolean;
-}
-
-HTMLElement.prototype.removeAnnoyance = function (selector: string, hideParent: boolean = true): boolean {
+export default function removeAnnoyance(element: HTMLElement, selector: string, hideParent: boolean = true): boolean {
     try {
-        const children = this.querySelectorAll<HTMLElement>(selector);
+        const children = element.querySelectorAll<HTMLElement>(selector);
         children.forEach((e) => {
             e.style.display = 'none';
 

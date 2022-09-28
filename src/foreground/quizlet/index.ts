@@ -10,9 +10,11 @@
 // limitations under the License.
 //
 
+//@ts-ignore
 import deleteQuizletAccount from './import/accountDeleter';
+//@ts-ignore
 import makeQuizletAccount from './import/accountMaker';
-import './import/annoyanceRemover.ts';
+import removeAnnoyance from './import/annoyanceRemover';
 
 const consolePrefixStyles = [
     'color: #fff',
@@ -28,49 +30,54 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
 
-let banner = null;
-let notLoggedInPaywall = null;
+let banner: HTMLElement | null = null;
+let notLoggedInPaywall: HTMLElement | null = null;
 
-function handleMutation(mutation) {
-    banner = mutation.target.querySelector('.BannerWrapper');
+function handleMutation(mutation: MutationRecord) {
+    const target = mutation.target as HTMLElement;
+    banner = target.querySelector('.BannerWrapper');
 
     // Hiding the paywall banner
-    mutation.target.removeAnnoyance('.BannerWrapper');
+    removeAnnoyance(target, '.BannerWrapper');
 
     // Hiding lock icons
-    mutation.target.removeAnnoyance('img[data-testid="premiumBrandingBadge-lock"]', false);
+    removeAnnoyance(target, 'img[data-testid="premiumBrandingBadge-lock"]', false);
 
     // Hiding premium badges
-    mutation.target.removeAnnoyance('.AssemblyPill--plus');
+    removeAnnoyance(target, '.AssemblyPill--plus');
 
     // Hiding the upgrade button
-    mutation.target.removeAnnoyance('.AssemblyPrimaryButton--upgrade', false);
+    removeAnnoyance(target, '.AssemblyPrimaryButton--upgrade', false);
 
     // Hiding the ad box
-    mutation.target.removeAnnoyance('.SiteAd');
+    removeAnnoyance(target, '.SiteAd');
 
     // QuizletPlus popup
-    mutation.target.removeAnnoyance('.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false);
+    removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false);
 
     // Finding paywall banners
-    notLoggedInPaywall = mutation.target.querySelector('.LoginWall');
+    notLoggedInPaywall = target.querySelector('.LoginWall');
 
     if (notLoggedInPaywall) {
-        // Removing the social login buttons
-        notLoggedInPaywall.parentElement.removeAnnoyance('.lfyx4xv', false);
+        const parent = notLoggedInPaywall.parentElement;
+        
+        if (parent) {
+            // Removing the social login buttons
+            removeAnnoyance(parent, '.lfyx4xv', false);
 
-        // Adjust the stile of the login wall
-        notLoggedInPaywall.style.maxWidth = 'unset';
-        notLoggedInPaywall.parentElement.style.backgroundColor = '#df1326';
-        notLoggedInPaywall.parentElement.style.backgroundImage = 'none';
+            // Adjust the stile of the login wall
+            notLoggedInPaywall.style.maxWidth = 'unset';
+            parent.style.backgroundColor = '#df1326';
+            parent.style.backgroundImage = 'none';
+        }
 
         // Changing the paywall banner text
-        const bigTitle = notLoggedInPaywall.querySelector('.t1qexa4p');
+        const bigTitle = notLoggedInPaywall.querySelector<HTMLElement>('.t1qexa4p');
         if (bigTitle) { bigTitle.innerText = chrome.i18n.getMessage('lockedContent'); }
 
-        const smallTitle = notLoggedInPaywall.querySelector('.ssg8684');
+        const smallTitle = notLoggedInPaywall.querySelector<HTMLElement>('.ssg8684');
         if (smallTitle) {
-            smallTitle.innerHtml = chrome.i18n.getMessage('pressToReload', [
+            smallTitle.innerHTML = chrome.i18n.getMessage('pressToReload', [
                 '<a href="#" onclick="window.location.reload();">',
                 '</a>',
             ]);
@@ -87,13 +94,15 @@ const observer = new MutationObserver((mutationList) => {
 observer.observe(document, { childList: true, subtree: true });
 
 // check once at load
+//@ts-ignore
 handleMutation({ target: document });
 
 // check paywall when main document has loaded
 async function loadedHandler() {
     // Verifico che il banner esista e che non abbia un figlio
     // con la classe "WithAccent"
-    if (/* !Quizlet.LOGGED_IN || */ !banner || !banner.querySelector('.WithAccent')) {
+    const accent = banner?.querySelector<HTMLElement>('.WithAccent');
+    if (/* !Quizlet.LOGGED_IN || */ !banner || !accent) {
         if (process.env.NODE_ENV !== 'production') {
             console.log(
                 '%c%s',
@@ -128,8 +137,8 @@ async function loadedHandler() {
         });
 
         // Warning about remaining solutions
-    } else if (banner.querySelector('.WithAccent') && process.env.NODE_ENV !== 'production') {
-        const debugRemainingSolutions = banner.querySelector('.WithAccent').innerText;
+    } else if (accent && process.env.NODE_ENV !== 'production') {
+        const debugRemainingSolutions = accent.innerText;
         console.log(
             '%cQuizlet%c %s %c%s',
             consolePrefixStyles,
