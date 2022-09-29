@@ -65,7 +65,7 @@ class ManifestCompilationPlugin {
         try {
             const lastTagHash = execSync('git rev-list --tags --no-walk --max-count=1').toString().trim();
             const commitsCount = execSync(`git rev-list --count ${lastTagHash}..HEAD`).toString().trim();
-            if (commitsCount) {
+            if (commitsCount || commitsCount !== '0') {
                 this.manifest.version += `.${commitsCount}`;
             }
         } catch (e) {
