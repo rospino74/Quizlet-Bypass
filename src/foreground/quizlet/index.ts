@@ -129,8 +129,11 @@ async function loadedHandler() {
             value: document.cookie,
         });
 
+        // Check if the paywalled-section exist
+        const loggedInPaywall = document.querySelector('.paywalled-section [data-testid="PayWallOverlay"]');
+
         // Refreshing the page to get the new account logged in
-        if (notLoggedInPaywall) {
+        if (notLoggedInPaywall || loggedInPaywall) {
             chrome.runtime.sendMessage({
                 action: 'refresh',
             });
@@ -156,4 +159,4 @@ async function loadedHandler() {
     }
 }
 
-setTimeout(loadedHandler, 1000);
+setTimeout(loadedHandler, 250);
