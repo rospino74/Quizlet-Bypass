@@ -1,0 +1,32 @@
+name: Extension Publisher
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Git setup
+        run: |
+          git --version
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Obtain tag
+        run: |
+            set LAST_TAG=$(git describe --tags --abbrev=0)
+            IFS=. read -r major minor patch <<<"$LAST_TAG"
+      - name: Increment patch
+        run:  |
+            ((patch++))
+      - name: Replace version
+        run: |
+            # Replace version in package.json
+            set $NEW_TAG="$major.$minor.$patch"
+            sed -i "s/$LAST_TAG/$NEW_TAG/" package.json
+      - name: Commit
+        run: |
+            git commit -am "$NEW_TAG"
+            git tag -a "$NEW_TAG"
+            git push
