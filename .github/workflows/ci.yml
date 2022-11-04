@@ -17,34 +17,45 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  NODE_VERSION: 19.x
+
 jobs:
-  lintBuildAndTest:
+  lint:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Node.js Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - name: Node set-up
+        run: |
+          npm install --only=dev
+      - name: ESLint check
+        run: npx eslint .
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [19.x]
+        build_script: [build, dev]
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Node.js Setup
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "yarn"
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
       - name: Node set-up
         run: |
           npm install --global yarn
-          yarn add web-ext
           yarn install
-      - name: ESLint check
-        run: yarn eslint .
       - name: Extension build
         run: yarn build
-#       - name: Web-Ext check
-#         run: yarn web-ext lint --self-hosted
-#         working-directory: ./dist/build
       - uses: actions/upload-artifact@v2
-        if: ${{ matrix.node-version }} == "19.x"
         with:
-          name: extension.zip
+          name: ${{ matrix.build_script }}.extension.zip
           path: ./dist/build
           if-no-files-found: error
