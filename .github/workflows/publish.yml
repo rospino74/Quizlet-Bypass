@@ -19,7 +19,7 @@ jobs:
             IFS=. read -r major minor patch <<<"$LAST_TAG"
       - name: Increment patch
         run:  |
-            ((patch++))
+            set patch=((patch++))
       - name: Replace version
         run: |
             # Replace version in package.json
