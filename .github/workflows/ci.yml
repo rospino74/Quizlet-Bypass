@@ -25,13 +25,13 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Node.js Setup
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4.1.0
+      - name: Node.js setup
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-      - name: Node set-up
+      - name: Dependencies download
         run: |
           npm install --only=dev
       - name: ESLint check
@@ -42,19 +42,19 @@ jobs:
       matrix:
         build_script: [build, dev]
     steps:
-      - uses: actions/checkout@v2
-      - name: Node.js Setup
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4.1.0
+      - name: Node.js setup
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
-      - name: Node set-up
+      - name: Dependencies download
         run: |
           npm install --global yarn
           yarn install
       - name: Extension build
         run: yarn build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3.1.3
         with:
           name: ${{ matrix.build_script }}.extension.zip
           path: ./dist/build

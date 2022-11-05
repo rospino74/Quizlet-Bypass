@@ -12,7 +12,7 @@ jobs:
     outputs:
       new-tag: v${{ steps.versioning.outputs.new-tag }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
             fetch-depth: 0
       - name: Git setup
@@ -35,9 +35,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: create-tag
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4.1.0
       - name: Node.js Setup
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
@@ -47,7 +47,7 @@ jobs:
           yarn install
       - name: Extension build
         run: yarn build
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v3.1.3
         with:
           name: artifacts.zip
           path: |
@@ -58,8 +58,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, create-tag]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v3.0.1
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v3.0.2
         with:
           name: artifacts.zip
           path: ./dist/
