@@ -10,7 +10,7 @@
     "content_scripts": [],
     "background": {
         "scripts": [
-            "background.js"
+            "sw.js"
         ]
     },
     "browser_specific_settings": {

@@ -13,7 +13,7 @@ const ManifestCompilationPlugin = require('./utils/manifest-plugin');
 const distPath = path.resolve(__dirname, 'dist');
 const buildPath = path.resolve(distPath, 'build');
 const publicPath = path.resolve(__dirname, 'public');
-const srcForegroundPath = path.resolve(__dirname, 'src', 'foreground');
+const srcFrontendPath = path.resolve(__dirname, 'src', 'frontend');
 
 // Array di informazioni sugli entrypoint
 const entryScripts = {};
@@ -21,16 +21,16 @@ const contentScriptStruture = [];
 
 function buildManifest() {
     // Leggo tutte le cartelle
-    fs.readdirSync(srcForegroundPath).forEach((directory) => {
+    fs.readdirSync(srcFrontendPath).forEach((directory) => {
         if (directory === 'common') {
             return;
         }
 
         // eslint-disable-next-line import/no-dynamic-require, global-require
-        const structure = require(`${srcForegroundPath}/${directory}/structure.json`);
+        const structure = require(`${srcFrontendPath}/${directory}/structure.json`);
         const { entry } = structure;
 
-        entryScripts[directory] = `./src/foreground/${directory}/${entry}`;
+        entryScripts[directory] = `./src/frontend/${directory}/${entry}`;
         contentScriptStruture.push({ ...structure, name: directory });
     });
 }
@@ -132,10 +132,10 @@ const content = merge(commonConfig, {
     ],
 });
 
-const background = merge(commonConfig, {
-    entry: './src/background/background.ts',
+const backend = merge(commonConfig, {
+    entry: './src/backend/sw.ts',
     output: {
-        filename: 'background.js',
+        filename: 'sw.js',
         path: buildPath,
     },
 });
@@ -156,5 +156,5 @@ const popup = merge(commonConfig, {
 });
 
 module.exports = [
-    content, background, popup,
+    content, backend, popup,
 ];
