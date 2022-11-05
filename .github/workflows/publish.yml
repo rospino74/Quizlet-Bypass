@@ -15,6 +15,7 @@ jobs:
             git --version
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: ls -la
       - name: Version upgade
         run: |
             LAST_TAG=$(git describe --tags --abbrev=0 | sed "s/v//")
