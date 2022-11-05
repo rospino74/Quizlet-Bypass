@@ -7,15 +7,15 @@ jobs:
   create-tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-            fetch-depth: 0
       - name: Git setup
         run: |
             git --version
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - run: ls -la
+      - uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
+      - run: cat public/updates.json
       - name: Version upgade
         run: |
             LAST_TAG=$(git describe --tags --abbrev=0 | sed "s/v//")
@@ -38,6 +38,6 @@ jobs:
             print(json.dumps(f, indent = 4))" > public/updates.json
       - name: Commit and Push
         run: |
-            git commit -am "$NEW_TAG"
-            git tag -a "$NEW_TAG"
-            git git push origin HEAD "$NEW_TAG"
+            git commit -am "v$NEW_TAG"
+            git tag -a "v$NEW_TAG"
+            git git push origin HEAD "v$NEW_TAG"
