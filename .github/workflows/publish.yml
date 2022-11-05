@@ -20,39 +20,17 @@ jobs:
             git --version
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - run: cat public/updates.json
-      - name: Version upgade
-        id: versioning
+      - name: Version upgrade
         run: |
-            LAST_TAG=$(git describe --tags --abbrev=0 | sed "s/v//")
-            IFS="." read MAJOR MINOR PATCH <<< "$LAST_TAG" # Tricky hack to make bash happy :)
-            
-            ((PATCH++))
+            NEW_TAG=$(node ./utils/version-upgrader.js PATCH)
             
             # Data saved for next steps
-            echo "new-tag=$MAJOR.$MINOR.$PATCH" >> $GITHUB_OUTPUT
-            echo "LAST_TAG=$LAST_TAG" >> $GITHUB_OUTPUT
-      - name: Files update
-        run: |
-            # Replace version in package.json
-            sed -i "s/\"version\": \"${{ steps.versioning.outputs.LAST_TAG }}\"/\"version\": \"${{ steps.versioning.outputs.new-tag }}\"/" package.json
-            
-            # Add tag to the manifest
-            python3 -c "import sys, json
-            with open('public/updates.json') as f:
-                j = json.load(f)
-            k = j['addons']['quizletbypass@rospino74.github.io']['updates']
-            i = k[-1].copy()
-            i['version'] = '${{ steps.versioning.outputs.new-tag }}'
-            i['update_link'] = i['update_link'].replace('v${{ steps.versioning.outputs.LAST_TAG }}', 'v${{ steps.versioning.outputs.new-tag }}')
-            k.append(i)
-            with open('public/updates.json', 'w') as f:
-                json.dump(j, f, indent = 4)"
+            echo "new-tag=$NEW_TAG" >> $GITHUB_OUTPUT
       - name: Commit and Push
         run: |
-            git commit -am "v${{ steps.versioning.outputs.new-tag }}\n[skip ci]"
-            git tag -a v${{ steps.versioning.outputs.new-tag }} -m v${{ steps.versioning.outputs.new-tag }}
-            git push origin HEAD v${{ steps.versioning.outputs.new-tag }}
+            git commit -am "v${{ steps.versioning.outputs.new-tag }}" -m "[skip ci]"
+            git tag -a "v${{ steps.versioning.outputs.new-tag }}"" -m "v${{ steps.versioning.outputs.new-tag }}""
+            git push origin HEAD "v${{ steps.versioning.outputs.new-tag }}"
   build:
     runs-on: ubuntu-latest
     needs: create-tag
