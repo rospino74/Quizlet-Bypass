@@ -17,21 +17,22 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Version upgade
         run: |
-            LAST_TAG=$(git describe --tags --abbrev=0)
-            sed "s/v//" <<< "$LAST_TAG" | IFS=. read -r MAJOR MINOR PATCH 
-            ((PATCH++))
-            NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+            LAST_TAG=$(git describe --tags --abbrev=0 | sed "s/v//")
+            IFS="." read MAJOR MINOR PATCH <<< "$LAST_TAG" # Tricky hack to make bash happy :)
             
+            ((PATCH++))
+            NEW_TAG="$MAJOR.$MINOR.$PATCH"
+           
             # Replace version in package.json
-            sed -i "s/$LAST_TAG/$NEW_TAG/" package.json
+            sed -i "s/\"version\": \"$LAST_TAG\"/\"version\": \"$NEW_TAG\"/" package.json
             
             # Add tag to the manifest
             cat public/updates.json | python3 -c "import sys, json; \
             f = json.load(sys.stdin); \
             k = f['addons']['quizletbypass@rospino74.github.io']['updates']; \
             i = k[-1].copy(); \
-            i['version'] = '$NEW_TAG'[1:]; \
-            i['update_link'] = i['update_link'].replace('$LAST_TAG', '$NEW_TAG'); \
+            i['version'] = '$NEW_TAG'; \
+            i['update_link'] = i['update_link'].replace('v$LAST_TAG', 'v$NEW_TAG'); \
             k.append(i); \
             print(json.dumps(f, indent = 4))" > public/updates.json
       - name: Commit and Push
