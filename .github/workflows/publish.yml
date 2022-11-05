@@ -7,14 +7,14 @@ jobs:
   create-tag:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
       - name: Git setup
         run: |
             git --version
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - uses: actions/checkout@v2
-        with:
-            fetch-depth: 0
       - run: cat public/updates.json
       - name: Version upgade
         run: |
