@@ -17,15 +17,20 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - run: cat public/updates.json
       - name: Version upgade
+        id: versioning
         run: |
             LAST_TAG=$(git describe --tags --abbrev=0 | sed "s/v//")
             IFS="." read MAJOR MINOR PATCH <<< "$LAST_TAG" # Tricky hack to make bash happy :)
             
             ((PATCH++))
-            NEW_TAG="$MAJOR.$MINOR.$PATCH"
-           
+            
+            # Data saved for next steps
+            echo "NEW_TAG=$MAJOR.$MINOR.$PATCH" >> $GITHUB_OUTPUT
+            echo "LAST_TAG=$LAST_TAG" >> $GITHUB_OUTPUT
+       - name: Files update
+         run: |
             # Replace version in package.json
-            sed -i "s/\"version\": \"$LAST_TAG\"/\"version\": \"$NEW_TAG\"/" package.json
+            sed -i "s/\"version\": \"${{ steps.versioning.outputs.LAST_TAG }}\"/\"version\": \"${{ steps.versioning.outputs.NEW_TAG }}\"/" package.json
             
             # Add tag to the manifest
             python3 -c "import sys, json
@@ -33,13 +38,13 @@ jobs:
                 j = json.load(f)
             k = j['addons']['quizletbypass@rospino74.github.io']['updates']
             i = k[-1].copy()
-            i['version'] = '$NEW_TAG'
-            i['update_link'] = i['update_link'].replace('v$LAST_TAG', 'v$NEW_TAG')
+            i['version'] = '${{ steps.versioning.outputs.NEW_TAG }}'
+            i['update_link'] = i['update_link'].replace('v${{ steps.versioning.outputs.LAST_TAG }}', 'v${{ steps.versioning.outputs.NEW_TAG }}')
             k.append(i)
             with open('public/updates.json', 'w') as f:
                 json.dump(j, f, indent = 4)"
       - name: Commit and Push
         run: |
-            git commit -am "v$NEW_TAG"
-            git tag -a "v$NEW_TAG" -m "v$NEW_TAG"
-            git push origin HEAD "v$NEW_TAG"
+            git commit -am v${{ steps.versioning.outputs.NEW_TAG }}
+            git tag -a v${{ steps.versioning.outputs.NEW_TAG }} -m v${{ steps.versioning.outputs.NEW_TAG }}
+            git push origin HEAD v${{ steps.versioning.outputs.NEW_TAG }}
