@@ -42,4 +42,4 @@ jobs:
         run: |
             git commit -am "v$NEW_TAG"
             git tag -a "v$NEW_TAG" -m "v$NEW_TAG"
-            git git push origin HEAD "v$NEW_TAG"
+            git push origin HEAD "v$NEW_TAG"
