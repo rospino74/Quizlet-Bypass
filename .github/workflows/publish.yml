@@ -15,17 +15,14 @@ jobs:
             git --version
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Obtain tag
+      - name: Version upgade
         run: |
             LAST_TAG=$(git describe --tags --abbrev=0)
             sed "s/v//" <<< "$LAST_TAG" | IFS=. read -r MAJOR MINOR PATCH 
-      - name: Increment patch
-        run:  |
             ((PATCH++))
-      - name: Replace version
-        run: |
-            # Replace version in package.json
             NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+            
+            # Replace version in package.json
             sed -i "s/$LAST_TAG/$NEW_TAG/" package.json
             
             # Add tag to the manifest
@@ -37,8 +34,8 @@ jobs:
             i['update_link'] = i['update_link'].replace('$LAST_TAG', '$NEW_TAG'); \
             k.append(i); \
             print(json.dumps(f, indent = 4))" > public/updates.json
-      - name: Commit
+      - name: Commit and Push
         run: |
             git commit -am "$NEW_TAG"
             git tag -a "$NEW_TAG"
-            git push
+            git git push origin HEAD "$NEW_TAG"
