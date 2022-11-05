@@ -28,14 +28,16 @@ jobs:
             sed -i "s/\"version\": \"$LAST_TAG\"/\"version\": \"$NEW_TAG\"/" package.json
             
             # Add tag to the manifest
-            cat public/updates.json | python3 -c "import sys, json; \
-            f = json.load(sys.stdin); \
-            k = f['addons']['quizletbypass@rospino74.github.io']['updates']; \
-            i = k[-1].copy(); \
-            i['version'] = '$NEW_TAG'; \
-            i['update_link'] = i['update_link'].replace('v$LAST_TAG', 'v$NEW_TAG'); \
-            k.append(i); \
-            print(json.dumps(f, indent = 4))" > public/updates.json
+            python3 -c "import sys, json
+            with open('public/updates.json') as f:
+                j = json.load(f)
+            k = j['addons']['quizletbypass@rospino74.github.io']['updates']
+            i = k[-1].copy()
+            i['version'] = '$NEW_TAG'
+            i['update_link'] = i['update_link'].replace('v$LAST_TAG', 'v$NEW_TAG')
+            k.append(i)
+            with open('public/updates.json', 'w') as f:
+                json.dump(j, f, indent = 4)"
       - name: Commit and Push
         run: |
             git commit -am "v$NEW_TAG"
