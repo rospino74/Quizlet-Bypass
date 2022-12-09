@@ -10,6 +10,8 @@
 
 _This page is also available in <a href="./README.md">English</a> 🇬🇧_
 
+> **Note** La sola funzione di Quizlet sbloccata è _Textbook Solutions_. Vedi [Informazioni aggiuntive ⚠️](#informazioni-aggiuntive-%EF%B8%8F)
+
 ## Proof of Concept
 Quizlet non usa un captcha nei form di registrazione
 
@@ -45,12 +47,14 @@ Quizlet non usa un captcha nei form di registrazione
 7. Goditi le soluzioni
 
 ## Informazioni aggiuntive ⚠️
+* La sola funzione di Quizlet sbloccata è _Textbook Solutions_. Le altre funzioni sono bloccate lato server e non possono essere usate, altre informazioni in #215.
 * Ogni volta che visiterai una pagina di _Quizlet_ per le soluzioni verrai disconnesso.
 * I browser basati su _Chromium_ potrebbero avvertirti a causa di un estensione eseguita in modalità sviluppatore, per continuare ad usarla chiudi il popup con la _X_.
 * Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://github.com/rospino74/Quizlet-Bypass/issues/new/choose) 😉.
 
 ### La tua estensione non funziona!1!!1
 ![Ricarica per sbloccare](https://sqleoni.altervista.org/file/png/quizlet-unlock-refresh.png)
+
 Se visualizzi questo banner, l'estensione sta funzionando correttamente! Segui le istruzioni... 🤦🏽‍♂️.
 
 ## Caratteristiche per sito 🌐
