@@ -10,6 +10,8 @@
 
 _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 
+> **Note** The only Quizlet feature unlocked by the extension is _Textbook Solutions_. See [Additional Notes ⚠️](#additional-notes-%EF%B8%8F)
+
 ## Installation steps 📲
 ### Microsoft Edge and Google Chrome
 1. Download _extension.zip_ from [here](https://github.com/rospino74/Quizlet-Bypass/releases/latest/download/extension.zip)
@@ -42,6 +44,7 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 7. Enjoy the solutions!
 
 ## Additional Notes ⚠️
+* The only Quizlet feature unlocked by the extension is _Textbook Solutions_. Other features are hard-paywalled and **CANNOT** be unlocked, please see #215.
 * Be aware that this extension will log you out of your quizlet account every time you open a textbook solution.
 * Chromium browsers may bother you about having extensions in developer mode, just dismiss the alert to keep the extension running.
 * If you think there is a problem with the extension feel free to [open an issue](https://github.com/rospino74/Quizlet-Bypass/issues/new/choose) 😉.
