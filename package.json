@@ -6,8 +6,10 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint --fix ./src",
-    "build": "webpack --config webpack.prod.js",
-    "dev": "webpack --config webpack.dev.js"
+    "build": "MANIFEST_VERSION=3 vite build",
+    "dev": "MANIFEST_VERSION=3 vite dev --mode development",
+    "build2": "MANIFEST_VERSION=2 vite build",
+    "dev2": "MANIFEST_VERSION=2 vite dev --mode development"
   },
   "private": true,
   "author": "rospino74",
@@ -21,17 +23,10 @@
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "https": "^1.0.0",
-    "https-browserify": "^1.0.0",
-    "javascript-obfuscator": "^4.0.0",
-    "stream-http": "^3.2.0",
-    "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
-    "url": "^0.11.0",
-    "vite": "~4.0.3"
+    "vite": "~4.0.4"
   },
   "dependencies": {
-    "archiver": "^5.3.1",
     "buffer": "^6.0.3",
     "chance": "^1.1.9",
     "random-useragent": "^0.5.0"
