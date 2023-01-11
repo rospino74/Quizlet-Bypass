@@ -134,9 +134,10 @@ chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabCha
         url = tab.url!!;
     }
 
+    const actionAPI = process.env.IS_MV3 ? chrome.action : chrome.browserAction;
     if (url.includes('quizlet.com')) {
-        chrome.browserAction.enable(tabId);
+        actionAPI.enable(tabId);
     } else {
-        chrome.browserAction.disable(tabId);
+        actionAPI.disable(tabId);
     }
 });
