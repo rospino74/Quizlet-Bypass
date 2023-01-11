@@ -10,18 +10,19 @@
 // limitations under the License.
 //
 
-import makeWebRequest from '../../common/makeWebRequest.ts';
+import makeWebRequest from '../../common/makeWebRequest';
 
 export default async function getCSRFToken() {
     const headers = {
         Pragma: 'no-cache',
         'Cache-Control': 'no-cache',
     };
-    const { content } = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, headers);
+    const content = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, headers);
 
-    // Cerco il nome del token
-    const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i);
+    // Search for the CSRF token name
+    const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i) ?? [null, 'qtkn']; // Tries the default one
 
-    // Prendo il cookie di CSRF
-    return document.cookie.match(`(?:^|;)\\s*${CSRFCookieName}=([^;]*)`)[1];
+    // Search for the CSRF token value
+    const [, cookieValue] = document.cookie.match(`(?:^|;)\\s*${CSRFCookieName}=([^;]*)`)!!; // Throws an error if the cookie is not found. We cannot go beyond this point without it
+    return cookieValue;
 }

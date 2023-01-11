@@ -11,7 +11,7 @@
 //
 
 import Chance from 'chance';
-import getCSRFToken from './CSRFTokenGrabber';
+import getCSRFToken from './CSRFTokenGrabber.ts';
 import makeWebRequest from '../../common/makeWebRequest.ts';
 
 async function makeAccountCreationRequest(email) {
@@ -52,8 +52,7 @@ async function makeAccountCreationRequest(email) {
         marketing_opt_out: true,
     };
 
-
-    const { content } = await makeWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', JSON.stringify(body), headers);
+    const content = await makeWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', JSON.stringify(body), headers);
 
     return JSON.parse(content);
 }

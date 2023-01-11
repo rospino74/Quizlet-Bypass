@@ -11,7 +11,7 @@
 //
 
 import getCSRFToken from './CSRFTokenGrabber';
-import makeWebRequest from '../../common/makeWebRequest.ts';
+import makeWebRequest from '../../common/makeWebRequest';
 
 export default async function deleteQuizletAccount() {
     const CSRFToken = await getCSRFToken();

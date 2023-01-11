@@ -29,7 +29,7 @@ export default async function getHTMLFromTranslate(url: string): Promise<string 
 
     // Creo un elemento template
     const template = document.createElement('template');
-    template.innerHTML = response.content;
+    template.innerHTML = response;
 
     // Rimuovo il no copy
     const noCopyBoxes = template.content.querySelectorAll("[style*=user-select]") as NodeListOf<HTMLElement>;
