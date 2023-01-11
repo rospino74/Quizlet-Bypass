@@ -19,6 +19,8 @@ const srcFrontendPath = path.resolve(__dirname, 'src', 'frontend');
 const entryScripts = {};
 const contentScriptStruture = [];
 
+const IS_MV3 = true;
+
 function buildManifest() {
     // Leggo tutte le cartelle
     fs.readdirSync(srcFrontendPath).forEach((directory) => {
@@ -80,7 +82,7 @@ const commonConfig = {
         },
         new EnvironmentPlugin({
             VERSION: version || '1.0.0',
-            IS_MV3: false,
+            IS_MV3,
         }),
     ],
     module: {
@@ -127,7 +129,7 @@ const content = merge(commonConfig, {
         new ManifestCompilationPlugin({
             content: contentScriptStruture,
             model: manifest,
-            isMV3: false,
+            isMV3: IS_MV3,
         }),
     ],
 });
