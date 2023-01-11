@@ -28,7 +28,7 @@ const consoleBigStyles = [
     'font-size: xx-large',
 ].join(';');
 
-console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', process.env.VERSION);
+console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 let banner: HTMLElement | null = null;
 let notLoggedInPaywall: HTMLElement | null = null;
@@ -109,7 +109,7 @@ async function loadedHandler() {
     // con la classe "WithAccent"
     const accent = banner?.querySelector<HTMLElement>('.WithAccent');
     if (/* !Quizlet.LOGGED_IN || */ !banner || !accent) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.log(
                 '%c%s',
                 consoleBigStyles,
@@ -146,7 +146,7 @@ async function loadedHandler() {
         });
 
         // Warning about remaining solutions
-    } else if (accent && process.env.NODE_ENV !== 'production') {
+    } else if (accent && !import.meta.env.PROD) {
         const debugRemainingSolutions = accent.innerText;
         console.log(
             '%cQuizlet%c %s %c%s',

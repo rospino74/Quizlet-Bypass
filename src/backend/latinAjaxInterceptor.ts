@@ -21,7 +21,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
         // If the string is protected, we don't modify it
         if (str.includes('Protected')) {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.warn(
                     chrome.i18n.getMessage("debugProtectedPageDetected"),
                 );
@@ -35,7 +35,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         // Elimino l'anty copy
         str = parseAndRemove(str);
 
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.log(
                 chrome.i18n.getMessage("debugModifiedHtml"),
                 str
@@ -56,12 +56,12 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     xhr.open('GET', details.url, false);
     xhr.send();
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(`Response recieved from ${details.url} with HTTP status code ${xhr.status} ${xhr.statusText}`);
     }
 
     if (xhr.status !== 200 || xhr.responseText.includes('Protected')) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.warn(
                 chrome.i18n.getMessage("debugProtectedPageDetected"),
             );
@@ -73,7 +73,7 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     // Remove the anti-copy system
     const parsed = parseAndRemove(xhr.responseText);
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(
             chrome.i18n.getMessage("debugModifiedHtml"),
             parsed
@@ -105,7 +105,7 @@ export default function installLatinAjaxInterceptor() {
                 { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
                 ['blocking']
             );
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.log(
                     chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptor'),
                     'color: #80f5ab;',
@@ -116,7 +116,7 @@ export default function installLatinAjaxInterceptor() {
             }
 
         } else {
-            if (process.env.IS_MV3) {
+            if (__EXTENSION_MV3__) {
                 throw new Error("Manifest Version 3 not supported.");
             } else {
                 chrome.webRequest.onBeforeRequest.addListener(
@@ -125,7 +125,7 @@ export default function installLatinAjaxInterceptor() {
                     ['blocking']
                 );
 
-                if (process.env.NODE_ENV !== 'production') {
+                if (!import.meta.env.PROD) {
                     console.log(
                         chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
                         'color: #f5cf80;',
@@ -137,7 +137,7 @@ export default function installLatinAjaxInterceptor() {
             }
         }
     } catch (e) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.log(
                 chrome.i18n.getMessage('debugUnableToInstallLatinAjaxInterceptor'),
                 'color: #f04747;',

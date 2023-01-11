@@ -12,7 +12,7 @@
 
 import getHTMLFromTranslate from './import/translateGrabber';
 
-console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', process.env.VERSION);
+console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 const solutionBox = document.querySelector('div.corpo')?.children.item(4)?.children.item(1);
 
@@ -20,7 +20,7 @@ const solutionBox = document.querySelector('div.corpo')?.children.item(4)?.child
 const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href);
 
 if (!url || !solutionBox) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(chrome.i18n.getMessage('debugNotLoadedOnAValidPage'), 'color: #f04747;', 'color: gray; font-style: italic;');
     }
 } else {
@@ -41,7 +41,7 @@ if (!url || !solutionBox) {
         if (parseInt(soluzioniTotali) < 5) {
             substituteText(url[1], solutionBox);
         } else {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', soluzioniTotali);
             }
         }
@@ -49,7 +49,7 @@ if (!url || !solutionBox) {
 }
 
 function substituteText(url: string, solutionBox: Element) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(chrome.i18n.getMessage('debugExpiredSolutionsLatin'), 'color: #F5AB80');
     }
 

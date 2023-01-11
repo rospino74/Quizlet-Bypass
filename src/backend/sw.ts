@@ -34,7 +34,7 @@ import makeBackgroundWebRequest from './makeBackgroundWebRequest';
         }
     }
 
-    console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', special_style, 'color: gray; font-style: italic;', process.env.VERSION);
+    console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', special_style, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 })();
 
 // Provo ad intercettare le richieste
@@ -46,7 +46,7 @@ installQuizletInterceptor();
 // Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object; }, sender: chrome.runtime.MessageSender, sendResponse) => {
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.info(
             chrome.i18n.getMessage("messageFromContentScript"),
             message
@@ -57,7 +57,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
     const { tab } = sender;
     switch (action) {
         case 'copyCookies': {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.info(
                     chrome.i18n.getMessage("cookiesReceived"),
                     value
@@ -68,7 +68,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
         }
 
         case 'refresh': {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.info(
                     chrome.i18n.getMessage("debugRefreshRequested"),
                 );
@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             break;
         }
         case 'incrementStats': {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.info('Increment stats received');
             }
 
@@ -94,7 +94,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             break;
         }
         case 'getStats': {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.info('Get stats received');
             }
 
@@ -106,7 +106,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             break;
         }
         case 'makeWebRequest': {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.info(
                     chrome.i18n.getMessage("debugWebRequestResponse"),
                     value
@@ -134,7 +134,7 @@ chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabCha
         url = tab.url!!;
     }
 
-    const actionAPI = process.env.IS_MV3 ? chrome.action : chrome.browserAction;
+    const actionAPI = __EXTENSION_MV3__ ? chrome.action : chrome.browserAction;
     if (url.includes('quizlet.com')) {
         actionAPI.enable(tabId);
     } else {

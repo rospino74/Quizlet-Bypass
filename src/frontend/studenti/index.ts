@@ -13,7 +13,7 @@
 import getPageId from "./import/getPageId";
 import getFileDownloadUrl from "./import/getFileDownloadUrl";
 
-console.log('%cStudenti.it %cv%s', 'color: #7ab700;', 'color: gray; font-style: italic;', process.env.VERSION);
+console.log('%cStudenti.it %cv%s', 'color: #7ab700;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 const appuntiRegex = /appunti\/[a-zA-Z0-9\-/]+\.html/gm;
 
@@ -30,7 +30,7 @@ if (appuntiRegex.test(window.location.href)) {
 } else {
     const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a[href*=correlati]");
     relatedPageButton.forEach(btn => {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.log(chrome.i18n.getMessage('debugRemovingLastButton'), 'color: #7ab700', btn);
         }
 
@@ -56,7 +56,7 @@ function patchDownloadLink(pageId: string) {
         downloadButton?.addEventListener('click', (evt) => {
             evt.preventDefault();
 
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
             }
 
@@ -76,13 +76,13 @@ function removeAdvertisingLink(id: string) {
         let pageNumber = parseInt(btn.innerText);
 
         if (pageNumber === 1) {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.log(chrome.i18n.getMessage('debugSkippingFirstButton'), 'color: #7ab700', btn);
             }
             return;
         }
 
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.log(chrome.i18n.getMessage('debugChangingButtonURL'), 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
         }
         btn.href = `${baseUrl}&pag=${pageNumber - 1}`;

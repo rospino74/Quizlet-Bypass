@@ -9,8 +9,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import removeListenersOfType from './import/listenersRemover.ts';
-import manipulateVideoAds from './import/autoplayRemover.ts';
+import removeListenersOfType from './import/listenersRemover';
+import manipulateVideoAds from './import/autoplayRemover';
 
 const consoleBigStyles = [
     'color: #fee300',
@@ -19,13 +19,11 @@ const consoleBigStyles = [
 
 const noRightClickElement = document.querySelectorAll('[data-rightclick]');
 
-console.log('%cSkuola Evader %cv%s', 'color: #fee300', 'color: gray; font-style: italic;', process.env.VERSION);
+console.log('%cSkuola Evader %cv%s', 'color: #fee300', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 // Rimuovo il box
 const copyWallBox = document.querySelector('#rightclick');
-if (copyWallBox) {
-    copyWallBox.parentElement.removeChild(copyWallBox);
-}
+copyWallBox?.parentElement?.removeChild(copyWallBox);
 
 // Permetto di usare il tasto destro del mouse
 noRightClickElement.forEach((element) => {

@@ -1,5 +1,6 @@
 {
   "name": "quizlet",
+  "displayName": "Quizlet Bypass",
   "version": "1.4.5",
   "description": "Removes the paywall from the Quizlet page and other sites",
   "main": "src/index.js",
@@ -14,7 +15,9 @@
   "repository": "https://github.com/rospino74/Quizlet-Bypass",
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "copy-webpack-plugin": "^11.0.0",
+    "@types/random-useragent": "^0.3.1",
+    "@types/chrome": "^0.0.206",
+    "@samrum/vite-plugin-web-extension": "^3.0.0",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -25,18 +28,12 @@
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
     "url": "^0.11.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-merge": "^5.8.0",
-    "webpack-obfuscator": "^3.5.1"
+    "vite": "~4.0.3"
   },
   "dependencies": {
-    "@types/random-useragent": "^0.3.1",
-    "@types/chrome": "^0.0.206",
     "archiver": "^5.3.1",
     "buffer": "^6.0.3",
     "chance": "^1.1.9",
-    "random-useragent": "^0.5.0",
-    "temp-mail-api": "^1.1.1"
+    "random-useragent": "^0.5.0"
   }
 }

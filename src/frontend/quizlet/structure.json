@@ -11,5 +11,6 @@
     "matches": [
         "*://*.quizlet.com/explanations/textbook-solutions/*",
         "*://*.quizlet.com/explanations/questions/*"
-    ]
+    ],
+    "run_at": "document_start"
 }

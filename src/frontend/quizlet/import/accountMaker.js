@@ -23,7 +23,7 @@ async function makeAccountCreationRequest(email) {
     // CSRF Token per il signup
     const token = await getCSRFToken();
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log('CSRF Token: ', token);
     }
 
@@ -63,7 +63,7 @@ export default async function makeQuizletAccount() {
     // Creo un account
     const result = await makeAccountCreationRequest(address);
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(
             chrome.i18n.getMessage('debugAccountCreationResult'),
             result,

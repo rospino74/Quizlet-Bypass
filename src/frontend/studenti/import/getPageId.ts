@@ -28,7 +28,7 @@ function getIdFromNextButton(): string | null {
     }
 
     // Log the url to the console
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(chrome.i18n.getMessage('debugNextPageAddress'), 'color: #7ab700;', nextPageUrl);
     }
 
@@ -55,7 +55,7 @@ async function getIdFromDownloadButton(): Promise<string | null> {
     const downloadURL = downloadButton.href;
 
     // Log the url to the console
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(chrome.i18n.getMessage('debugNextPageAddress'), 'color: #7ab700;', downloadURL);
     }
 

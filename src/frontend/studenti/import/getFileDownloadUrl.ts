@@ -32,7 +32,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
     const json = await response.json();
 
     // Response object
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(json)
     }
 
@@ -40,7 +40,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
         throw new Error(`${response.status} ${response.statusText}: ${json.messaggio}`);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
         console.log(chrome.i18n.getMessage('debugDownloadURL'), 'color: #7ab700;', 'color: gray;', json.link);
     }
 

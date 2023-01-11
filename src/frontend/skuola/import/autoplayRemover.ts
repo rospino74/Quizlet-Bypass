@@ -16,15 +16,11 @@ function observerCallback(mutations: MutationRecord[], observer: MutationObserve
         if (videoElement && videoElement.tagName === 'VIDEO') {
             setTimeout(() => {
                 const playBtn = videoElement.parentElement?.querySelector<HTMLButtonElement>('.vjs-play-control.vjs-playing');
-                if (playBtn) {
-                    playBtn.click();
-                }
+                playBtn?.click();
 
                 // Close the mini player
                 const closeMiniPlayerBtn = videoElement.parentElement?.parentElement?.parentElement?.parentElement?.querySelector<HTMLButtonElement>('.sknet-sticky-close-button');
-                if (closeMiniPlayerBtn) {
-                    closeMiniPlayerBtn.click();
-                }
+                closeMiniPlayerBtn?.click();
 
                 // Mute the video
                 videoElement.muted = true;
@@ -36,7 +32,7 @@ function observerCallback(mutations: MutationRecord[], observer: MutationObserve
                 // Pause the video
                 videoElement.pause();
 
-                if (process.env.NODE_ENV !== 'production') {
+                if (!import.meta.env.PROD) {
                     console.log(chrome.i18n.getMessage('foundVideoElement'), videoElement);
                 }
 
@@ -49,7 +45,7 @@ function observerCallback(mutations: MutationRecord[], observer: MutationObserve
 export default function manipulateVideoAds() {
     const videoContainers = document.querySelectorAll<HTMLDivElement>('#video_ads');
 
-    if (process.env.NODE_ENV !== 'production' && videoContainers.length > 0) {
+    if (!import.meta.env.PROD && videoContainers.length > 0) {
         console.log(chrome.i18n.getMessage('foundMultipleVideoElement'), videoContainers.length, videoContainers);
     }
 

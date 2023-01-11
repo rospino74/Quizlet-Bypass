@@ -22,7 +22,7 @@ export default function removeAnnoyance(element: HTMLElement, selector: string, 
         });
         return true;
     } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.error(err);
         }
         return false;

@@ -22,7 +22,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         try {
             const new_str = parseAndRemove(str);
 
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.log(
                     chrome.i18n.getMessage("debugModifiedHtml"),
                     new_str
@@ -30,7 +30,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
             }
             filter.write(encoder.encode(new_str));
         } catch (e) {
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.error(e);
             }
             filter.write(encoder.encode(str));
@@ -62,7 +62,7 @@ export default function installQuizletInterceptor() {
                 { urls: ['https://quizlet.com/explanations/textbook-solutions/*'] },
                 ['blocking']
             );
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
                 console.log(
                     chrome.i18n.getMessage('debugSuccessfullyInstalledQuizletInterceptor'),
                     'color: #f5cf80;',
@@ -72,7 +72,7 @@ export default function installQuizletInterceptor() {
             throw Error('Chromium Browsers not supported');
         }
     } catch (e) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (!import.meta.env.PROD) {
             console.log(
                 chrome.i18n.getMessage('debugUnableToInstallQuizletInterceptor'),
                 'color: #f04747;',
