@@ -18,13 +18,13 @@ export default async function getPageId(): Promise<string> {
     return id;
 }
 
-function getIdFromNextButton(): string | null {
+function getIdFromNextButton(): string | undefined {
     // Grabbing the url from the button
     const nextPageUrl = document.querySelector<HTMLAnchorElement>(".pager ul li:nth-child(2) a")?.href;
 
     // If the url is not present, return null
     if (!nextPageUrl) {
-        return null;
+        return undefined;
     }
 
     // Log the url to the console
@@ -33,8 +33,8 @@ function getIdFromNextButton(): string | null {
     }
 
     // Extract the page id from the url
-    const pageIdRegex = /download_2\/([\w\-]+)_1\.html/gm;
-    return pageIdRegex.exec(nextPageUrl)!![1];
+    const pageIdRegex = /download(_2)?\/([\w\-]+)_1\.html/gm;
+    return pageIdRegex.exec(nextPageUrl)?.[2];
 }
 
 function getIdFromCurrentLocation(): string | null {
