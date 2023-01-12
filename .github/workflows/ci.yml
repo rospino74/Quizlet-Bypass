@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_script: [build, ] # dev] Temporarily disabled dev build
+        build_script: [build, build2] # dev] Temporarily disabled dev build
     steps:
       - uses: actions/checkout@v2
       - name: Node.js Setup
@@ -56,6 +56,6 @@ jobs:
         run: yarn build
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.build_script }}.extension.zip
+          name: ${{ matrix.build_script }}.extension
           path: ./dist
           if-no-files-found: error
