@@ -18,6 +18,7 @@ export default function removeAnnoyance(element: HTMLElement, selector: string, 
 
             if (e.parentElement && hideParent) {
                 e.parentElement.style.display = 'none';
+                e.parentElement.style.pointerEvents = 'none'; // Prevents the user from clicking on the element
             }
         });
         return true;
