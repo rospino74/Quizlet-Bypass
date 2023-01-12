@@ -15,14 +15,32 @@ import getFileDownloadUrl from "./import/getFileDownloadUrl";
 
 console.log('%cStudenti.it %cv%s', 'color: #7ab700;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
-const appuntiRegex = /appunti\/[a-zA-Z0-9\-/]+\.html/gm;
-
-const pageIdPromise = getPageId();
-pageIdPromise.then(patchDownloadLink);
+// Get the page id
+const pageId = await getPageId();
 
 // Check if the page is an appunti page
+const appuntiRegex = /appunti\/[a-zA-Z0-9\-/]+\.html/gm;
 if (appuntiRegex.test(window.location.href)) {
-    pageIdPromise.then(removeAdvertisingLink);
+    // Base url for next pages
+    const baseUrl = `https://doc.studenti.it/vedi_tutto/index.php?h=${pageId}`;
+
+    // Then we iterate over all the buttons and change the urls
+    const nextPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a");
+    nextPageButton.forEach(btn => {
+        let pageNumber = parseInt(btn.innerText);
+
+        if (pageNumber === 1) {
+            if (!import.meta.env.PROD) {
+                console.log(chrome.i18n.getMessage('debugSkippingFirstButton'), 'color: #7ab700', btn);
+            }
+            return;
+        }
+
+        if (!import.meta.env.PROD) {
+            console.log(chrome.i18n.getMessage('debugChangingButtonURL'), 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
+        }
+        btn.href = `${baseUrl}&pag=${pageNumber - 1}`;
+    });
 
     // Remove right arrow button
     const rightArrowButtons = document.querySelectorAll<HTMLLIElement>(".pager ul li:last-child");
@@ -40,48 +58,23 @@ if (appuntiRegex.test(window.location.href)) {
 
     // Modifing the total count of pages
     const totalPageCounters = document.querySelectorAll<HTMLElement>(".pager span b:nth-child(2)");
-    if (totalPageCounters) {
-        totalPageCounters.forEach(counter => {
-            const currentPageCount = parseInt(counter.innerText) - 1;
-            counter.innerText = currentPageCount.toString();
-        });
+    totalPageCounters?.forEach(counter => {
+        const currentPageCount = parseInt(counter.innerText) - 1;
+        counter.innerText = currentPageCount.toString();
+    });
+}
+
+// Gets the download button
+const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
+downloadButton?.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    if (!import.meta.env.PROD) {
+        console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
     }
-}
 
-function patchDownloadLink(pageId: string) {
-    // Gets the download button
-    const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
-    downloadButton?.addEventListener('click', (evt) => {
-        evt.preventDefault();
-
-        if (!import.meta.env.PROD) {
-            console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
-        }
-
-        getFileDownloadUrl(pageId).then(url => {
-            // Open the url
-            window.location.href = url;
-        });
+    getFileDownloadUrl(pageId).then(url => {
+        // Open the url
+        window.location.href = url;
     });
-}
-
-function removeAdvertisingLink(id: string) {
-    const baseUrl = `https://doc.studenti.it/vedi_tutto/index.php?h=${id}`;
-
-    const nextPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a");
-    nextPageButton.forEach(btn => {
-        let pageNumber = parseInt(btn.innerText);
-
-        if (pageNumber === 1) {
-            if (!import.meta.env.PROD) {
-                console.log(chrome.i18n.getMessage('debugSkippingFirstButton'), 'color: #7ab700', btn);
-            }
-            return;
-        }
-
-        if (!import.meta.env.PROD) {
-            console.log(chrome.i18n.getMessage('debugChangingButtonURL'), 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
-        }
-        btn.href = `${baseUrl}&pag=${pageNumber - 1}`;
-    });
-}
+});
