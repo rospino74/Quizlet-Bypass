@@ -10,26 +10,18 @@
 // limitations under the License.
 //
 
+import makeWebRequest from "../../common/makeWebRequest";
+
 export default async function getFileDownloadUrl(documentId: string): Promise<string> {
     const apiUrl = `https://doc.studenti.it/ajax/download.php`;
     const body = `k=${documentId}`;
 
     // Post request to get the download url
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': body.length.toString(),
-        },
-        body
+    const response = await makeWebRequest(apiUrl, 'POST', body, {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': body.length.toString(),
     });
-
-    // Watch out for http errors
-    if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText}`);
-    }
-
-    const json = await response.json();
+    const json = JSON.parse(response);
 
     // Response object
     if (!import.meta.env.PROD) {
@@ -37,7 +29,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
     }
 
     if (json.esito != 'OK') {
-        throw new Error(`${response.status} ${response.statusText}: ${json.messaggio}`);
+        throw new Error(`API Error: ${json.messaggio}`);
     }
 
     if (!import.meta.env.PROD) {
