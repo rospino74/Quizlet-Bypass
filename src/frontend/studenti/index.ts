@@ -51,21 +51,18 @@ if (appuntiRegex.test(window.location.href)) {
 function patchDownloadLink(pageId: string) {
     // Gets the download button
     const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
-    if (downloadButton) {
-        downloadButton.href = '#';
-        downloadButton?.addEventListener('click', (evt) => {
-            evt.preventDefault();
+    downloadButton?.addEventListener('click', (evt) => {
+        evt.preventDefault();
 
-            if (!import.meta.env.PROD) {
-                console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
-            }
+        if (!import.meta.env.PROD) {
+            console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
+        }
 
-            getFileDownloadUrl(pageId).then(url => {
-                // Open the url
-                window.location.href = url;
-            });
+        getFileDownloadUrl(pageId).then(url => {
+            // Open the url
+            window.location.href = url;
         });
-    }
+    });
 }
 
 function removeAdvertisingLink(id: string) {

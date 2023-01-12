@@ -44,7 +44,7 @@ installLatinAjaxInterceptor();
 installQuizletInterceptor();
 
 // Listening for messages from the content script
-chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object; }, sender: chrome.runtime.MessageSender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object }, sender, sendResponse) => {
 
     if (!import.meta.env.PROD) {
         console.info(
@@ -86,7 +86,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
 
             chrome.storage.sync.get('stats', (result: any) => {
                 const key = value as string;
-                const newValue = (result[key] || 0) + 1
+                const newValue = (result[key] ?? 0) + 1
                 result[key] = newValue;
                 chrome.storage.sync.set({ stats: result });
             });
@@ -100,7 +100,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
 
             chrome.storage.sync.get('stats', (result: any) => {
                 const key = value as string;
-                const statsValue = result[key] || 0;
+                const statsValue = result[key] ?? 0;
                 sendResponse(statsValue);
             });
             break;
@@ -123,8 +123,8 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
                 sendResponse(e);
             });
         }
-            return true;
     }
+    return true;
 });
 
 chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
