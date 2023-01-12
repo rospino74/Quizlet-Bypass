@@ -18,8 +18,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
 
     // Post request to get the download url
     const response = await makeWebRequest(apiUrl, 'POST', body, {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': body.length.toString(),
+        'Content-Type': 'application/x-www-form-urlencoded'
     });
     const json = JSON.parse(response);
 
