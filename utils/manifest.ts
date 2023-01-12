@@ -51,7 +51,9 @@ const commonManifest = {
     }
   },
   content_scripts: Array<any>(),
-  permissions: Array<any>(),
+  permissions: [
+    'storage',
+  ],
 };
 
 const ManifestV2 = {
