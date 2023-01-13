@@ -11,8 +11,8 @@
 //
 
 import replaceQuizletCookies from './cookieReplacer';
-import installLatinAjaxInterceptor from './latinAjaxInterceptor';
-import installQuizletInterceptor from './quizletInterceptor';
+import installLatinAjaxInterceptor from './interceptors/latin';
+import installQuizletInterceptor from './interceptors/quizlet';
 import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 
 // Shitty banner here
