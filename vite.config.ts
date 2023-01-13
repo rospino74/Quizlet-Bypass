@@ -12,6 +12,7 @@
 
 // @ts-nocheck
 import { defineConfig, loadEnv } from "vite";
+import topLevelAwait from "vite-plugin-top-level-await";
 import webExtension from "@samrum/vite-plugin-web-extension";
 import path from "path";
 import { getManifest } from "./utils/manifest";
@@ -27,6 +28,10 @@ export default defineConfig(({ mode }) => {
       webExtension({
         manifest: getManifest(manifestVersion),
       }),
+      topLevelAwait({
+        promiseExportName: "__tlawait_export__",
+        promiseImportName: i => `__tlawait_import_${i}__`
+      })
     ],
     resolve: {
       alias: {
