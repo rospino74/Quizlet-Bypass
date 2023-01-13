@@ -12,7 +12,6 @@
 
 import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './interceptors/latin';
-import installQuizletInterceptor from './interceptors/quizlet';
 import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 
 // Shitty banner here
@@ -35,9 +34,6 @@ import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 
 // Provo ad intercettare le richieste
 installLatinAjaxInterceptor();
-
-// Install an interceptor to remove quizlet anti adblocker
-installQuizletInterceptor();
 
 // Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object }, sender, sendResponse) => {

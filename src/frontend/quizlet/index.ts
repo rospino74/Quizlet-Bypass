@@ -35,29 +35,23 @@ let notLoggedInPaywall: HTMLElement | null = null;
 
 function handleMutation(mutation: MutationRecord) {
     const target = mutation.target as HTMLElement;
-    banner = target.querySelector('.BannerWrapper');
 
-    // Hiding the paywall banner
-    removeAnnoyance(target, '.BannerWrapper');
+    // Remove all the fake classes to detect paywalls
+    const baitElement = target.querySelector('.__isAdBlockerEnabled');
+    if (baitElement) {
+        baitElement.className = '__isAdBlockerEnabled';
+    }
 
-    // Hiding lock icons
-    removeAnnoyance(target, 'img[data-testid="premiumBrandingBadge-lock"]', false);
-
-    // Hiding premium badges
-    removeAnnoyance(target, '.AssemblyPill--plus');
-
-    // Hiding the upgrade button
-    removeAnnoyance(target, '.AssemblyPrimaryButton--upgrade', false);
-
-    // Hiding the ad box
-    removeAnnoyance(target, '.SiteAd');
-
-    // QuizletPlus popup
-    removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false);
+    // Annoyances remover
+    removeAnnoyance(target, '.BannerWrapper'); // Hiding the paywall banner
+    removeAnnoyance(target, 'img[data-testid="premiumBrandingBadge-lock"]', false); // Hiding lock icons
+    removeAnnoyance(target, '.AssemblyPill--plus'); // Hiding premium badges
+    removeAnnoyance(target, '.AssemblyPrimaryButton--upgrade', false); // Hiding the upgrade button
+    removeAnnoyance(target, '.SiteAd'); // Hiding the ad box
+    removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false); // QuizletPlus popup
 
     // Finding paywall banners
     notLoggedInPaywall = target.querySelector('.LoginWall');
-
     if (notLoggedInPaywall) {
         const parent = notLoggedInPaywall.parentElement;
 
@@ -89,6 +83,9 @@ function handleMutation(mutation: MutationRecord) {
             bigTitle.dataset.modified = 'true';
         }
     }
+
+    // Finding the paywall banner
+    banner = target.querySelector('.BannerWrapper');
 }
 
 // remove banner/paywalls on creation
