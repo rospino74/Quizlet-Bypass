@@ -23,16 +23,12 @@ import makeBackgroundWebRequest from './makeBackgroundWebRequest';
         "color: white"
     ].join(";");
 
-    const hue = [0, 40, 60, 100, 170, 230, 270];
-    special_style += "; text-shadow: "
-    for (let i = 1; i < hue.length; i++) {
-        special_style += `${1.5 * i}px ${1.2 * i}px 0px hsl(${hue[i - 1]}, 70%, 60%)`;
-        if (i < hue.length - 1) {
-            special_style += ", ";
-        } else {
-            special_style += ";";
-        }
-    }
+    // Text shadow styles
+    special_style += "; text-shadow: ";
+    [0, 40, 60, 100, 170, 230, 270, 360].forEach((hue, i, array) => {
+        i++; // Start from 1, not 0 as we need the text-shadow offset multiplication not to be 0
+        special_style += `${1.5 * i}px ${1.2 * i}px 0px hsl(${hue}, 70%, 60%)${i < array.length ? ', ' : ';'}`;
+    });
 
     console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', special_style, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 })();
