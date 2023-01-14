@@ -24,5 +24,10 @@ export default async function getCSRFToken() {
 
     // Search for the CSRF token value
     const [, cookieValue] = document.cookie.match(`(?:^|;)\\s*${CSRFCookieName}=([^;]*)`)!!; // Throws an error if the cookie is not found. We cannot go beyond this point without it
+
+    if (!import.meta.env.PROD) {
+        console.log('CSRF Token: ', cookieValue);
+    }
+
     return cookieValue;
 }
