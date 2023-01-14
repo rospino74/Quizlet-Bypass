@@ -39,10 +39,9 @@ function getIdFromNextButton(): string | undefined {
     return pageIdRegex.exec(nextPageUrl)?.[2];
 }
 
-function getIdFromCurrentLocation(): string | null {
+function getIdFromCurrentLocation(): string | undefined {
     // Extract the page id from the url
-    const urlPageIdRegex = /\?h=([a-zA-Z0-9\-]+)/gm;
-    return urlPageIdRegex.exec(window.location.href)?.[1] ?? null;
+    return /\?h=([\w\-]+)/gm.exec(window.location.href)?.[1];
 }
 
 async function getIdFromDownloadButton(): Promise<string | undefined> {
