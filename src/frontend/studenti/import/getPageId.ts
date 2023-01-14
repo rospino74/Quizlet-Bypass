@@ -10,6 +10,8 @@
 // limitations under the License.
 //
 
+import makeWebRequest from "../../common/makeWebRequest";
+
 export default async function getPageId(): Promise<string> {
     const id = getIdFromNextButton() ?? getIdFromCurrentLocation() ?? await getIdFromDownloadButton();
     if (!id) {
@@ -61,8 +63,7 @@ async function getIdFromDownloadButton(): Promise<string | null> {
 
     try {
         // Fetch the page and analyze it with the template element
-        const response = await fetch(downloadURL);
-        const text = await response.text();
+        const text = await makeWebRequest(downloadURL, 'GET');
         const template = document.createElement('template');
         template.innerHTML = text;
 
