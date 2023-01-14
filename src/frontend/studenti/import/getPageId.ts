@@ -45,16 +45,14 @@ function getIdFromCurrentLocation(): string | null {
     return urlPageIdRegex.exec(window.location.href)?.[1] ?? null;
 }
 
-async function getIdFromDownloadButton(): Promise<string | null> {
+async function getIdFromDownloadButton(): Promise<string | undefined> {
     // Grabbing the url from the button
-    const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
+    const downloadURL = document.querySelector<HTMLAnchorElement>('a.download-doc')?.href;
 
-    // If the button is not present, return null
-    if (!downloadButton) {
-        return null;
+    // If the url is not present, return undefined
+    if (!downloadURL) {
+        return undefined;
     }
-
-    const downloadURL = downloadButton.href;
 
     // Log the url to the console
     if (!import.meta.env.PROD) {
@@ -64,20 +62,11 @@ async function getIdFromDownloadButton(): Promise<string | null> {
     try {
         // Fetch the page and analyze it with the template element
         const text = await makeWebRequest(downloadURL, 'GET');
-        const template = document.createElement('template');
-        template.innerHTML = text;
-
+        
         // Extract the page id from the url
-        const link = template.content.querySelector<HTMLAnchorElement>(".continua-link");
-
-        // If the a tag is not present, return null
-        if (!link) {
-            return null;
-        }
-
-        return link.getAttribute("onclick")?.split("'")[1] ?? null;
+        return /scarica_new\('([\w\-]+)'\);/gm.exec(text)?.[1];
     } catch (error) {
         console.error(chrome.i18n.getMessage('fetchError'), 'color: #ff0000;', error);
-        return null;
+        return undefined;
     }
 }
