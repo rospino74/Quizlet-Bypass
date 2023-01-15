@@ -32,7 +32,7 @@ function observerCallback(mutations: MutationRecord[], observer: MutationObserve
                 // Pause the video
                 videoElement.pause();
 
-                if (!import.meta.env.PROD) {
+                if (__EXTENSION_DEBUG_PRINTS__) {
                     console.log(chrome.i18n.getMessage('foundVideoElement'), videoElement);
                 }
 
@@ -45,7 +45,7 @@ function observerCallback(mutations: MutationRecord[], observer: MutationObserve
 export default function manipulateVideoAds() {
     const videoContainers = document.querySelectorAll<HTMLDivElement>('#video_ads');
 
-    if (!import.meta.env.PROD && videoContainers.length > 0) {
+    if (__EXTENSION_DEBUG_PRINTS__ && videoContainers.length > 0) {
         console.log(chrome.i18n.getMessage('foundMultipleVideoElement'), videoContainers.length, videoContainers);
     }
 

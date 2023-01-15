@@ -38,7 +38,7 @@ installLatinAjaxInterceptor();
 // Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object }, sender, sendResponse) => {
 
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.info(
             chrome.i18n.getMessage("messageFromContentScript"),
             message
@@ -49,7 +49,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
     const { tab } = sender;
     switch (action) {
         case 'copyCookies': {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.info(
                     chrome.i18n.getMessage("cookiesReceived"),
                     value
@@ -60,7 +60,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
         }
 
         case 'refresh': {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.info(
                     chrome.i18n.getMessage("debugRefreshRequested"),
                 );
@@ -72,7 +72,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             break;
         }
         case 'incrementStats': {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.info('Increment stats received');
             }
 
@@ -86,7 +86,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             break;
         }
         case 'getStats': {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.info('Get stats received');
             }
 
@@ -98,7 +98,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             break;
         }
         case 'makeWebRequest': {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.info(
                     chrome.i18n.getMessage("debugWebRequestResponse"),
                     value

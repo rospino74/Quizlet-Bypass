@@ -106,7 +106,7 @@ async function loadedHandler() {
     // con la classe "WithAccent"
     const accent = banner?.querySelector<HTMLElement>('.WithAccent');
     if (/* !Quizlet.LOGGED_IN || */ !banner || !accent) {
-        if (!import.meta.env.PROD) {
+        if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(
                 '%c%s',
                 consoleBigStyles,
@@ -143,7 +143,7 @@ async function loadedHandler() {
         });
 
         // Warning about remaining solutions
-    } else if (accent && !import.meta.env.PROD) {
+    } else if (accent && __EXTENSION_DEBUG_PRINTS__) {
         const debugRemainingSolutions = accent.innerText;
         console.log(
             '%cQuizlet%c %s %c%s',

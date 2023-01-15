@@ -23,7 +23,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
     const json = JSON.parse(response);
 
     // Response object
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(json)
     }
 
@@ -31,7 +31,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
         throw new Error(`API Error: ${json.messaggio}`);
     }
 
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(chrome.i18n.getMessage('debugDownloadURL'), 'color: #7ab700;', 'color: gray;', json.link);
     }
 

@@ -23,7 +23,7 @@ export default function removeAnnoyance(element: HTMLElement, selector: string, 
         });
         return true;
     } catch (err) {
-        if (!import.meta.env.PROD) {
+        if (__EXTENSION_DEBUG_PRINTS__) {
             console.error(err);
         }
         return false;

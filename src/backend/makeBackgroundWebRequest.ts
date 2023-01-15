@@ -17,7 +17,7 @@ export default async function makeBackgroundWebRequest(url: string, method: 'GET
     };
     const newHeaders = Object.assign({}, defaultHeaders, headers);
 
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log('makeBackgroundWebRequest', url, method, body, newHeaders);
     }
 
@@ -29,7 +29,7 @@ export default async function makeBackgroundWebRequest(url: string, method: 'GET
         mode: 'cors'
     });
 
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(request);
     }
 

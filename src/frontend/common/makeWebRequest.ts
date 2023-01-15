@@ -21,7 +21,7 @@ export default function makeWebRequest(url: string, method: 'GET' | 'POST', body
                 headers
             }
         }, (response?: string) => {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.log(
                     chrome.i18n.getMessage("debugWebRequestResponse"),
                     'color: #ff9900',

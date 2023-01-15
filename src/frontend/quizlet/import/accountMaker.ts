@@ -42,7 +42,7 @@ export default async () => {
         'Content-Type': 'application/json',
     });
 
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(
             chrome.i18n.getMessage('debugAccountCreationResult'),
             JSON.parse(content),

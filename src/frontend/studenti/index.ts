@@ -30,13 +30,13 @@ if (appuntiRegex.test(window.location.href)) {
         let pageNumber = parseInt(btn.innerText);
 
         if (pageNumber === 1) {
-            if (!import.meta.env.PROD) {
+            if (__EXTENSION_DEBUG_PRINTS__) {
                 console.log(chrome.i18n.getMessage('debugSkippingFirstButton'), 'color: #7ab700', btn);
             }
             return;
         }
 
-        if (!import.meta.env.PROD) {
+        if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(chrome.i18n.getMessage('debugChangingButtonURL'), 'color: #7ab700;', 'color: red;', btn.href, 'color: gray;', 'color: green;', `${baseUrl}&pag=${pageNumber - 1}`);
         }
         btn.href = `${baseUrl}&pag=${pageNumber - 1}`;
@@ -48,7 +48,7 @@ if (appuntiRegex.test(window.location.href)) {
 } else {
     const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a[href*=correlati]");
     relatedPageButton.forEach(btn => {
-        if (!import.meta.env.PROD) {
+        if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(chrome.i18n.getMessage('debugRemovingLastButton'), 'color: #7ab700', btn);
         }
 
@@ -69,7 +69,7 @@ const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc
 downloadButton?.addEventListener('click', (evt) => {
     evt.preventDefault();
 
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
     }
 

@@ -30,7 +30,7 @@ function getIdFromNextButton(): string | undefined {
     }
 
     // Log the url to the console
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(chrome.i18n.getMessage('debugNextPageAddress'), 'color: #7ab700;', nextPageUrl);
     }
 
@@ -54,7 +54,7 @@ async function getIdFromDownloadButton(): Promise<string | undefined> {
     }
 
     // Log the url to the console
-    if (!import.meta.env.PROD) {
+    if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(chrome.i18n.getMessage('debugNextPageAddress'), 'color: #7ab700;', downloadURL);
     }
 
