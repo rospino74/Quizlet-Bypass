@@ -30,7 +30,7 @@ if (!url || !solutionBox) {
         solutionsText = solutionBox.querySelector('div[style*="color: #000 !important;"]')?.textContent ?? '1 brani 0 brani';
     }
 
-    const soluzionsCount = Array.from(solutionsText.matchAll(/([0-9\.]+) brani/g))
+    const soluzionsCount = Array.from(solutionsText.matchAll(/([0-9\.]+) brani/g));
 
     if (soluzionsCount.length < 2) {
         substituteText(url[1], solutionBox);
@@ -40,10 +40,8 @@ if (!url || !solutionBox) {
         // Checking if we still have solutions available
         if (parseInt(soluzioniTotali) < 5) {
             substituteText(url[1], solutionBox);
-        } else {
-            if (__EXTENSION_DEBUG_PRINTS__) {
-                console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', soluzioniTotali);
-            }
+        } else if (__EXTENSION_DEBUG_PRINTS__) {
+            console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', soluzioniTotali);
         }
     }
 }
@@ -53,9 +51,9 @@ function substituteText(url: string, solutionBox: Element) {
         console.log(chrome.i18n.getMessage('debugExpiredSolutionsLatin'), 'color: #F5AB80');
     }
 
-    for (let success = false, i = 0; i <= 5 && !success; i++)
-        getHTMLFromTranslate(url).then(html => {
-            // Sostituisco il brano con la soluzione
+    for (let success = false, i = 0; i <= 5 && !success; i++) {
+        getHTMLFromTranslate(url).then((html) => {
+        // Sostituisco il brano con la soluzione
             if (html) {
                 if (url.indexOf('autore') != -1) {
                     solutionBox.innerHTML = html;
@@ -73,4 +71,5 @@ function substituteText(url: string, solutionBox: Element) {
 
             success = true;
         });
+    }
 }

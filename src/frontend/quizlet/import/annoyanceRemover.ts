@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-export default function removeAnnoyance(element: HTMLElement, selector: string, hideParent: boolean = true): boolean {
+export default function removeAnnoyance(element: HTMLElement, selector: string, hideParent = true): boolean {
     try {
         const children = element.querySelectorAll<HTMLElement>(selector);
         children.forEach((e) => {
@@ -28,4 +28,4 @@ export default function removeAnnoyance(element: HTMLElement, selector: string, 
         }
         return false;
     }
-}   
+}

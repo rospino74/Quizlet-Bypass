@@ -50,7 +50,7 @@ export default function manipulateVideoAds() {
     }
 
     // Iterate over all video ads to add a ready event listener
-    videoContainers.forEach(videoAd => {
+    videoContainers.forEach((videoAd) => {
         const observer = new MutationObserver(observerCallback);
 
         // Add the video element to the observer

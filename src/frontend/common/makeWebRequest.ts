@@ -18,15 +18,15 @@ export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyI
                 url,
                 method,
                 body,
-                headers
-            }
+                headers,
+            },
         }, (response?: string) => {
             if (__EXTENSION_DEBUG_PRINTS__) {
                 console.log(
-                    chrome.i18n.getMessage("debugWebRequestResponse"),
+                    chrome.i18n.getMessage('debugWebRequestResponse'),
                     'color: #ff9900',
                     'color: gray',
-                    response
+                    response,
                 );
             }
 

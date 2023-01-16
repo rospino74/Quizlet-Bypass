@@ -15,7 +15,7 @@ export default async function makeBackgroundWebRequest(url: string, method: 'GET
         'Upgrade-Insecure-Requests': '1',
         'Cache-Control': 'max-age=0',
     };
-    const newHeaders = Object.assign({}, defaultHeaders, headers);
+    const newHeaders = { ...defaultHeaders, ...headers };
 
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log('makeBackgroundWebRequest', url, method, body, newHeaders);
@@ -26,7 +26,7 @@ export default async function makeBackgroundWebRequest(url: string, method: 'GET
         headers: newHeaders,
         method,
         body,
-        mode: 'cors'
+        mode: 'cors',
     });
 
     if (__EXTENSION_DEBUG_PRINTS__) {

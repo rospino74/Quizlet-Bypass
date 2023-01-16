@@ -11,19 +11,19 @@
 //
 
 try {
-    const counterValue = document.querySelector<HTMLElement>(".counter-value")!!;
+    const counterValue = document.querySelector<HTMLElement>('.counter-value')!;
 
     // Sets the counter subtitle based on the current language
-    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(e => {
-        e.innerText = chrome.i18n.getMessage(e.dataset.i18n!!);
-    })
+    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((e) => {
+        e.innerText = chrome.i18n.getMessage(e.dataset.i18n!);
+    });
 
     // Sets the counter value
     // const count = localStorage.getItem("stats.accounts_created") || "0";
     // counterValue.innerText = count;
     chrome.runtime.sendMessage({
         action: 'getStats',
-        value: 'accounts_created'
+        value: 'accounts_created',
     }, (response?: string) => {
         if (response) {
             console.log(response);
@@ -35,7 +35,7 @@ try {
 }
 
 // Detects if the user is uing dark mode
-const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 if (isDarkMode) {
-    document.documentElement.classList.add("dark");
+    document.documentElement.classList.add('dark');
 }

@@ -17,13 +17,13 @@ import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 // Shitty banner here
 (() => {
     let special_style = [
-        "font-weight: bold",
-        "font-size: 32px",
-        "color: white"
-    ].join(";");
+        'font-weight: bold',
+        'font-size: 32px',
+        'color: white',
+    ].join(';');
 
     // Text shadow styles
-    special_style += "; text-shadow: ";
+    special_style += '; text-shadow: ';
     [0, 40, 60, 100, 170, 230, 270, 360].forEach((hue, i, array) => {
         i++; // Start from 1, not 0 as we need the text-shadow offset multiplication not to be 0
         special_style += `${1.5 * i}px ${1.2 * i}px 0px hsl(${hue}, 70%, 60%)${i < array.length ? ', ' : ';'}`;
@@ -37,84 +37,85 @@ installLatinAjaxInterceptor();
 
 // Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object }, sender, sendResponse) => {
-
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.info(
-            chrome.i18n.getMessage("messageFromContentScript"),
-            message
+            chrome.i18n.getMessage('messageFromContentScript'),
+            message,
         );
     }
 
     const { action, value } = message;
     const { tab } = sender;
     switch (action) {
-        case 'copyCookies': {
-            if (__EXTENSION_DEBUG_PRINTS__) {
-                console.info(
-                    chrome.i18n.getMessage("cookiesReceived"),
-                    value
-                );
-            }
-            replaceQuizletCookies(value as string, tab?.url);
-            break;
+    case 'copyCookies': {
+        if (__EXTENSION_DEBUG_PRINTS__) {
+            console.info(
+                chrome.i18n.getMessage('cookiesReceived'),
+                value,
+            );
+        }
+        replaceQuizletCookies(value as string, tab?.url);
+        break;
+    }
+
+    case 'refresh': {
+        if (__EXTENSION_DEBUG_PRINTS__) {
+            console.info(
+                chrome.i18n.getMessage('debugRefreshRequested'),
+            );
         }
 
-        case 'refresh': {
-            if (__EXTENSION_DEBUG_PRINTS__) {
-                console.info(
-                    chrome.i18n.getMessage("debugRefreshRequested"),
-                );
-            }
+        chrome.tabs.reload(tab?.id!).catch(() => {
+            chrome.tabs.update(tab?.id!, { url: tab?.url });
+        });
+        break;
+    }
+    case 'incrementStats': {
+        if (__EXTENSION_DEBUG_PRINTS__) {
+            console.info('Increment stats received');
+        }
 
-            chrome.tabs.reload(tab?.id!!).catch(() => {
-                chrome.tabs.update(tab?.id!!, { url: tab?.url });
+        chrome.storage.sync.get('stats', (result: any) => {
+            const key = value as string;
+            const newValue = (result[key] ?? 0) + 1;
+            result[key] = newValue;
+            chrome.storage.sync.set({ stats: result });
+        });
+
+        break;
+    }
+    case 'getStats': {
+        if (__EXTENSION_DEBUG_PRINTS__) {
+            console.info('Get stats received');
+        }
+
+        chrome.storage.sync.get('stats', (result: any) => {
+            const key = value as string;
+            const statsValue = result[key] ?? 0;
+            sendResponse(statsValue);
+        });
+        break;
+    }
+    case 'makeWebRequest': {
+        if (__EXTENSION_DEBUG_PRINTS__) {
+            console.info(
+                chrome.i18n.getMessage('debugWebRequestResponse'),
+                value,
+            );
+        }
+
+        const {
+            method, url, body, headers,
+        } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; };
+        makeBackgroundWebRequest(url, method, body, headers).then((response: Response): void => {
+            response.text().then((text: string): void => {
+                sendResponse(text);
             });
-            break;
-        }
-        case 'incrementStats': {
-            if (__EXTENSION_DEBUG_PRINTS__) {
-                console.info('Increment stats received');
-            }
-
-            chrome.storage.sync.get('stats', (result: any) => {
-                const key = value as string;
-                const newValue = (result[key] ?? 0) + 1
-                result[key] = newValue;
-                chrome.storage.sync.set({ stats: result });
-            });
-
-            break;
-        }
-        case 'getStats': {
-            if (__EXTENSION_DEBUG_PRINTS__) {
-                console.info('Get stats received');
-            }
-
-            chrome.storage.sync.get('stats', (result: any) => {
-                const key = value as string;
-                const statsValue = result[key] ?? 0;
-                sendResponse(statsValue);
-            });
-            break;
-        }
-        case 'makeWebRequest': {
-            if (__EXTENSION_DEBUG_PRINTS__) {
-                console.info(
-                    chrome.i18n.getMessage("debugWebRequestResponse"),
-                    value
-                );
-            }
-
-            const { method, url, body, headers } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; };
-            makeBackgroundWebRequest(url, method, body, headers).then((response: Response): void => {
-                response.text().then((text: string): void => {
-                    sendResponse(text);
-                });
-            }).catch((e) => {
-                console.error(e);
-                sendResponse(e);
-            });
-        }
+        }).catch((e) => {
+            console.error(e);
+            sendResponse(e);
+        });
+    }
     }
     return true;
 });
@@ -123,7 +124,7 @@ chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabCha
     let { url } = changeInfo;
 
     if (!url) {
-        url = tab.url!!;
+        url = tab.url!;
     }
 
     const actionAPI = __EXTENSION_MV3__ ? chrome.action : chrome.browserAction;

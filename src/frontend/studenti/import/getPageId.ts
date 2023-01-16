@@ -22,7 +22,7 @@ export default async function getPageId(): Promise<string> {
 
 function getIdFromNextButton(): string | undefined {
     // Grabbing the url from the button
-    const nextPageUrl = document.querySelector<HTMLAnchorElement>(".pager ul li:nth-child(2) a")?.href;
+    const nextPageUrl = document.querySelector<HTMLAnchorElement>('.pager ul li:nth-child(2) a')?.href;
 
     // If the url is not present, return null
     if (!nextPageUrl) {
@@ -61,7 +61,7 @@ async function getIdFromDownloadButton(): Promise<string | undefined> {
     try {
         // Fetch the page and analyze it with the template element
         const text = await makeWebRequest(downloadURL, 'GET');
-        
+
         // Extract the page id from the url
         return /scarica_new\('([\w\-]+)'\);/gm.exec(text)?.[1];
     } catch (error) {

@@ -23,16 +23,16 @@ export default async function getHTMLFromTranslate(url: string): Promise<string 
         'User-Agent': UserAgent.getRandom() as string,
         'Cache-Control': 'max-age=0',
         Pragma: 'no-cache',
-    }
+    };
 
-    const response = await makeWebRequest(baseUrl + url + (url.indexOf('?') == -1 ? '?' : '&') + getParams, 'GET', undefined, headers)
+    const response = await makeWebRequest(baseUrl + url + (url.indexOf('?') == -1 ? '?' : '&') + getParams, 'GET', undefined, headers);
 
     // Creo un elemento template
     const template = document.createElement('template');
     template.innerHTML = response;
 
     // Rimuovo il no copy
-    const noCopyBoxes = template.content.querySelectorAll("[style*=user-select]") as NodeListOf<HTMLElement>;
+    const noCopyBoxes = template.content.querySelectorAll('[style*=user-select]') as NodeListOf<HTMLElement>;
     userSelectRemover(noCopyBoxes);
 
     // Prendo il contenuto del div con classe corpo

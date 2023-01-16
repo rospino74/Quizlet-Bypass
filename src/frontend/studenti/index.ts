@@ -10,8 +10,8 @@
 // limitations under the License.
 //
 
-import getPageId from "./import/getPageId";
-import getFileDownloadUrl from "./import/getFileDownloadUrl";
+import getPageId from './import/getPageId';
+import getFileDownloadUrl from './import/getFileDownloadUrl';
 
 console.log('%cStudenti.it %cv%s', 'color: #7ab700;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
@@ -25,9 +25,9 @@ if (appuntiRegex.test(window.location.href)) {
     const baseUrl = `https://doc.studenti.it/vedi_tutto/index.php?h=${pageId}`;
 
     // Then we iterate over all the buttons and change the urls
-    const nextPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a");
-    nextPageButton.forEach(btn => {
-        let pageNumber = parseInt(btn.innerText);
+    const nextPageButton = document.querySelectorAll<HTMLAnchorElement>('.pager ul li a');
+    nextPageButton.forEach((btn) => {
+        const pageNumber = parseInt(btn.innerText);
 
         if (pageNumber === 1) {
             if (__EXTENSION_DEBUG_PRINTS__) {
@@ -43,11 +43,11 @@ if (appuntiRegex.test(window.location.href)) {
     });
 
     // Remove right arrow button
-    const rightArrowButtons = document.querySelectorAll<HTMLLIElement>(".pager ul li:last-child");
-    rightArrowButtons.forEach(btn => btn.parentElement?.removeChild(btn));
+    const rightArrowButtons = document.querySelectorAll<HTMLLIElement>('.pager ul li:last-child');
+    rightArrowButtons.forEach((btn) => btn.parentElement?.removeChild(btn));
 } else {
-    const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>(".pager ul li a[href*=correlati]");
-    relatedPageButton.forEach(btn => {
+    const relatedPageButton = document.querySelectorAll<HTMLAnchorElement>('.pager ul li a[href*=correlati]');
+    relatedPageButton.forEach((btn) => {
         if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(chrome.i18n.getMessage('debugRemovingLastButton'), 'color: #7ab700', btn);
         }
@@ -57,15 +57,15 @@ if (appuntiRegex.test(window.location.href)) {
     });
 
     // Modifing the total count of pages
-    const totalPageCounters = document.querySelectorAll<HTMLElement>(".pager span b:nth-child(2)");
-    totalPageCounters?.forEach(counter => {
+    const totalPageCounters = document.querySelectorAll<HTMLElement>('.pager span b:nth-child(2)');
+    totalPageCounters?.forEach((counter) => {
         const currentPageCount = parseInt(counter.innerText) - 1;
         counter.innerText = currentPageCount.toString();
     });
 }
 
 // Gets the download button
-const downloadButton = document.querySelector<HTMLAnchorElement>("a.download-doc");
+const downloadButton = document.querySelector<HTMLAnchorElement>('a.download-doc');
 downloadButton?.addEventListener('click', (evt) => {
     evt.preventDefault();
 
@@ -73,7 +73,7 @@ downloadButton?.addEventListener('click', (evt) => {
         console.log(chrome.i18n.getMessage('debugAskForURL'), 'color: #7ab700;');
     }
 
-    getFileDownloadUrl(pageId).then(url => {
+    getFileDownloadUrl(pageId).then((url) => {
         // Open the url
         window.location.href = url;
     });

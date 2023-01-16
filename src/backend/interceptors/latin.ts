@@ -23,7 +23,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         if (str.includes('Protected')) {
             if (__EXTENSION_DEBUG_PRINTS__) {
                 console.warn(
-                    chrome.i18n.getMessage("debugProtectedPageDetected"),
+                    chrome.i18n.getMessage('debugProtectedPageDetected'),
                 );
             }
 
@@ -37,15 +37,15 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
         if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(
-                chrome.i18n.getMessage("debugModifiedHtml"),
-                str
+                chrome.i18n.getMessage('debugModifiedHtml'),
+                str,
             );
         }
 
         // Just send back the response
         filter.write(encoder.encode(str));
         filter.disconnect();
-    }
+    };
 
     return {};
 }
@@ -63,7 +63,7 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     if (xhr.status !== 200 || xhr.responseText.includes('Protected')) {
         if (__EXTENSION_DEBUG_PRINTS__) {
             console.warn(
-                chrome.i18n.getMessage("debugProtectedPageDetected"),
+                chrome.i18n.getMessage('debugProtectedPageDetected'),
             );
         }
 
@@ -75,8 +75,8 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
 
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(
-            chrome.i18n.getMessage("debugModifiedHtml"),
-            parsed
+            chrome.i18n.getMessage('debugModifiedHtml'),
+            parsed,
         );
     }
 
@@ -103,7 +103,7 @@ export default function installLatinAjaxInterceptor() {
             browser.webRequest.onBeforeRequest.addListener(
                 firefoxListener,
                 { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
-                ['blocking']
+                ['blocking'],
             );
             if (__EXTENSION_DEBUG_PRINTS__) {
                 console.log(
@@ -111,29 +111,26 @@ export default function installLatinAjaxInterceptor() {
                     'color: #80f5ab;',
                     'color: gray; font-style: italic;',
                     'color: #009dd9;',
-                    'color: gray; font-style: italic;'
+                    'color: gray; font-style: italic;',
                 );
             }
-
+        } else if (__EXTENSION_MV3__) {
+            throw new Error('Manifest Version 3 not supported.');
         } else {
-            if (__EXTENSION_MV3__) {
-                throw new Error("Manifest Version 3 not supported.");
-            } else {
-                chrome.webRequest.onBeforeRequest.addListener(
-                    chromeListener,
-                    { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
-                    ['blocking']
-                );
+            chrome.webRequest.onBeforeRequest.addListener(
+                chromeListener,
+                { urls: ['https://www.latin.it/ajax_traduzione_frase.php?*', 'https://www.latin.it/ajax_traduzione_versione.php?*'] },
+                ['blocking'],
+            );
 
-                if (__EXTENSION_DEBUG_PRINTS__) {
-                    console.log(
-                        chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
-                        'color: #f5cf80;',
-                        'color: gray; font-style: italic;',
-                        'color: #009dd9;',
-                        'color: gray; font-style: italic;'
-                    );
-                }
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.log(
+                    chrome.i18n.getMessage('debugSuccessfullyInstalledLatinAjaxInterceptorChrome'),
+                    'color: #f5cf80;',
+                    'color: gray; font-style: italic;',
+                    'color: #009dd9;',
+                    'color: gray; font-style: italic;',
+                );
             }
         }
     } catch (e) {
@@ -143,10 +140,9 @@ export default function installLatinAjaxInterceptor() {
                 'color: #f04747;',
                 'color: gray; font-style: italic;',
                 'color: #009dd9;',
-                'color: gray; font-style: italic;'
+                'color: gray; font-style: italic;',
             );
             console.error(e);
         }
     }
 }
-

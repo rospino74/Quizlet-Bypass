@@ -10,9 +10,9 @@
 // limitations under the License.
 //
 
-//@ts-ignore
+// @ts-ignore
 import deleteQuizletAccount from './import/accountDeleter';
-//@ts-ignore
+// @ts-ignore
 import makeQuizletAccount from './import/accountMaker';
 import removeAnnoyance from './import/annoyanceRemover';
 
@@ -97,7 +97,7 @@ const observer = new MutationObserver((mutationList) => {
 observer.observe(document, { childList: true, subtree: true });
 
 // check once at load
-//@ts-ignore
+// @ts-ignore
 handleMutation({ target: document });
 
 // check paywall when main document has loaded

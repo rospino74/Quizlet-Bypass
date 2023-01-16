@@ -13,17 +13,17 @@
 import { makeJsonWebRequest } from '../../common/makeWebRequest';
 
 export default async function getFileDownloadUrl(documentId: string): Promise<string> {
-    const apiUrl = `https://doc.studenti.it/ajax/download.php`;
+    const apiUrl = 'https://doc.studenti.it/ajax/download.php';
     const body = `k=${documentId}`;
 
     // Post request to get the download url
     const response = await makeJsonWebRequest(apiUrl, 'POST', body, {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
     });
 
     // Response object
     if (__EXTENSION_DEBUG_PRINTS__) {
-        console.log(response)
+        console.log(response);
     }
     const { esito, messaggio, link } = response;
 
