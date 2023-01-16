@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-import makeWebRequest from '../../common/makeWebRequest';
+import { makeWebRequest } from '../../common/makeWebRequest';
 
 export default async function getCSRFToken() {
     const headers = {

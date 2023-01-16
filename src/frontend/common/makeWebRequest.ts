@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-export default function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<string> {
+export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<string> {
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             action: 'makeWebRequest',
@@ -37,4 +37,13 @@ export default function makeWebRequest(url: string, method: 'GET' | 'POST', body
             }
         });
     });
+}
+
+export async function makeJsonWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<any> {
+    const response = await makeWebRequest(url, method, body, headers);
+    try {
+        return JSON.parse(response);
+    } catch (e) {
+        throw new Error(`Invalid JSON response: ${response}`);
+    }
 }

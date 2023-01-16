@@ -12,7 +12,7 @@
 
 import UserAgent from 'random-useragent';
 import userSelectRemover from './userSelectRemover';
-import makeWebRequest from '../../common/makeWebRequest';
+import { makeWebRequest } from '../../common/makeWebRequest';
 
 const baseUrl = 'https://www-latin-it.translate.goog/';
 const getParams = '_x_tr_sl=it&_x_tr_tl=it&_x_tr_hl=it&_x_tr_pto=ajax,op,elem';

@@ -10,30 +10,30 @@
 // limitations under the License.
 //
 
-import makeWebRequest from "../../common/makeWebRequest";
+import { makeJsonWebRequest } from '../../common/makeWebRequest';
 
 export default async function getFileDownloadUrl(documentId: string): Promise<string> {
     const apiUrl = `https://doc.studenti.it/ajax/download.php`;
     const body = `k=${documentId}`;
 
     // Post request to get the download url
-    const response = await makeWebRequest(apiUrl, 'POST', body, {
+    const response = await makeJsonWebRequest(apiUrl, 'POST', body, {
         'Content-Type': 'application/x-www-form-urlencoded'
     });
-    const json = JSON.parse(response);
 
     // Response object
     if (__EXTENSION_DEBUG_PRINTS__) {
-        console.log(json)
+        console.log(response)
     }
+    const { esito, messaggio, link } = response;
 
-    if (json.esito != 'OK') {
-        throw new Error(`API Error: ${json.messaggio}`);
+    if (esito != 'OK') {
+        throw new Error(`API Error: ${messaggio}`);
     }
 
     if (__EXTENSION_DEBUG_PRINTS__) {
-        console.log(chrome.i18n.getMessage('debugDownloadURL'), 'color: #7ab700;', 'color: gray;', json.link);
+        console.log(chrome.i18n.getMessage('debugDownloadURL'), 'color: #7ab700;', 'color: gray;', link);
     }
 
-    return json.link;
+    return link;
 }

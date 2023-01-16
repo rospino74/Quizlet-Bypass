@@ -12,7 +12,7 @@
 
 import Chance from 'chance';
 import getCSRFToken from './CSRFTokenGrabber';
-import makeWebRequest from '../../common/makeWebRequest';
+import { makeJsonWebRequest } from '../../common/makeWebRequest';
 
 const chance = new Chance();
 
@@ -37,7 +37,7 @@ export default async () => {
         marketing_opt_out: true,
     });
 
-    const content = await makeWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', body, {
+    const content = await makeJsonWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', body, {
         'CS-Token': await getCSRFToken(),
         'Content-Type': 'application/json',
     });
@@ -45,7 +45,7 @@ export default async () => {
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(
             chrome.i18n.getMessage('debugAccountCreationResult'),
-            JSON.parse(content),
+            content,
         );
     }
 }
