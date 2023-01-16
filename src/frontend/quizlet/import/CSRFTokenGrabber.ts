@@ -13,11 +13,10 @@
 import { makeWebRequest } from '../../common/makeWebRequest';
 
 export default async function getCSRFToken() {
-    const headers = {
+    const content = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, {
         Pragma: 'no-cache',
         'Cache-Control': 'no-cache',
-    };
-    const content = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, headers);
+    });
 
     // Search for the CSRF token name
     const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i) ?? [null, 'qtkn']; // Tries the default one

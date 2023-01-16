@@ -13,11 +13,9 @@
 import { makeJsonWebRequest } from '../../common/makeWebRequest';
 
 export default async function getFileDownloadUrl(documentId: string): Promise<string> {
-    const apiUrl = 'https://doc.studenti.it/ajax/download.php';
-    const body = `k=${documentId}`;
-
     // Post request to get the download url
-    const response = await makeJsonWebRequest(apiUrl, 'POST', body, {
+    const body = `k=${documentId}`;
+    const response = await makeJsonWebRequest('https://doc.studenti.it/ajax/download.php', 'POST', body, {
         'Content-Type': 'application/x-www-form-urlencoded',
     });
 
@@ -27,7 +25,7 @@ export default async function getFileDownloadUrl(documentId: string): Promise<st
     }
     const { esito, messaggio, link } = response;
 
-    if (esito != 'OK') {
+    if (esito !== 'OK') {
         throw new Error(`API Error: ${messaggio}`);
     }
 
