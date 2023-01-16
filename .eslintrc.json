@@ -5,12 +5,19 @@
         "webextensions": true
     },
     "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
         "airbnb-base"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 12
+        "ecmaVersion": 13
     },
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "rules": {
+        "no-underscore-dangle":"off",
         "no-console": "off",
         "max-len": "off",
         "no-plusplus": "off",
@@ -20,6 +27,11 @@
         ],
         "linebreak-style": [
             "off"
+        ],
+        "quotes": [
+            2,
+            "single",
+            "avoid-escape"
         ]
     }
 }
