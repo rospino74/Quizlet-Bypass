@@ -1,8 +1,14 @@
 {
     "env": {
         "browser": true,
-        "es2021": true,
+        "es2022": true,
         "webextensions": true
+    },
+    "globals": {
+        "__EXTENSION_VERSION__": "readonly",
+        "__EXTENSION_MV2__": "readonly",
+        "__EXTENSION_MV3__": "readonly",
+        "__EXTENSION_DEBUG_PRINTS__": "readonly"
     },
     "extends": [
         "eslint:recommended",
@@ -17,7 +23,9 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-underscore-dangle":"off",
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "no-underscore-dangle": "off",
         "no-console": "off",
         "max-len": "off",
         "no-plusplus": "off",
