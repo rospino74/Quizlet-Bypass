@@ -21,8 +21,9 @@ export default async function getCSRFToken() {
     // Search for the CSRF token name
     const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i) ?? [null, 'qtkn']; // Tries the default one
 
-    // Search for the CSRF token value
-    const [, cookieValue] = document.cookie.match(`(?:^|;)\\s*${CSRFCookieName}=([^;]*)`)!; // Throws an error if the cookie is not found. We cannot go beyond this point without it
+    // Search for the CSRF token value, Throws an error if the cookie is not found. We cannot go beyond this point without it
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const [, cookieValue] = document.cookie.match(`(?:^|;)\\s*${CSRFCookieName}=([^;]*)`)!;
 
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log('CSRF Token: ', cookieValue);
