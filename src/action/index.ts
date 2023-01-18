@@ -11,16 +11,18 @@
 //
 
 try {
+    // We are sure that the element exists, so we can disable the eslint rule
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const counterValue = document.querySelector<HTMLElement>('.counter-value')!;
 
     // Sets the counter subtitle based on the current language
     document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((e) => {
+        // Wr can safely get the value of the attribute because we have queried only the elements that have it
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         e.innerText = chrome.i18n.getMessage(e.dataset.i18n!);
     });
 
     // Sets the counter value
-    // const count = localStorage.getItem("stats.accounts_created") || "0";
-    // counterValue.innerText = count;
     chrome.runtime.sendMessage({
         action: 'getStats',
         value: 'accounts_created',
