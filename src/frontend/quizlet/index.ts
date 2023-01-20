@@ -10,9 +10,7 @@
 // limitations under the License.
 //
 
-// @ts-ignore
 import deleteQuizletAccount from './import/accountDeleter';
-// @ts-ignore
 import makeQuizletAccount from './import/accountMaker';
 import removeAnnoyance from './import/annoyanceRemover';
 

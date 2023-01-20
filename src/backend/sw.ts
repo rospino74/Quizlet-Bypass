@@ -16,27 +16,27 @@ import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 
 // Shitty banner here
 (() => {
-    let special_style = [
+    let specialStyle = [
         'font-weight: bold',
         'font-size: 32px',
         'color: white',
     ].join(';');
 
     // Text shadow styles
-    special_style += '; text-shadow: ';
+    specialStyle += '; text-shadow: ';
     [0, 40, 60, 100, 170, 230, 270, 360].forEach((hue, i, array) => {
-        i++; // Start from 1, not 0 as we need the text-shadow offset multiplication not to be 0
-        special_style += `${1.5 * i}px ${1.2 * i}px 0px hsl(${hue}, 70%, 60%)${i < array.length ? ', ' : ';'}`;
+        const ni = i + 1; // Start from 1, not 0 as we need the text-shadow offset multiplication not to be 0
+        specialStyle += `${1.5 * ni}px ${1.2 * ni}px 0px hsl(${hue}, 70%, 60%)${ni < array.length ? ', ' : ';'}`;
     });
 
-    console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', special_style, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
+    console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', specialStyle, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 })();
 
 // Provo ad intercettare le richieste
 installLatinAjaxInterceptor();
 
 // Listening for messages from the content script
-chrome.runtime.onMessage.addListener((message: { action: string; value: string | Object }, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message: { action: string; value: string | object }, sender, sendResponse) => {
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.info(
             chrome.i18n.getMessage('messageFromContentScript'),
@@ -65,9 +65,12 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             );
         }
 
-        chrome.tabs.reload(tab?.id!).catch(() => {
-            chrome.tabs.update(tab?.id!, { url: tab?.url });
-        });
+        if (tab?.id) {
+            const { id, url } = tab;
+            chrome.tabs.reload(id).catch(() => {
+                chrome.tabs.update(id, { url });
+            });
+        }
         break;
     }
     case 'incrementStats': {
@@ -115,17 +118,17 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             console.error(e);
             sendResponse(e);
         });
+        break;
     }
+    default:
+        break;
     }
     return true;
 });
 
 chrome.tabs.onUpdated.addListener((tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
-    let { url } = changeInfo;
-
-    if (!url) {
-        url = tab.url!;
-    }
+    // If the url is undefined, use the tab url or the default quizlet url (so we can at least enable the browser action)
+    const url = changeInfo.url ?? tab.url ?? 'quizlet.com';
 
     const actionAPI = __EXTENSION_MV3__ ? chrome.action : chrome.browserAction;
     if (url.includes('quizlet.com')) {

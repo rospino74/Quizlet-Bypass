@@ -10,39 +10,42 @@
 // limitations under the License.
 //
 
+// We can allow this file to include dependencies that are not in package.json
+/* eslint-disable import/no-extraneous-dependencies */
 // @ts-nocheck
-import { defineConfig, loadEnv } from "vite";
-import topLevelAwait from "vite-plugin-top-level-await";
-import webExtension from "@samrum/vite-plugin-web-extension";
-import path from "path";
-import { getManifest } from "./utils/manifest";
+
+import { defineConfig, loadEnv } from 'vite';
+import topLevelAwait from 'vite-plugin-top-level-await';
+import webExtension from '@samrum/vite-plugin-web-extension';
+import path from 'path';
+import { getManifest } from './utils/manifest';
 import { version } from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-  const manifestVersion = Number(env.MANIFEST_VERSION ?? 3) as 2 | 3;
+    const env = loadEnv(mode, process.cwd(), '');
+    const manifestVersion = Number(env.MANIFEST_VERSION ?? 3) as 2 | 3;
 
-  return {
-    plugins: [
-      webExtension({
-        manifest: getManifest(manifestVersion),
-      }),
-      topLevelAwait({
-        promiseExportName: "__tlawait_export__",
-        promiseImportName: i => `__tlawait_import_${i}__`
-      })
-    ],
-    resolve: {
-      alias: {
-        "~": path.resolve(__dirname, './src'),
-      },
-    },
-    define: {
-      '__EXTENSION_VERSION__': JSON.stringify(version ?? '1.0.0'),
-      '__EXTENSION_MV3__': manifestVersion === 3,
-      '__EXTENSION_MV2__': manifestVersion === 2,
-      '__EXTENSION_DEBUG_PRINTS__': mode !== 'production' || Boolean(env.DEBUG_PRINTS ?? false),
-    },
-  };
+    return {
+        plugins: [
+            webExtension({
+                manifest: getManifest(manifestVersion),
+            }),
+            topLevelAwait({
+                promiseExportName: '__tlawait_export__',
+                promiseImportName: (i: number) => `__tlawait_import_${i}__`,
+            }),
+        ],
+        resolve: {
+            alias: {
+                '~': path.resolve(__dirname, './src'),
+            },
+        },
+        define: {
+            __EXTENSION_VERSION__: JSON.stringify(version ?? '1.0.0'),
+            __EXTENSION_MV3__: manifestVersion === 3,
+            __EXTENSION_MV2__: manifestVersion === 2,
+            __EXTENSION_DEBUG_PRINTS__: mode !== 'production' || Boolean(env.DEBUG_PRINTS ?? false),
+        },
+    };
 });
