@@ -13,6 +13,7 @@
 import replaceQuizletCookies from './cookieReplacer';
 import installLatinAjaxInterceptor from './interceptors/latin';
 import makeBackgroundWebRequest from './makeBackgroundWebRequest';
+import { getStatistics, incrementStatistic } from './statsUtils';
 
 // Shitty banner here
 (() => {
@@ -77,14 +78,7 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
         if (__EXTENSION_DEBUG_PRINTS__) {
             console.info('Increment stats received');
         }
-
-        chrome.storage.sync.get('stats', (result: any) => {
-            const key = value as string;
-            const newValue = (result[key] ?? 0) + 1;
-            result[key] = newValue;
-            chrome.storage.sync.set({ stats: result });
-        });
-
+        incrementStatistic(value as string);
         break;
     }
     case 'getStats': {
@@ -92,10 +86,9 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             console.info('Get stats received');
         }
 
-        chrome.storage.sync.get('stats', (result: any) => {
+        getStatistics().then((response) => {
             const key = value as string;
-            const statsValue = result[key] ?? 0;
-            sendResponse(statsValue);
+            sendResponse(response[key]);
         });
         break;
     }
