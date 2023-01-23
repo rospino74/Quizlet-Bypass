@@ -1,7 +1,7 @@
 {
   "name": "quizlet",
   "displayName": "Quizlet Bypass",
-  "version": "1.4.5",
+  "version": "1.4.5.1",
   "description": "Removes the paywall from the Quizlet page and other sites",
   "main": "src/index.js",
   "scripts": {
