@@ -31,7 +31,7 @@ console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: it
 let banner: HTMLElement | null = null;
 let notLoggedInPaywall: HTMLElement | null = null;
 
-function handleMutation(mutation: MutationRecord) {
+function handleMutation(mutation: MutationRecord | { target: Node }) {
     const target = mutation.target as HTMLElement;
 
     // Remove all the fake classes to detect paywalls
@@ -96,7 +96,6 @@ const observer = new MutationObserver((mutationList) => {
 observer.observe(document, { childList: true, subtree: true });
 
 // check once at load
-// @ts-ignore
 handleMutation({ target: document });
 
 // check paywall when main document has loaded
