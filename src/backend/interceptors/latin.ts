@@ -10,6 +10,17 @@
 // limitations under the License.
 //
 
+// This file is a bit special, we don't have firefox typedef so we have to use @ts-ignore and friends
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any */
+
+function removeUserSelectRules(str: string): string {
+    // Regex to find all kind of user select
+    const regex = /-?(moz|webkit|khtml|ms|o)?-?user-select: none;?/gm;
+
+    // Just removes it
+    return str.replace(regex, '');
+}
+
 function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
     // @ts-ignore
     const filter = browser.webRequest.filterResponseData(details.requestId);
@@ -33,7 +44,7 @@ function firefoxListener(details: chrome.webRequest.WebRequestBodyDetails) {
         }
 
         // Elimino l'anty copy
-        str = parseAndRemove(str);
+        str = removeUserSelectRules(str);
 
         if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(
@@ -71,7 +82,7 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     }
 
     // Remove the anti-copy system
-    const parsed = parseAndRemove(xhr.responseText);
+    const parsed = removeUserSelectRules(xhr.responseText);
 
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(
@@ -85,14 +96,6 @@ function chromeListener(details: chrome.webRequest.WebRequestBodyDetails) {
     return {
         redirectUrl: dataURL,
     };
-}
-
-function parseAndRemove(str: string): string {
-    // Regex to find all kind of user select
-    const regex = /-?(moz|webkit|khtml|ms|o)?-?user-select: none;?/gm;
-
-    // Just removes it
-    return str.replace(regex, '');
 }
 
 export default function installLatinAjaxInterceptor() {

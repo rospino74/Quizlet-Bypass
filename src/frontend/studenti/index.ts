@@ -27,7 +27,7 @@ if (appuntiRegex.test(window.location.href)) {
     // Then we iterate over all the buttons and change the urls
     const nextPageButton = document.querySelectorAll<HTMLAnchorElement>('.pager ul li a');
     nextPageButton.forEach((btn) => {
-        const pageNumber = parseInt(btn.innerText);
+        const pageNumber = parseInt(btn.innerText, 10);
 
         if (pageNumber === 1) {
             if (__EXTENSION_DEBUG_PRINTS__) {
@@ -59,7 +59,7 @@ if (appuntiRegex.test(window.location.href)) {
     // Modifing the total count of pages
     const totalPageCounters = document.querySelectorAll<HTMLElement>('.pager span b:nth-child(2)');
     totalPageCounters?.forEach((counter) => {
-        const currentPageCount = parseInt(counter.innerText) - 1;
+        const currentPageCount = parseInt(counter.innerText, 10) - 1;
         counter.innerText = currentPageCount.toString();
     });
 }

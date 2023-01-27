@@ -10,14 +10,14 @@
 // limitations under the License.
 //
 
-import getHTMLFromTranslate from './import/translateGrabber';
+import substituteText from './import/substituteTranslationFromSourceURL';
 
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 const solutionBox = document.querySelector('div.corpo')?.children.item(4)?.children.item(1);
 
-// prendo l'url con una regex
-const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href);
+// match latin.it urls
+const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href)?.[1];
 
 if (!url || !solutionBox) {
     if (__EXTENSION_DEBUG_PRINTS__) {
@@ -30,46 +30,18 @@ if (!url || !solutionBox) {
         solutionsText = solutionBox.querySelector('div[style*="color: #000 !important;"]')?.textContent ?? '1 brani 0 brani';
     }
 
-    const soluzionsCount = Array.from(solutionsText.matchAll(/([0-9\.]+) brani/g));
+    const soluzionsCount = [...solutionsText.matchAll(/([0-9.]+) brani/g)];
 
     if (soluzionsCount.length < 2) {
-        substituteText(url[1], solutionBox);
+        substituteText(url, solutionBox);
     } else {
-        const [[, soluzioniUsate], [, soluzioniTotali]] = soluzionsCount;
+        const maxNumberOfSolutions = parseInt(soluzionsCount[1][1], 10);
 
         // Checking if we still have solutions available
-        if (parseInt(soluzioniTotali) < 5) {
-            substituteText(url[1], solutionBox);
+        if (maxNumberOfSolutions < 5) {
+            substituteText(url, solutionBox);
         } else if (__EXTENSION_DEBUG_PRINTS__) {
-            console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', soluzioniTotali);
+            console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', maxNumberOfSolutions);
         }
-    }
-}
-
-function substituteText(url: string, solutionBox: Element) {
-    if (__EXTENSION_DEBUG_PRINTS__) {
-        console.log(chrome.i18n.getMessage('debugExpiredSolutionsLatin'), 'color: #F5AB80');
-    }
-
-    for (let success = false, i = 0; i <= 5 && !success; i++) {
-        getHTMLFromTranslate(url).then((html) => {
-        // Sostituisco il brano con la soluzione
-            if (html) {
-                if (url.indexOf('autore') != -1) {
-                    solutionBox.innerHTML = html;
-                } else {
-                    const iframe = document.createElement('iframe');
-                    iframe.srcdoc = html;
-                    iframe.style.width = '100%';
-                    iframe.style.height = '150vh';
-                    iframe.style.border = 'none';
-
-                    solutionBox.innerHTML = '';
-                    solutionBox.appendChild(iframe);
-                }
-            }
-
-            success = true;
-        });
     }
 }

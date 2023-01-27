@@ -39,7 +39,7 @@ export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyI
     });
 }
 
-export async function makeJsonWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<any> {
+export async function makeJsonWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<object> {
     const response = await makeWebRequest(url, method, body, headers);
     try {
         return JSON.parse(response);

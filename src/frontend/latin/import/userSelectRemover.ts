@@ -12,21 +12,8 @@
 
 export default function userSelectRemover(element: HTMLElement | NodeListOf<HTMLElement>): void {
     if (element instanceof NodeList) {
-        element.forEach(remove);
+        element.forEach(userSelectRemover);
     } else {
-        remove(element);
+        element.style.userSelect = 'text';
     }
-}
-
-function remove(element: HTMLElement): void {
-    // Proprietà non standard
-    try {
-        /// @ts-ignore
-        element.style.MozUserSelect = 'text';
-        /// @ts-ignore
-        element.style.WebkitUserSelect = 'text';
-    } catch { }
-
-    // Proprietà standard
-    element.style.userSelect = 'text';
 }

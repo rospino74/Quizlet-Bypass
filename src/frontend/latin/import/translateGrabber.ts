@@ -20,23 +20,23 @@ const getParams = '_x_tr_sl=it&_x_tr_tl=it&_x_tr_hl=it&_x_tr_pto=ajax,op,elem';
 export default async function getHTMLFromTranslate(url: string): Promise<string | null> {
     // Prendo il contenuto da Google Traduttore
     const headers = {
-        'User-Agent': UserAgent.getRandom() as string,
+        'User-Agent': UserAgent.getRandom(),
         'Cache-Control': 'max-age=0',
         Pragma: 'no-cache',
     };
 
-    const response = await makeWebRequest(baseUrl + url + (url.indexOf('?') == -1 ? '?' : '&') + getParams, 'GET', undefined, headers);
+    const response = await makeWebRequest(baseUrl + url + (url.indexOf('?') !== -1 ? '?' : '&') + getParams, 'GET', undefined, headers);
 
     // Creo un elemento template
     const template = document.createElement('template');
     template.innerHTML = response;
 
     // Rimuovo il no copy
-    const noCopyBoxes = template.content.querySelectorAll('[style*=user-select]') as NodeListOf<HTMLElement>;
+    const noCopyBoxes = template.content.querySelectorAll<HTMLElement>('[style*=user-select]');
     userSelectRemover(noCopyBoxes);
 
     // Prendo il contenuto del div con classe corpo
-    const body = template.content.querySelector('div.corpo') as HTMLElement;
+    const body = template.content.querySelector<HTMLDivElement>('div.corpo');
 
     // Prendo il contenuto del secondo div nel quinto elemento di body
     const content = body?.children.item(4)?.children.item(1);

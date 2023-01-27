@@ -12,14 +12,6 @@
 
 import { makeWebRequest } from '../../common/makeWebRequest';
 
-export default async function getPageId(): Promise<string> {
-    const id = getIdFromNextButton() ?? getIdFromCurrentLocation() ?? await getIdFromDownloadButton();
-    if (!id) {
-        throw new Error(chrome.i18n.getMessage('debugNoStudentiPageId'));
-    }
-    return id;
-}
-
 function getIdFromNextButton(): string | undefined {
     // Grabbing the url from the button
     const nextPageUrl = document.querySelector<HTMLAnchorElement>('.pager ul li:nth-child(2) a')?.href;
@@ -35,13 +27,13 @@ function getIdFromNextButton(): string | undefined {
     }
 
     // Extract the page id from the url
-    const pageIdRegex = /download(_2)?\/([\w\-]+)_1\.html/gm;
+    const pageIdRegex = /download(_2)?\/([\w-]+)_1\.html/gm;
     return pageIdRegex.exec(nextPageUrl)?.[2];
 }
 
 function getIdFromCurrentLocation(): string | undefined {
     // Extract the page id from the url
-    return /\?h=([\w\-]+)/gm.exec(window.location.href)?.[1];
+    return /\?h=([\w-]+)/gm.exec(window.location.href)?.[1];
 }
 
 async function getIdFromDownloadButton(): Promise<string | undefined> {
@@ -63,9 +55,17 @@ async function getIdFromDownloadButton(): Promise<string | undefined> {
         const text = await makeWebRequest(downloadURL, 'GET');
 
         // Extract the page id from the url
-        return /scarica_new\('([\w\-]+)'\);/gm.exec(text)?.[1];
+        return /scarica_new\('([\w-]+)'\);/gm.exec(text)?.[1];
     } catch (error) {
         console.error(chrome.i18n.getMessage('fetchError'), 'color: #ff0000;', error);
         return undefined;
     }
+}
+
+export default async function getPageId(): Promise<string> {
+    const id = getIdFromNextButton() ?? getIdFromCurrentLocation() ?? await getIdFromDownloadButton();
+    if (!id) {
+        throw new Error(chrome.i18n.getMessage('debugNoStudentiPageId'));
+    }
+    return id;
 }
