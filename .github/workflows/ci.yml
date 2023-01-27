@@ -35,7 +35,7 @@ jobs:
         run: |
           npm install --only=dev
       - name: ESLint check
-        run: npx eslint .
+        run: npm run lint
   build:
     runs-on: ubuntu-latest
     strategy:
