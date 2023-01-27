@@ -31,8 +31,14 @@
         "import/no-unresolved": "off",
         "no-underscore-dangle": "off",
         "no-console": "off",
-        "max-len": "off",
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
         "no-plusplus": "off",
+        "max-len": "off",
         "indent": [
             "error",
             4
