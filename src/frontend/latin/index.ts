@@ -11,6 +11,7 @@
 //
 
 import substituteText from './import/substituteTranslationFromSourceURL';
+import userSelectRemover from './import/userSelectRemover';
 
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
@@ -43,3 +44,5 @@ if (!url || !solutionBox) {
         }
     }
 }
+
+userSelectRemover(document.querySelectorAll('[style*=user-select]'));
