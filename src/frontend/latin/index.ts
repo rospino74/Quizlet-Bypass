@@ -14,7 +14,7 @@ import substituteText from './import/substituteTranslationFromSourceURL';
 
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
-const solutionBox = document.querySelector('div.corpo')?.children.item(4)?.children.item(1);
+const solutionBox = document.querySelector<HTMLDivElement>('div.corpo > :nth-child(5) > :nth-child(2)');
 
 // match latin.it urls
 const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href)?.[1];
@@ -25,10 +25,8 @@ if (!url || !solutionBox) {
     }
 } else {
     // Getting the count of the remaining solutions
-    let solutionsText = solutionBox.querySelector('.tdbox')?.children?.item(3)?.textContent;
-    if (!solutionsText) {
-        solutionsText = solutionBox.querySelector('div[style*="color: #000 !important;"]')?.textContent ?? '1 brani 0 brani';
-    }
+    let solutionsTextElement = solutionBox.querySelector('.tdbox > :nth-child(4)') ?? solutionBox.querySelector('div[style*="color: #000 !important;"]');
+    let solutionsText = solutionsTextElement?.textContent ?? '1 brani 0 brani';
 
     const soluzionsCount = [...solutionsText.matchAll(/([0-9.]+) brani/g)];
 
