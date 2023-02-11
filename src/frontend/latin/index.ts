@@ -29,12 +29,12 @@ if (!url || !solutionBox) {
     let solutionsTextElement = solutionBox.querySelector('.tdbox > :nth-child(4)') ?? solutionBox.querySelector('div[style*="color: #000 !important;"]');
     let solutionsText = solutionsTextElement?.textContent ?? '1 brani 0 brani';
 
-    const soluzionsCount = [...solutionsText.matchAll(/([0-9.]+) brani/g)];
+    const remainingSolutionsCount = [...solutionsText.matchAll(/([0-9.]+) brani/g)];
 
-    if (soluzionsCount.length < 2) {
+    if (remainingSolutionsCount.length < 2) {
         substituteText(url, solutionBox);
     } else {
-        const maxNumberOfSolutions = parseInt(soluzionsCount[1][1], 10);
+        const maxNumberOfSolutions = parseInt(remainingSolutionsCount[1][1], 10);
 
         // Checking if we still have solutions available
         if (maxNumberOfSolutions < 5) {
