@@ -101,9 +101,9 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
         }
 
         const {
-            method, url, body, headers,
-        } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; };
-        makeBackgroundWebRequest(url, method, body, headers).then((response: Response): void => {
+            method, url, body, headers, sendCredentials,
+        } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; sendCredentials: boolean };
+        makeBackgroundWebRequest(url, method, body, headers, sendCredentials).then((response: Response): void => {
             response.text().then((text: string): void => {
                 sendResponse(text);
             });

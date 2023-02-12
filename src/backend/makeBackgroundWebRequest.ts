@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-export default async function makeBackgroundWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers: HeadersInit = {}): Promise<Response> {
+export default async function makeBackgroundWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers: HeadersInit = {}, sendCredentials = true): Promise<Response> {
     const defaultHeaders = {
         'Upgrade-Insecure-Requests': '1',
         'Cache-Control': 'max-age=0',
@@ -22,7 +22,7 @@ export default async function makeBackgroundWebRequest(url: string, method: 'GET
     }
 
     const request = await fetch(url, {
-        credentials: 'include',
+        credentials: sendCredentials ? 'include' : 'omit',
         headers: newHeaders,
         method,
         body,

@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<string> {
+export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit, sendCredentials = true): Promise<string> {
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             action: 'makeWebRequest',
@@ -19,6 +19,7 @@ export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyI
                 method,
                 body,
                 headers,
+                sendCredentials,
             },
         }, (response?: string) => {
             if (__EXTENSION_DEBUG_PRINTS__) {
@@ -39,8 +40,8 @@ export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyI
     });
 }
 
-export async function makeJsonWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit): Promise<object> {
-    const response = await makeWebRequest(url, method, body, headers);
+export async function makeJsonWebRequest(url: string, method: 'GET' | 'POST', body?: BodyInit, headers?: HeadersInit, sendCredentials = true): Promise<object> {
+    const response = await makeWebRequest(url, method, body, headers, sendCredentials);
     try {
         return JSON.parse(response);
     } catch (e) {
