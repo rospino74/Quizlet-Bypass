@@ -16,29 +16,42 @@ import userSelectRemover from './import/userSelectRemover';
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 const solutionBox = document.querySelector<HTMLDivElement>('div.corpo > :nth-child(5) > :nth-child(2)');
+const translationBox = solutionBox?.querySelector<HTMLDivElement>('#traduzione1');
 
 // match latin.it urls
 const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href)?.[1];
 
-if (!url || !solutionBox) {
+if (!url || !solutionBox || !translationBox) {
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(chrome.i18n.getMessage('debugNotLoadedOnAValidPage'), 'color: #f04747;', 'color: gray; font-style: italic;');
     }
 } else {
     // Getting the count of the remaining solutions
-    let solutionsTextElement = solutionBox.querySelector('.tdbox > :nth-child(4)') ?? solutionBox.querySelector('div[style*="color: #000 !important;"]');
-    let solutionsText = solutionsTextElement?.textContent ?? '1 brani 0 brani';
+    const remainingSolutionsTextElement = solutionBox.querySelector('.tdbox > :nth-child(4)') ?? solutionBox.querySelector('div[style*="color: #000 !important;"]');
+    const remainingSolutionsText = remainingSolutionsTextElement?.textContent ?? '1 brani 0 brani';
+    const remainingSolutionsCount = [...remainingSolutionsText.matchAll(/([0-9.]+) brani/g)];
 
-    const remainingSolutionsCount = [...solutionsText.matchAll(/([0-9.]+) brani/g)];
+    function printErrorMessage() {
+        if (remainingSolutionsTextElement) {
+            const span = document.createElement('span');
+            span.style.color = '#f04747';
+            span.textContent = chrome.i18n.getMessage('latinErrorWhenFetchingTranslation');
+            remainingSolutionsTextElement.appendChild(span);
+        }
+    }
 
     if (remainingSolutionsCount.length < 2) {
-        substituteText(url, solutionBox);
+        if (!await substituteText(url, translationBox)) {
+            printErrorMessage();
+        }
     } else {
         const maxNumberOfSolutions = parseInt(remainingSolutionsCount[1][1], 10);
 
         // Checking if we still have solutions available
         if (maxNumberOfSolutions < 5) {
-            substituteText(url, solutionBox);
+            if (!await substituteText(url, translationBox)) {
+                printErrorMessage();
+            }
         } else if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', maxNumberOfSolutions);
         }

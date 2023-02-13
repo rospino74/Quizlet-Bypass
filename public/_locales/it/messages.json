@@ -94,5 +94,8 @@
     },
     "debugWebRequestResponse": {
         "message": "%cRisposta della richiesta: %c%o"
+    },
+    "latinErrorWhenFetchingTranslation": {
+        "message": "Errore durante il recupero della traduzione. Riprova ricaricando la pagina."
     }
 }
