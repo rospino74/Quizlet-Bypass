@@ -41,7 +41,7 @@ function getTranslationUrlFromHTML(html: string): string | undefined {
     }
 
     // Now we just return the url to get the translation html
-    return `${latinBaseUrl}/ajax_traduzione_versione.php?id=${secondParametersOfFunctionCaller}&r=${r}`
+    return `${latinBaseUrl}/ajax_traduzione_versione.php?id=${secondParametersOfFunctionCaller}&r=${r}`;
 }
 
 async function getPageWithBaseAndParams(base: string, path: string, params = ''): Promise<string | undefined> {

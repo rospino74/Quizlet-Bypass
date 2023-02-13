@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-import substituteText from './import/substituteTranslationFromSourceURL';
+import substituteTranslationFromSourceURL from './import/substituteTranslationFromSourceURL';
 import userSelectRemover from './import/userSelectRemover';
 
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
@@ -31,27 +31,23 @@ if (!url || !solutionBox || !translationBox) {
     const remainingSolutionsText = remainingSolutionsTextElement?.textContent ?? '1 brani 0 brani';
     const remainingSolutionsCount = [...remainingSolutionsText.matchAll(/([0-9.]+) brani/g)];
 
-    function printErrorMessage() {
-        if (remainingSolutionsTextElement) {
+    const replaceTextOrPrintError = async () => {
+        if (!await substituteTranslationFromSourceURL(url, translationBox) && remainingSolutionsTextElement) {
             const span = document.createElement('span');
             span.style.color = '#f04747';
             span.textContent = chrome.i18n.getMessage('latinErrorWhenFetchingTranslation');
             remainingSolutionsTextElement.appendChild(span);
         }
-    }
+    };
 
     if (remainingSolutionsCount.length < 2) {
-        if (!await substituteText(url, translationBox)) {
-            printErrorMessage();
-        }
+        replaceTextOrPrintError();
     } else {
         const maxNumberOfSolutions = parseInt(remainingSolutionsCount[1][1], 10);
 
         // Checking if we still have solutions available
         if (maxNumberOfSolutions < 5) {
-            if (!await substituteText(url, translationBox)) {
-                printErrorMessage();
-            }
+            replaceTextOrPrintError();
         } else if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', maxNumberOfSolutions);
         }
