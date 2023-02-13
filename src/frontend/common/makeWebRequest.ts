@@ -21,7 +21,7 @@ export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyI
                 headers,
                 sendCredentials,
             },
-        }, (response?: string) => {
+        }, (response: { text: string, error: boolean}) => {
             if (__EXTENSION_DEBUG_PRINTS__) {
                 console.log(
                     chrome.i18n.getMessage('debugWebRequestResponse'),
@@ -31,10 +31,10 @@ export function makeWebRequest(url: string, method: 'GET' | 'POST', body?: BodyI
                 );
             }
 
-            if (response) {
-                resolve(response);
+            if (response.error) {
+                reject(response.text);
             } else {
-                reject(new Error(`Request failed: ${response}`));
+                resolve(response.text);
             }
         });
     });

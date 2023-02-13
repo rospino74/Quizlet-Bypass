@@ -105,11 +105,17 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
         } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; sendCredentials: boolean };
         makeBackgroundWebRequest(url, method, body, headers, sendCredentials).then((response: Response): void => {
             response.text().then((text: string): void => {
-                sendResponse(text);
+                sendResponse({
+                    text,
+                    error: false,
+                });
             });
         }).catch((e) => {
-            console.error(e);
-            sendResponse(e);
+            console.error(chrome.i18n.getMessage('fetchError'), 'color: #F5AB80', e);
+            sendResponse({
+                text: e,
+                error: true,
+            });
         });
         break;
     }
