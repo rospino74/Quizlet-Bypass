@@ -54,6 +54,8 @@ jobs:
           yarn install
       - name: Extension build
         run: yarn build
+        env:
+          DEBUG_PRINTS: 1
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.build_script }}.extension
