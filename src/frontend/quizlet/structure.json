@@ -1,7 +1,6 @@
 {
     "entry": "index.ts",
     "permissions": [
-        "webRequest",
         "cookies",
         "tabs"
     ],

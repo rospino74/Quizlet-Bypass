@@ -9,8 +9,5 @@
         "*://*.latin.it/*",
         "*://www-latin-it.translate.goog/*"
     ],
-    "permissions": [
-        "webRequest",
-        "webRequestBlocking"
-    ]
+    "permissions": []
 }

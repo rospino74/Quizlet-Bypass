@@ -11,7 +11,6 @@
 //
 
 import replaceQuizletCookies from './cookieReplacer';
-import installLatinAjaxInterceptor from './interceptors/latin';
 import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 import { getStatistics, incrementStatistic } from './statsUtils';
 
@@ -32,9 +31,6 @@ import { getStatistics, incrementStatistic } from './statsUtils';
 
     console.log('%cQuizlet Bypass %cv%s\n\nhttps://github.com/rospino74/Quizlet-Bypass', specialStyle, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 })();
-
-// Provo ad intercettare le richieste
-installLatinAjaxInterceptor();
 
 // Listening for messages from the content script
 chrome.runtime.onMessage.addListener((message: { action: string; value: string | object }, sender, sendResponse) => {
