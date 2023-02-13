@@ -16,7 +16,7 @@ import userSelectRemover from './import/userSelectRemover';
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 const solutionBox = document.querySelector<HTMLDivElement>('div.corpo > :nth-child(5) > :nth-child(2)');
-const translationBox = solutionBox?.querySelector<HTMLDivElement>('#traduzione1');
+const translationBox = solutionBox?.querySelector<HTMLDivElement>('#traduzione1') ?? solutionBox?.querySelector<HTMLDivElement>('div:nth-child(1) > div:nth-child(6)');
 
 // match latin.it urls
 const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href)?.[1];
