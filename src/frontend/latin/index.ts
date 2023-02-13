@@ -41,13 +41,13 @@ if (!url || !solutionBox || !translationBox) {
     };
 
     if (remainingSolutionsCount.length < 2) {
-        replaceTextOrPrintError();
+        await replaceTextOrPrintError();
     } else {
         const maxNumberOfSolutions = parseInt(remainingSolutionsCount[1][1], 10);
 
         // Checking if we still have solutions available
         if (maxNumberOfSolutions < 5) {
-            replaceTextOrPrintError();
+            await replaceTextOrPrintError();
         } else if (__EXTENSION_DEBUG_PRINTS__) {
             console.log(`%c${chrome.i18n.getMessage('debugRemainingSolutions')}`, 'color: #80f5ab', maxNumberOfSolutions);
         }
