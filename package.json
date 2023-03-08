@@ -35,7 +35,7 @@
     "@types/chrome": "^0.0.219",
     "archiver": "^5.3.1",
     "buffer": "^6.0.3",
-    "chance": "^1.1.10",
+    "chance": "^1.1.11",
     "random-useragent": "^0.5.0",
     "temp-mail-api": "^1.1.1"
   }
