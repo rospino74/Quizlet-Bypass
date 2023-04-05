@@ -46,6 +46,7 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     removeAnnoyance(target, '.AssemblyPill--plus'); // Hiding premium badges
     removeAnnoyance(target, '.AssemblyPrimaryButton--upgrade', false); // Hiding the upgrade button
     removeAnnoyance(target, '.SiteAd'); // Hiding the ad box
+    removeAnnoyance(target, '[data-testid="ExplanationsLayoutSidebarAd"]'); // Sidebar ad box
     removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false); // QuizletPlus popup
     removeAnnoyance(target, '#toastId-Explanations-Textbook-0', false); // Remaining solutions toast
 
