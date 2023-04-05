@@ -16,7 +16,7 @@ import userSelectRemover from './import/userSelectRemover';
 console.log('%cSplash Latino Evader %cv%s', 'color: #009dd9;', 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 const solutionBox = document.querySelector<HTMLDivElement>('div.corpo > :nth-child(5) > :nth-child(2)');
-const translationBox = solutionBox?.querySelector<HTMLDivElement>('#traduzione1') ?? solutionBox?.querySelector<HTMLDivElement>('div:nth-child(1) > div:nth-child(6)');
+const translationBox = solutionBox?.querySelector<HTMLDivElement>('#traduzione1') ?? solutionBox?.querySelector<HTMLDivElement>('div:nth-child(1) > div:nth-child(6)') ?? solutionBox?.querySelector<HTMLDivElement>('div.tdbox:nth-child(6)');
 
 // match latin.it urls
 const url = /https?:\/\/www\.latin\.it\/([^\s]+)/g.exec(window.location.href)?.[1];
@@ -42,6 +42,13 @@ if (!url || !solutionBox || !translationBox) {
 
     if (remainingSolutionsCount.length < 2) {
         await replaceTextOrPrintError();
+
+        // Now we remove the remainind .tdbox elements (the first two are the original text and the translation)
+        const tdboxes = solutionBox.querySelectorAll('.tdbox:not(.artificial)');
+        for (let i = 2; i < tdboxes.length; i++) {
+            tdboxes[i].remove();
+        }
+
     } else {
         const maxNumberOfSolutions = parseInt(remainingSolutionsCount[1][1], 10);
 
