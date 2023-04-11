@@ -53,7 +53,7 @@ jobs:
           npm install --global yarn
           yarn install
       - name: Extension build
-        run: yarn build
+        run: yarn ${{ matrix.build_script }}
         env:
           DEBUG_PRINTS: 1
       - uses: actions/upload-artifact@v2
