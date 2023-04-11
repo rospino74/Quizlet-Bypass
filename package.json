@@ -1,7 +1,7 @@
 {
   "name": "quizlet",
   "displayName": "Quizlet Bypass",
-  "version": "1.4.5.1",
+  "version": "1.5.0",
   "description": "Removes the paywall from the Quizlet page and other sites",
   "main": "src/index.js",
   "scripts": {
@@ -17,9 +17,9 @@
   "repository": "https://github.com/rospino74/Quizlet-Bypass",
   "devDependencies": {
     "@samrum/vite-plugin-web-extension": "^4.0.0",
+    "@types/chrome": "^0.0.228",
     "@types/node": "^18.15.11",
     "@types/random-useragent": "^0.3.1",
-    "@types/chrome": "^0.0.228",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "eslint": "^8.38.0",
