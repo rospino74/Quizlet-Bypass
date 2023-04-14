@@ -194,10 +194,10 @@
   resolved "https://registry.yarnpkg.com/@rollup/plugin-virtual/-/plugin-virtual-3.0.1.tgz#cea7e489481cc0ca91516c047f8c53c1cfb1adf6"
   integrity sha512-fK8O0IL5+q+GrsMLuACVNk2x21g3yaw+sG2qn16SnUd3IlBsQyvWxLMGHmCmXRMecPjGRSZ/1LmZB4rjQm68og==
 
-"@samrum/vite-plugin-web-extension@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@samrum/vite-plugin-web-extension/-/vite-plugin-web-extension-4.0.0.tgz#b74908dc378379c08e4e131b60e8302dc220a3ea"
-  integrity sha512-j0wM6bZn9Pk2KFa8QAeUJwQOAyAvrtMZRjL88vZ3ecmRuUuheuj6mByDrPLm6EBzls1+d7Q4aUoH7z0sYKe97g==
+"@samrum/vite-plugin-web-extension@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@samrum/vite-plugin-web-extension/-/vite-plugin-web-extension-4.1.0.tgz#9eb9a86e6326005ebfd6640512e815864ab9fd25"
+  integrity sha512-svWVC8uucBBf96mPd8JFNCis+daH+IlZmbg95iCdKJfMi+DmSdqnfPNJ1oxNx8/LrrMz1Mn8BY04RnWx4qOPVA==
   dependencies:
     "@types/chrome" "^0.0.227"
     "@types/etag" "^1.8.1"
