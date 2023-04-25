@@ -18,7 +18,7 @@
   "devDependencies": {
     "@samrum/vite-plugin-web-extension": "^4.1.0",
     "@types/chrome": "^0.0.233",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.0",
     "@types/random-useragent": "^0.3.1",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
