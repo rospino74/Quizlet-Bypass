@@ -13,6 +13,7 @@
 import deleteQuizletAccount from './import/accountDeleter';
 import makeQuizletAccount from './import/accountMaker';
 import removeAnnoyance from './import/annoyanceRemover';
+import { handleNotLoggedInPopup, handleUpgradeToQuizletPlusPopup } from './import/popups';
 
 const consolePrefixStyles = [
     'color: #fff',
@@ -30,6 +31,45 @@ console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: it
 
 let banner: HTMLElement | null = null;
 let notLoggedInPaywall: HTMLElement | null = null;
+
+async function performAccountCreation() {
+    if (__EXTENSION_DEBUG_PRINTS__) {
+        console.log(
+            '%c%s',
+            consoleBigStyles,
+            chrome.i18n.getMessage('debugExpiredSolutions'),
+        );
+    }
+
+    // Remove the old account
+    deleteQuizletAccount();
+
+    // Create a new Quizlet account
+    await makeQuizletAccount();
+
+    // Copy the account auth cookies
+    chrome.runtime.sendMessage({
+        action: 'copyCookies',
+        value: document.cookie,
+    });
+
+    // Check if the paywalled-section exist
+    // const loggedInPaywall = document.querySelector('.paywalled-section [data-testid="PayWallOverlay"]');
+
+    // Refreshing the page to get the new account logged in
+    // if (notLoggedInPaywall || loggedInPaywall) {
+    if (handleNotLoggedInPopup(document.body) || handleUpgradeToQuizletPlusPopup(document.body)) {
+        chrome.runtime.sendMessage({
+            action: 'refresh',
+        });
+    }
+
+    // Increases the statistics counter
+    chrome.runtime.sendMessage({
+        action: 'incrementStats',
+        value: 'accounts_created',
+    });
+}
 
 function handleMutation(mutation: MutationRecord | { target: Node }) {
     const target = mutation.target as HTMLElement;
@@ -53,37 +93,7 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
 
     // Finding paywall banners
     notLoggedInPaywall = target.querySelector('.LoginWall');
-    if (notLoggedInPaywall) {
-        const parent = notLoggedInPaywall.parentElement;
 
-        if (parent) {
-            // Removing the social login buttons
-            removeAnnoyance(parent, '.lfyx4xv', false);
-        }
-
-        // Adjust the stile of the login wall
-        notLoggedInPaywall.style.maxWidth = 'unset';
-        notLoggedInPaywall.style.backgroundColor = '#df1326';
-        notLoggedInPaywall.style.backgroundImage = 'none';
-
-        // Changing the paywall banner text
-        const bigTitle = notLoggedInPaywall.querySelector<HTMLElement>('.t1qexa4p');
-        if (bigTitle && !bigTitle.dataset.modified) {
-            bigTitle.innerText = chrome.i18n.getMessage('lockedContent');
-
-            // Creating the reload button
-            const smallTitle = document.createElement('h3');
-            smallTitle.innerHTML = chrome.i18n.getMessage('pressToReload', [
-                '<a href="#" onclick="window.location.reload();">',
-                '</a>',
-            ]);
-            smallTitle.style.color = 'white';
-            bigTitle.parentElement?.appendChild(smallTitle);
-
-            // Marking the element as modified to prevent infinite reading
-            bigTitle.dataset.modified = 'true';
-        }
-    }
 
     // Finding the paywall banner
     banner = target.querySelector('.BannerWrapper');
@@ -100,60 +110,16 @@ observer.observe(document, { childList: true, subtree: true });
 // check once at load
 handleMutation({ target: document });
 
-// check paywall when main document has loaded
-async function loadedHandler() {
-    // Verifico che il banner esista e che non abbia un figlio
-    // con la classe "WithAccent"
-    const accent = banner?.querySelector<HTMLElement>('.WithAccent');
-    if (/* !Quizlet.LOGGED_IN || */ !banner || !accent) {
-        if (__EXTENSION_DEBUG_PRINTS__) {
-            console.log(
-                '%c%s',
-                consoleBigStyles,
-                chrome.i18n.getMessage('debugExpiredSolutions'),
-            );
-        }
-
-        // Removing the old account
-        deleteQuizletAccount();
-
-        // Creating a new Quizlet account
-        await makeQuizletAccount();
-
-        // Copying the account auth cookies
-        chrome.runtime.sendMessage({
-            action: 'copyCookies',
-            value: document.cookie,
-        });
-
-        // Check if the paywalled-section exist
-        const loggedInPaywall = document.querySelector('.paywalled-section [data-testid="PayWallOverlay"]');
-
-        // Refreshing the page to get the new account logged in
-        if (notLoggedInPaywall || loggedInPaywall) {
-            chrome.runtime.sendMessage({
-                action: 'refresh',
-            });
-        }
-
-        // Increases the statistics counter
-        chrome.runtime.sendMessage({
-            action: 'incrementStats',
-            value: 'accounts_created',
-        });
-
-        // Warning about remaining solutions
-    } else if (accent && __EXTENSION_DEBUG_PRINTS__) {
-        const debugRemainingSolutions = accent.innerText;
-        console.log(
-            '%cQuizlet%c %s %c%s',
-            consolePrefixStyles,
-            'color: white;',
-            chrome.i18n.getMessage('debugRemainingSolutions'),
-            'color: orange; font-weight: bold;',
-            debugRemainingSolutions,
-        );
+// store url on load
+let currentPage = location.href;
+setInterval(() => {
+    if (currentPage == location.href) {
+        return;
     }
-}
 
-setTimeout(loadedHandler, 250);
+    performAccountCreation();
+
+    currentPage = location.href;
+}, 1000);
+
+performAccountCreation();
