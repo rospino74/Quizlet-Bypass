@@ -41,6 +41,7 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     }
 
     // Annoyances remover
+    removeAnnoyance(target, '#onetrust-banner-sdk'); // Cookie popup
     removeAnnoyance(target, '.BannerWrapper'); // Hiding the paywall banner
     removeAnnoyance(target, 'img[data-testid="premiumBrandingBadge-lock"]', false); // Hiding lock icons
     removeAnnoyance(target, '.AssemblyPill--plus'); // Hiding premium badges
