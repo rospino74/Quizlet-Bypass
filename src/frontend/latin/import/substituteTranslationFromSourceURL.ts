@@ -52,7 +52,7 @@ function extractAutoreTranslationFromHTML(html: string): string | undefined {
     const elements = template.content.querySelectorAll<HTMLDivElement>('div.tdbox:not(:nth-child(3))');
     const elementsHTML = Array.from(elements).map((element) => {
         element.classList.add('artificial');
-        return element.outerHTML
+        return element.outerHTML;
     }).join('<hr />');
     const elementStyle = template.content.querySelector<HTMLStyleElement>('div.tdbox + style')?.outerHTML;
     return elementStyle + elementsHTML;

@@ -82,11 +82,10 @@ export function handleUpgradeToQuizletPlusPopup(target: HTMLElement): boolean {
                 '</a>',
             ]);
         }
-    
+
         // Marking the element as modified to prevent infinite reading
         bigTitle.dataset.modified = 'true';
     }
-
 
     return true;
 }

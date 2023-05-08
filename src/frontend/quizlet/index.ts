@@ -29,9 +29,6 @@ const consoleBigStyles = [
 
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
-let banner: HTMLElement | null = null;
-let notLoggedInPaywall: HTMLElement | null = null;
-
 async function performAccountCreation() {
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(
@@ -53,11 +50,7 @@ async function performAccountCreation() {
         value: document.cookie,
     });
 
-    // Check if the paywalled-section exist
-    // const loggedInPaywall = document.querySelector('.paywalled-section [data-testid="PayWallOverlay"]');
-
-    // Refreshing the page to get the new account logged in
-    // if (notLoggedInPaywall || loggedInPaywall) {
+    // Check if the paywalled-section exist{
     if (handleNotLoggedInPopup(document.body) || handleUpgradeToQuizletPlusPopup(document.body)) {
         chrome.runtime.sendMessage({
             action: 'refresh',
@@ -90,13 +83,6 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     removeAnnoyance(target, '[data-testid="ExplanationsLayoutSidebarAd"]'); // Sidebar ad box
     removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false); // QuizletPlus popup
     removeAnnoyance(target, '#toastId-Explanations-Textbook-0', false); // Remaining solutions toast
-
-    // Finding paywall banners
-    notLoggedInPaywall = target.querySelector('.LoginWall');
-
-
-    // Finding the paywall banner
-    banner = target.querySelector('.BannerWrapper');
 }
 
 // remove banner/paywalls on creation
@@ -111,15 +97,15 @@ observer.observe(document, { childList: true, subtree: true });
 handleMutation({ target: document });
 
 // store url on load
-let currentPage = location.href;
+let currentPage = window.location.href;
 setInterval(() => {
-    if (currentPage == location.href) {
+    if (currentPage === window.location.href) {
         return;
     }
 
     performAccountCreation();
 
-    currentPage = location.href;
+    currentPage = window.location.href;
 }, 1000);
 
 performAccountCreation();

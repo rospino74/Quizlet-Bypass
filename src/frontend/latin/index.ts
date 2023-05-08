@@ -48,7 +48,6 @@ if (!url || !solutionBox || !translationBox) {
         for (let i = 2; i < tdboxes.length; i++) {
             tdboxes[i].remove();
         }
-
     } else {
         const maxNumberOfSolutions = parseInt(remainingSolutionsCount[1][1], 10);
 
