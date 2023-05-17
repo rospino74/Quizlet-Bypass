@@ -63,11 +63,9 @@ export function handleUpgradeToQuizletPlusPopup(target: HTMLElement): boolean {
         graphicalBox.style.backgroundImage = 'none';
     }
 
-    // Removing the logo
-    const logo = popup.querySelector<HTMLElement>('[data-testid="PremiumLogo"]');
-    if (logo) {
-        logo.style.display = 'none';
-    }
+    // Removing the logo and the price tag
+    removeAnnoyance(popup, '[data-testid="PremiumLogo"]', false);
+    removeAnnoyance(popup, '.umrthjm', false);
 
     // Changing the paywall banner text
     const bigTitle = popup.querySelector<HTMLElement>('.tukvi6d');
