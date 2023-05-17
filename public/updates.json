@@ -78,6 +78,13 @@
                "gecko": {
                   "strict_min_version": "57"
                }
+            },
+            {
+               "version": "1.5.1",
+               "update_link": "https://github.com/rospino74/Quizlet-Bypass/releases/download/v1.5.1/extension-firefox.xpi",
+               "gecko": {
+                  "strict_min_version": "57"
+               }
             }
          ]
       }
