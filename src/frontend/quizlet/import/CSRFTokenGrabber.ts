@@ -10,20 +10,10 @@
 // limitations under the License.
 //
 
-import { makeWebRequest } from '../../common/makeWebRequest';
-
-export default async function getCSRFToken() {
-    const content = await makeWebRequest('https://quizlet.com/latest', 'GET', undefined, {
-        Pragma: 'no-cache',
-        'Cache-Control': 'no-cache',
-    });
-
-    // Search for the CSRF token name
-    const [, CSRFCookieName] = content.match(/"cstokenName":"(.+?)"/i) ?? [null, 'qtkn']; // Tries the default one
-
+export default function getCSRFToken(): string {
     // Search for the CSRF token value, Throws an error if the cookie is not found. We cannot go beyond this point without it
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const [, cookieValue] = document.cookie.match(`(?:^|;)\\s*${CSRFCookieName}=([^;]*)`)!;
+    const [, cookieValue] = document.cookie.match('(?:^|;)\\s*qtkn=([^;]*)')!;
 
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log('CSRF Token: ', cookieValue);
