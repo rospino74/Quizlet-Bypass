@@ -50,6 +50,7 @@ Quizlet non usa un captcha nei form di registrazione
 * La sola funzione di Quizlet sbloccata è _Textbook Solutions_. Le altre funzioni sono bloccate lato server e non possono essere usate, altre informazioni in #215.
 * Ogni volta che visiterai una pagina di _Quizlet_ per le soluzioni verrai disconnesso.
 * I browser basati su _Chromium_ potrebbero avvertirti a causa di un estensione eseguita in modalità sviluppatore, per continuare ad usarla chiudi il popup con la _X_.
+* I browser _Chromium_ ti avvertiranno che nel manifest c'è una chiave `browser_specific_settings` non riconosciuta; Non preoccuparti, è normale visto che stai caricando un'estensione compatibile con Firefox su Chromium.
 * Se credi che ci sia qualche problema non esitare ad [aprire un'issue](https://github.com/rospino74/Quizlet-Bypass/issues/new/choose) 😉.
 
 ### La tua estensione non funziona!1!!1

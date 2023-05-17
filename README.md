@@ -47,6 +47,7 @@ _This page is also available in <a href="./README.it.md">Italian</a> 🇮🇹_
 * The only Quizlet feature unlocked by the extension is _Textbook Solutions_. Other features are hard-paywalled and **CANNOT** be unlocked, please see #215.
 * Be aware that this extension will log you out of your quizlet account every time you open a textbook solution.
 * Chromium browsers may bother you about having extensions in developer mode, just dismiss the alert to keep the extension running.
+* Chromium browsers will complain that the manifest has an unrecognized `browser_specific_settings` key. That's okay because you're loading a _Firefox-compatible_ extension.
 * If you think there is a problem with the extension feel free to [open an issue](https://github.com/rospino74/Quizlet-Bypass/issues/new/choose) 😉.
 
 ## Supported Websites 🌐
