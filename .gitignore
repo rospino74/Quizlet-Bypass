@@ -75,8 +75,9 @@ typings/
 # FuseBox cache
 .fusebox/
 
-# Zip
+# Zip and extension files
 *.zip
+*.xpi
 
 # Build Directory
 dist/
