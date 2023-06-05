@@ -194,18 +194,18 @@
   resolved "https://registry.yarnpkg.com/@rollup/plugin-virtual/-/plugin-virtual-3.0.1.tgz#cea7e489481cc0ca91516c047f8c53c1cfb1adf6"
   integrity sha512-fK8O0IL5+q+GrsMLuACVNk2x21g3yaw+sG2qn16SnUd3IlBsQyvWxLMGHmCmXRMecPjGRSZ/1LmZB4rjQm68og==
 
-"@samrum/vite-plugin-web-extension@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@samrum/vite-plugin-web-extension/-/vite-plugin-web-extension-4.1.0.tgz#9eb9a86e6326005ebfd6640512e815864ab9fd25"
-  integrity sha512-svWVC8uucBBf96mPd8JFNCis+daH+IlZmbg95iCdKJfMi+DmSdqnfPNJ1oxNx8/LrrMz1Mn8BY04RnWx4qOPVA==
+"@samrum/vite-plugin-web-extension@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@samrum/vite-plugin-web-extension/-/vite-plugin-web-extension-5.0.0.tgz#d9a407a43bea821ca89be6498b09ce92e64f8c57"
+  integrity sha512-QqNlhmJ0x7nWgbz6vyQWMf9H6uPbr3q3X6hrJriE65E+ZBDlAc/Qoy6rrKj3MYZXJYVTEVEKuDjvITFAq5zVYA==
   dependencies:
-    "@types/chrome" "^0.0.227"
+    "@types/chrome" "^0.0.233"
     "@types/etag" "^1.8.1"
     content-security-policy-parser "^0.4.1"
     etag "^1.8.1"
-    fs-extra "^11.1.0"
-    magic-string "^0.27.0"
-    vite "^4.1.1"
+    fs-extra "^11.1.1"
+    magic-string "^0.30.0"
+    vite "^4.3.2"
 
 "@swc/core-darwin-arm64@1.3.26":
   version "1.3.26"
@@ -273,10 +273,10 @@
     "@swc/core-win32-ia32-msvc" "1.3.26"
     "@swc/core-win32-x64-msvc" "1.3.26"
 
-"@types/chrome@^0.0.227":
-  version "0.0.227"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.227.tgz#06ac653adb4cb8a192f6e42d3a2079ef884cdf34"
-  integrity sha512-l1sVnf/1wZ/oNPw5X7OJMZjQlqVf3tPO50aE/aETHQRbrYhlHZkwv7lcuOWCimRSkFdHvAW4M+RIBAZACblXng==
+"@types/chrome@^0.0.233":
+  version "0.0.233"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.233.tgz#c56bb845a376b69f1a8d08c28a5d76283bae72e6"
+  integrity sha512-T3HUW8LDhHfYPbUkOZilhnqX04sZqEFIQO0OIG8byZ7PBIk2jYys1AkNg56UbtKbsh3dABmOniK+0Q3oyo7Sxg==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
@@ -1000,10 +1000,10 @@ for-each@^0.3.3:
   dependencies:
     is-callable "^1.1.3"
 
-fs-extra@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.1.0.tgz#5784b102104433bb0e090f48bfc4a30742c357ed"
-  integrity sha512-0rcTq621PD5jM/e0a3EJoGC/1TC5ZBCERW82LQuwfGnCa1V8w7dpYH1yNu+SLb6E5dkeCBzKEyLGlFrnr+dUyw==
+fs-extra@^11.1.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.1.1.tgz#da69f7c39f3b002378b0954bb6ae7efdc0876e2d"
+  integrity sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
@@ -1444,10 +1444,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-magic-string@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.27.0.tgz#e4a3413b4bab6d98d2becffd48b4a257effdbbf3"
-  integrity sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==
+magic-string@^0.30.0:
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.0.tgz#fd58a4748c5c4547338a424e90fa5dd17f4de529"
+  integrity sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.13"
 
@@ -1919,7 +1919,7 @@ vite-plugin-top-level-await@^1.3.1:
     "@swc/core" "^1.3.10"
     uuid "^9.0.0"
 
-vite@^4.1.1, vite@^4.3.9:
+vite@^4.3.2, vite@^4.3.9:
   version "4.3.9"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.3.9.tgz#db896200c0b1aa13b37cdc35c9e99ee2fdd5f96d"
   integrity sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==
