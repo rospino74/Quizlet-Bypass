@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-import replaceQuizletCookies from './cookieReplacer';
+import { clearQuizletCookies, replaceQuizletCookies } from './cookieReplacer';
 import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 import { getStatistics, incrementStatistic } from './statsUtils';
 
@@ -44,79 +44,88 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
     const { action, value } = message;
     const { tab } = sender;
     switch (action) {
-    case 'copyCookies': {
-        if (__EXTENSION_DEBUG_PRINTS__) {
-            console.info(
-                chrome.i18n.getMessage('cookiesReceived'),
-                value,
-            );
+        case 'copyCookies': {
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.info(
+                    chrome.i18n.getMessage('cookiesReceived'),
+                    value,
+                );
+            }
+            replaceQuizletCookies(value as string, tab?.url);
+            break;
         }
-        replaceQuizletCookies(value as string, tab?.url);
-        break;
-    }
+        case 'clearCookies': {
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.info(
+                    chrome.i18n.getMessage('cookiesCleared'),
+                );
+            }
 
-    case 'refresh': {
-        if (__EXTENSION_DEBUG_PRINTS__) {
-            console.info(
-                chrome.i18n.getMessage('debugRefreshRequested'),
-            );
+            clearQuizletCookies(tab?.url);
+            break;
         }
+        case 'refresh': {
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.info(
+                    chrome.i18n.getMessage('debugRefreshRequested'),
+                );
+            }
 
-        if (tab?.id) {
-            const { id, url } = tab;
-            chrome.tabs.reload(id).catch(() => {
-                chrome.tabs.update(id, { url });
+            if (tab?.id) {
+                const { id, url } = tab;
+                chrome.tabs.reload(id).catch(() => {
+                    chrome.tabs.update(id, { url });
+                });
+            }
+            break;
+        }
+        case 'incrementStats': {
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.info('Increment stats received');
+            }
+            incrementStatistic(value as string);
+            break;
+        }
+        case 'getStats': {
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.info('Get stats received');
+            }
+
+            getStatistics().then((response) => {
+                const key = value as string;
+                sendResponse(response[key]);
             });
+            break;
         }
-        break;
-    }
-    case 'incrementStats': {
-        if (__EXTENSION_DEBUG_PRINTS__) {
-            console.info('Increment stats received');
-        }
-        incrementStatistic(value as string);
-        break;
-    }
-    case 'getStats': {
-        if (__EXTENSION_DEBUG_PRINTS__) {
-            console.info('Get stats received');
-        }
+        case 'makeWebRequest': {
+            if (__EXTENSION_DEBUG_PRINTS__) {
+                console.info(
+                    chrome.i18n.getMessage('debugWebRequestResponse'),
+                    value,
+                );
+            }
 
-        getStatistics().then((response) => {
-            const key = value as string;
-            sendResponse(response[key]);
-        });
-        break;
-    }
-    case 'makeWebRequest': {
-        if (__EXTENSION_DEBUG_PRINTS__) {
-            console.info(
-                chrome.i18n.getMessage('debugWebRequestResponse'),
-                value,
-            );
-        }
-
-        const {
-            method, url, body, headers, sendCredentials,
-        } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; sendCredentials: boolean };
-        makeBackgroundWebRequest(url, method, body, headers, sendCredentials).then((response: Response): void => {
-            response.text().then((text: string): void => {
+            const {
+                method, url, body, headers, sendCredentials,
+            } = value as { method: 'GET' | 'POST'; url: string; body?: BodyInit; headers?: HeadersInit; sendCredentials: boolean };
+            makeBackgroundWebRequest(url, method, body, headers, sendCredentials).then((response: Response): void => {
+                response.text().then((text: string): void => {
+                    sendResponse({
+                        text,
+                        error: false,
+                    });
+                });
+            }).catch((e) => {
+                console.error(chrome.i18n.getMessage('fetchError'), 'color: #F5AB80', e);
                 sendResponse({
-                    text,
-                    error: false,
+                    text: e,
+                    error: true,
                 });
             });
-        }).catch((e) => {
-            console.error(chrome.i18n.getMessage('fetchError'), 'color: #F5AB80', e);
-            sendResponse({
-                text: e,
-                error: true,
-            });
-        });
-        break;
-    }
-    default:
-        break;
+            break;
+        }
+        default:
+            break;
     }
     return true;
 });

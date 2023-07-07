@@ -5,6 +5,9 @@
     "cookiesReceived": {
         "message": "Cookie ricevuti: "
     },
+    "cookiesCleared": {
+        "message": "Cookie cancellati"
+    },
     "debugRefreshRequested": {
         "message": "Richiesta di refresh ricevuta"
     },
@@ -97,5 +100,8 @@
     },
     "latinErrorWhenFetchingTranslation": {
         "message": "Errore durante il recupero della traduzione. Riprova ricaricando la pagina."
+    },
+    "debugAccountDeletionFailed": {
+        "message": "Impossibile cancellare l'account: %o"
     }
 }

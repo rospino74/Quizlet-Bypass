@@ -5,6 +5,9 @@
     "cookiesReceived": {
         "message": "Received cookies: "
     },
+    "cookiesCleared": {
+        "message": "Cleared cookies"
+    },
     "debugRefreshRequested": {
         "message": "Received refresh request"
     },
@@ -97,5 +100,8 @@
     },
     "latinErrorWhenFetchingTranslation": {
         "message": "Error while fetching the translation. Please try again by reloading the page."
+    },
+    "debugAccountDeletionFailed": {
+        "message": "Account deletion failed: %o"
     }
 }

@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-import deleteQuizletAccount from './import/accountDeleter';
+// import deleteQuizletAccount from './import/accountDeleter';
 import makeQuizletAccount from './import/accountMaker';
 import removeAnnoyance from './import/annoyanceRemover';
 import { handleNotLoggedInPopup, handleUpgradeToQuizletPlusPopup } from './import/popups';
@@ -39,7 +39,7 @@ async function performAccountCreation() {
     }
 
     // Remove the old account
-    deleteQuizletAccount();
+    // deleteQuizletAccount();
 
     // Create a new Quizlet account
     await makeQuizletAccount();

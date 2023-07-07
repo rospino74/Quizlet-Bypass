@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-export default async function replaceQuizletCookies(extensionCookies: string, url = 'https://quizlet.com'): Promise<void> {
+export async function replaceQuizletCookies(extensionCookies: string, url = 'https://quizlet.com'): Promise<void> {
     // Itero tutti i cookies dell'estensione
     extensionCookies.split('; ').forEach(async (cookie: string): Promise<void> => {
         // Prendo il valore e il nome del cookie
@@ -21,6 +21,20 @@ export default async function replaceQuizletCookies(extensionCookies: string, ur
             url,
             name: cookieName,
             value: cookieValue,
+        });
+    });
+}
+
+export function clearQuizletCookies(url = 'https://quizlet.com'): void {
+    // Prendo tutti i cookies di Quizlet
+    chrome.cookies.getAll({ url }, (cookies) => {
+        // Itero tutti i cookies
+        cookies.forEach(async (cookie) => {
+            // Elimino il cookie
+            await chrome.cookies.remove({
+                url,
+                name: cookie.name,
+            });
         });
     });
 }

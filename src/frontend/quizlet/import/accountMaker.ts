@@ -37,15 +37,29 @@ export default async () => {
         marketing_opt_out: true,
     });
 
-    const content = await makeJsonWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', body, {
-        'CS-Token': await getCSRFToken(),
-        'Content-Type': 'application/json',
-    });
+    try {
+        const content = await makeJsonWebRequest('https://quizlet.com/webapi/3.2/direct-signup', 'POST', body, {
+            'CS-Token': getCSRFToken(),
+            'Content-Type': 'application/json',
+        });
 
-    if (__EXTENSION_DEBUG_PRINTS__) {
-        console.log(
-            chrome.i18n.getMessage('debugAccountCreationResult'),
-            content,
-        );
+        if (__EXTENSION_DEBUG_PRINTS__) {
+            console.log(
+                chrome.i18n.getMessage('debugAccountCreationResult'),
+                content,
+            );
+        }
+    } catch (e: any) {
+        // Check if the reqest error contains exception_invalid_csrf_token
+        if (e.message.includes('exception_invalid_csrf_token')) {
+            // Clear the cookies and refresh the page
+            chrome.runtime.sendMessage({
+                action: 'clearCookies',
+            });
+            chrome.runtime.sendMessage({
+                action: 'refresh',
+            });
+            return;
+        }
     }
-};
+}
