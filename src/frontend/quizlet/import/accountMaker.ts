@@ -21,7 +21,7 @@ export default async () => {
     const name = chance.name();
     const birthday = chance.birthday();
     const username = `${name.replaceAll(' ', '_').slice(0, 15)}_${birthday.getFullYear()}`;
-    const email = chance.email();
+    const email = `${username}@gmail.com`;
 
     // Create the account
     const body = JSON.stringify({
