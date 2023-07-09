@@ -50,8 +50,8 @@ export default async () => {
             );
         }
     } catch (e: any) {
-        // Check if the reqest error contains exception_invalid_csrf_token
-        if (e.message.includes('exception_invalid_csrf_token')) {
+        // Check if the reqest error contains Forbidden or Unauthorized
+        if (e.message.includes('Forbidden') || e.message.includes('Unauthorized')) {
             // Clear the cookies and refresh the page
             chrome.runtime.sendMessage({
                 action: 'clearCookies',
