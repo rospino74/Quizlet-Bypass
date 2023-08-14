@@ -49,7 +49,7 @@ export default async () => {
                 content,
             );
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         // Check if the reqest error contains Forbidden or Unauthorized
         if (e.message.includes('Forbidden') || e.message.includes('Unauthorized')) {
             // Clear the cookies and refresh the page
@@ -59,7 +59,6 @@ export default async () => {
             chrome.runtime.sendMessage({
                 action: 'refresh',
             });
-            return;
         }
     }
-}
+};
