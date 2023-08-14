@@ -19,12 +19,14 @@ import topLevelAwait from 'vite-plugin-top-level-await';
 import webExtension from '@samrum/vite-plugin-web-extension';
 import path from 'path';
 import { getManifest } from './utils/manifest';
+import localesManager from './utils/localesManager';
 import { version } from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
     const manifestVersion = Number(env.MANIFEST_VERSION ?? 3) as 2 | 3;
+    const debugPrints = mode !== 'production' || Boolean(env.DEBUG_PRINTS ?? false);
 
     return {
         plugins: [
@@ -34,6 +36,11 @@ export default defineConfig(({ mode }) => {
             topLevelAwait({
                 promiseExportName: '__tlawait_export__',
                 promiseImportName: (i: number) => `__tlawait_import_${i}__`,
+            }),
+            localesManager({
+                inputDir: './src/locales',
+                outputDir: '_locales',
+                excludeKeys: !debugPrints && [/debug[\w]+/]
             }),
         ],
         resolve: {
@@ -45,7 +52,7 @@ export default defineConfig(({ mode }) => {
             __EXTENSION_VERSION__: JSON.stringify(version ?? '1.0.0'),
             __EXTENSION_MV3__: manifestVersion === 3,
             __EXTENSION_MV2__: manifestVersion === 2,
-            __EXTENSION_DEBUG_PRINTS__: mode !== 'production' || Boolean(env.DEBUG_PRINTS ?? false),
+            __EXTENSION_DEBUG_PRINTS__: debugPrints,
         },
     };
 });

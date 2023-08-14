@@ -5,10 +5,10 @@
   "description": "Removes the paywall from the Quizlet page and other sites",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint --fix ./src",
-    "build": "MANIFEST_VERSION=3 vite build",
+    "lint": "eslint --fix --cache ./src",
+    "build": "MANIFEST_VERSION=3 vite build --mode production",
     "dev": "MANIFEST_VERSION=3 vite dev --mode development",
-    "build2": "MANIFEST_VERSION=2 vite build",
+    "build2": "MANIFEST_VERSION=2 vite build --mode production",
     "dev2": "MANIFEST_VERSION=2 vite dev --mode development"
   },
   "private": true,
