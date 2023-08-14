@@ -618,13 +618,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.241":
-  version: 0.0.241
-  resolution: "@types/chrome@npm:0.0.241"
+"@types/chrome@npm:^0.0.243":
+  version: 0.0.243
+  resolution: "@types/chrome@npm:0.0.243"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: af6cf474ed120b046001c0edf50bb752191369d5205d0b2d1ebcb7548db6b87183a098ee7ab77db1a441eacbf36fbfc3cd5b04a9642a99180a13018ced400984
+  checksum: cd0a26f31d100760d6425ee55d1f0faaaa00bbb0a8f4932f780868b7173325156b2066491bf5393aaadb5d108c85d1fca931b832ca4c210d8e8134b47bb0d9a1
   languageName: node
   linkType: hard
 
@@ -3168,7 +3168,7 @@ __metadata:
   resolution: "quizlet@workspace:."
   dependencies:
     "@samrum/vite-plugin-web-extension": ^5.0.0
-    "@types/chrome": ^0.0.241
+    "@types/chrome": ^0.0.243
     "@types/node": ^20.5.0
     "@types/random-useragent": ^0.3.1
     "@typescript-eslint/eslint-plugin": ^5.61.0
