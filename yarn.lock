@@ -674,10 +674,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.5.1":
-  version: 20.5.1
-  resolution: "@types/node@npm:20.5.1"
-  checksum: 3dbe611cd67afa987102c8558ee70f848949c5dcfee5f60abc073e55c0d7b048e391bf06bb1e0dc052cb7210ca97136ac496cbaf6e89123c989de6bd125fde82
+"@types/node@npm:^20.5.7":
+  version: 20.5.7
+  resolution: "@types/node@npm:20.5.7"
+  checksum: fc284c8e16ddc04569730d58e87eae349eb1c3dd9020cb79a1862d9d9add6f04e7367a236f3252db8db2572f90278e250f4cd43d27d264972b54394eaba1ed76
   languageName: node
   linkType: hard
 
@@ -3138,7 +3138,7 @@ __metadata:
   dependencies:
     "@samrum/vite-plugin-web-extension": ^5.0.0
     "@types/chrome": ^0.0.243
-    "@types/node": ^20.5.1
+    "@types/node": ^20.5.7
     "@types/random-useragent": ^0.3.1
     "@typescript-eslint/eslint-plugin": ^6.4.1
     "@typescript-eslint/parser": ^6.4.1
