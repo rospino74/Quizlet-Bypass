@@ -43,6 +43,7 @@ const commonManifest = {
         96: 'icons/logo-96.png',
         192: 'icons/logo-192.png',
     },
+    minimum_chrome_version: '93',
     browser_specific_settings: {
         gecko: {
             id: 'quizletbypass@rospino74.github.io',
