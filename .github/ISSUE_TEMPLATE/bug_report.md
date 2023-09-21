@@ -4,25 +4,57 @@ about: Use this template to report extension issues and bugs
 title: ''
 labels: bug
 assignees: ''
-
+body:
+- type: markdown
+  attributes:
+    value: "## Platform informations"
+- type: input
+  id: browser-version
+  attributes:
+    label: Browser Version
+    description: "Which browser you are running the extension on?"
+    placeholder: "Chrome, Edge, Firefox, Brave, Opera..."
+  validations:
+    required: true
+- type: input
+  id: extension-version
+  attributes:
+    label: Exension Version
+    description: "Which version of the extension are you running?"
+    placeholder: "1.4.2"
+  validations:
+    required: true
+- type: markdown
+  attributes:
+    value: "## Issue Description"
+- type: textarea
+  id: actual-behaviour
+  attributes:
+    label: Actual behaviour
+    description: |
+      A clear and concise description of the issue.
+      We would appreciate screenshots, console logs, stack traces or source code references.
+  validations:
+    required: true
+- type: textarea
+  id: reproduction-steps
+  attributes:
+    label: Reproduction steps
+    description: "How do you trigger this bug? Please walk us through it step by step."
+    value: |
+      1. Go to this place
+      2. Perform that action
+      3. ...
+      4. See the bug
+    render: markdown
+  validations:
+    required: false
+- type: textarea
+  id: expected-behaviour
+  attributes:
+    label: expected behaviour
+    description: |
+      A clear and concise description of what you expected to happen.
+  validations:
+    required: false
 ---
-
-## Platform informations
-- Browser (e.g. Chrome, Edge, Firefox...)
-- Extension version (e.g. 1.4.2)
-- [ ] Manually built extension
-
-## Issue Description
-### Actual behaviour
-A clear and concise description of what the issue is.
-Please provide screenshots, stack traces or source code references if needed
-
-### Expected behaviour
-A clear and concise description of what you expected to happen.
-
-### Steps to reproduce
-Steps to reproduce the behaviour:
-1. Go to this place
-2. Perform that action
-3. ...
-4. See the bug
