@@ -1,0 +1,55 @@
+name: "Bug report"
+description: "Use this template to report extension issues and bugs"
+labels: ["bug"]
+body:
+- type: markdown
+  attributes:
+    value: "## Platform informations"
+- type: input
+  id: browser-version
+  attributes:
+    label: "Browser Version"
+    description: "Which browser you are running the extension on?"
+    placeholder: "Chrome, Edge, Firefox, Brave, Opera..."
+  validations:
+    required: true
+- type: input
+  id: extension-version
+  attributes:
+    label: "Exension Version"
+    description: "Which version of the extension are you running?"
+    placeholder: "1.4.2"
+  validations:
+    required: true
+- type: markdown
+  attributes:
+    value: "## Issue Description"
+- type: textarea
+  id: actual-behaviour
+  attributes:
+    label: "Actual behaviour"
+    description: |
+      A clear and concise description of the issue.
+      We would appreciate screenshots, console logs, stack traces or source code references.
+  validations:
+    required: true
+- type: textarea
+  id: reproduction-steps
+  attributes:
+    label: "Reproduction steps"
+    description: "How do you trigger this bug? Please walk us through it step by step."
+    placeholder: |
+      1. Go to this place
+      2. Perform that action
+      3. ...
+      4. See the bug
+  validations:
+    required: false
+- type: textarea
+  id: expected-behaviour
+  attributes:
+    label: "Expected behaviour"
+    description: |
+      A clear and concise description of what you expected to happen.
+  validations:
+    required: false
