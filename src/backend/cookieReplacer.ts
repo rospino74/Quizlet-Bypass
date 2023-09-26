@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-export async function replaceQuizletCookies(extensionCookies: string, url = 'https://quizlet.com'): Promise<void> {
+export async function replaceCookies(extensionCookies: string, url = 'https://quizlet.com'): Promise<void> {
     // Itero tutti i cookies dell'estensione
     extensionCookies.split('; ').forEach(async (cookie: string): Promise<void> => {
         // Prendo il valore e il nome del cookie
@@ -25,7 +25,7 @@ export async function replaceQuizletCookies(extensionCookies: string, url = 'htt
     });
 }
 
-export function clearQuizletCookies(url = 'https://quizlet.com'): void {
+export function clearCookies(url = 'https://quizlet.com'): void {
     // Prendo tutti i cookies di Quizlet
     chrome.cookies.getAll({ url }, (cookies) => {
         // Itero tutti i cookies

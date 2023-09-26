@@ -10,7 +10,7 @@
 // limitations under the License.
 //
 
-import { clearQuizletCookies, replaceQuizletCookies } from './cookieReplacer';
+import { clearCookies, replaceCookies } from './cookieReplacer';
 import makeBackgroundWebRequest from './makeBackgroundWebRequest';
 import { getStatistics, incrementStatistic } from './statsUtils';
 
@@ -51,7 +51,8 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
                 value,
             );
         }
-        replaceQuizletCookies(value as string, tab?.url);
+        const url = tab?.url ? new URL(tab.url).origin : undefined;
+        replaceCookies(value as string, url);
         break;
     }
     case 'clearCookies': {
@@ -61,7 +62,8 @@ chrome.runtime.onMessage.addListener((message: { action: string; value: string |
             );
         }
 
-        clearQuizletCookies(tab?.url);
+        const url = tab?.url ? new URL(tab.url).origin : undefined;
+        clearCookies(url);
         break;
     }
     case 'refresh': {
