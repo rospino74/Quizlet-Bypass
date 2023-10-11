@@ -67,5 +67,5 @@ jobs:
       - name: Create release
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create ${{ needs.create-tag.outputs.new-tag }} -d --generate-notes ./dist/*
+        run: gh release create ${{ needs.create-tag.outputs.new-tag }} --verify-tag -d --generate-notes ./dist/*
        
