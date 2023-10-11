@@ -21,6 +21,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Version upgrade
+        id: versioning
         run: |
             NEW_TAG=$(node ./utils/version-upgrader.js PATCH)
             
