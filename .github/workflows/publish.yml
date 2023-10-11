@@ -30,7 +30,7 @@ jobs:
       - name: Commit and Push
         run: |
             git commit -am "v${{ steps.versioning.outputs.new-tag }}" -m "[skip ci]"
-            git tag -a "v${{ steps.versioning.outputs.new-tag }}"" -m "v${{ steps.versioning.outputs.new-tag }}""
+            git tag -a "v${{ steps.versioning.outputs.new-tag }}" -m "v${{ steps.versioning.outputs.new-tag }}"
             git push origin HEAD "v${{ steps.versioning.outputs.new-tag }}"
   build:
     runs-on: ubuntu-latest
