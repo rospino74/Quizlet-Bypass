@@ -1,0 +1,10 @@
+{
+    "entry": "index.ts",
+    "urls": [
+        "*://*.studenti.it/*"
+    ],
+    "matches": [
+        "*://doc.studenti.it/appunti/*",
+        "*://doc.studenti.it/vedi_tutto/*"
+    ]
+}

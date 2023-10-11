@@ -1,0 +1,9 @@
+{
+    "entry": "index.ts",
+    "urls": [
+        "*://*.skuola.net/*"
+    ],
+    "matches": [
+        "*://*.skuola.net/*"
+    ]
+}
