@@ -83,6 +83,7 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     removeAnnoyance(target, '[data-testid="ExplanationsLayoutSidebarAd"]'); // Sidebar ad box
     removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false); // QuizletPlus popup
     removeAnnoyance(target, '#toastId-Explanations-Textbook-0', false); // Remaining solutions toast
+    removeAnnoyance(target, '.mnlifen.o1cv2anc.l6ngt95'); // Confirm email popup
 }
 
 // remove banner/paywalls on creation
