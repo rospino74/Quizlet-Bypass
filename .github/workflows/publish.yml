@@ -1,11 +1,8 @@
 name: Extension Publisher
-
 on:
   workflow_dispatch:
-  
 env:
   NODE_VERSION: 19.x
-
 jobs:
   create-tag:
     runs-on: ubuntu-latest
@@ -14,24 +11,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-            fetch-depth: 0
+          fetch-depth: 0
       - name: Git setup
         run: |
-            git --version
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git --version
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Version upgrade
         id: versioning
         run: |
-            NEW_TAG=$(node ./utils/version-upgrader.js PATCH)
-            
-            # Data saved for next steps
-            echo "new-tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          NEW_TAG=$(node ./utils/version-upgrader.js PATCH)
+
+          # Data saved for next steps
+          echo "new-tag=$NEW_TAG" >> $GITHUB_OUTPUT
       - name: Commit and Push
         run: |
-            git commit -am "v${{ steps.versioning.outputs.new-tag }}" -m "[skip ci]"
-            git tag -a "v${{ steps.versioning.outputs.new-tag }}" -m "v${{ steps.versioning.outputs.new-tag }}"
-            git push origin HEAD "v${{ steps.versioning.outputs.new-tag }}"
+          git commit -am "v${{ steps.versioning.outputs.new-tag }}" -m "[skip ci]"
+          git tag -a "v${{ steps.versioning.outputs.new-tag }}" -m "v${{ steps.versioning.outputs.new-tag }}"
+          git push origin HEAD "v${{ steps.versioning.outputs.new-tag }}"
   build:
     runs-on: ubuntu-latest
     needs: create-tag
@@ -46,26 +43,35 @@ jobs:
         run: |
           npm install --global yarn
           yarn install
-      - name: Extension build
-        run: yarn build
-      - uses: actions/upload-artifact@v3.1.3
+      - name: MV3 extension build
+        run: yarn build --outDir ./dist/mv3
+      - name: MV2 extension build
+        run: yarn build2 --outDir ./dist/mv2
+      - name: Zip artifacts
+        run: |
+          zip -r extension-firefox.xpi ./dist/mv2/*
+          zip -r extension.zip ./dist/mv3/*
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: artifacts.zip
           path: |
-            ./dist/extension.zip
-            ./dist/extension-firefox.xpi
+            ./extension.zip
+            ./extension-firefox.xpi
           if-no-files-found: error
   release:
     runs-on: ubuntu-latest
-    needs: [build, create-tag]
+    needs:
+      - build
+      - create-tag
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v3.0.2
+      - name: Download artifacts
+        uses: actions/download-artifact@v3.0.2
         with:
           name: artifacts.zip
           path: ./dist/
       - name: Create release
         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create ${{ needs.create-tag.outputs.new-tag }} --verify-tag -d --generate-notes ./dist/*
-       
