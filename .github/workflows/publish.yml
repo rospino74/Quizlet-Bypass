@@ -49,8 +49,8 @@ jobs:
         run: yarn build2 --outDir ./dist/mv2
       - name: Zip artifacts
         run: |
-          zip -r extension-firefox.xpi ./dist/mv2/*
-          zip -r extension.zip ./dist/mv3/*
+          (cd ./dist/mv2/ zip -r ../../extension-firefox.xpi ./*)
+          (cd ./dist/mv3/ zip -r ../../extension.zip ./*)
       - name: Upload artifacts
         uses: actions/upload-artifact@v3.1.3
         with:
