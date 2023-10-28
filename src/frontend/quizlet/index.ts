@@ -84,6 +84,11 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     removeAnnoyance(target, '.a6gg3x6.d1kk5e8p.e5u6j0y.thpfeyv', false); // QuizletPlus popup
     removeAnnoyance(target, '#toastId-Explanations-Textbook-0', false); // Remaining solutions toast
     removeAnnoyance(target, '.mnlifen.o1cv2anc.l6ngt95'); // Confirm email popup
+
+    // Enable scrolling on body
+    document.querySelectorAll<HTMLElement>('.b1yw38c3').forEach(e => {
+        e.classList.remove('b1yw38c3');
+    });
 }
 
 // remove banner/paywalls on creation
