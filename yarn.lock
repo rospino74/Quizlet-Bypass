@@ -683,10 +683,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/random-useragent@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@types/random-useragent@npm:0.3.1"
-  checksum: 33edc7fe3be6b4e6a58a9ab1f109062fa70ec32be087feccb46e87b19db6c75c0067eff7e7da7caaaff0ae22da97268a84941684d23b1f50feb14d77e0ab4e8a
+"@types/random-useragent@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "@types/random-useragent@npm:0.3.2"
+  checksum: d1822d3e10e3e986f1a1717daaa7fbf4a7e0afb57d59ea5ef960d52331dc7340f89c21492d7c84327318138adaf5fbf2201eb3670fff067e205d53f9c6211f80
   languageName: node
   linkType: hard
 
@@ -3209,7 +3209,7 @@ __metadata:
     "@samrum/vite-plugin-web-extension": ^5.0.0
     "@types/chrome": ^0.0.248
     "@types/node": ^20.8.7
-    "@types/random-useragent": ^0.3.1
+    "@types/random-useragent": ^0.3.2
     "@typescript-eslint/eslint-plugin": ^6.8.0
     "@typescript-eslint/parser": ^6.8.0
     buffer: ^6.0.3
