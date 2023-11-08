@@ -95,6 +95,9 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     document.querySelectorAll<HTMLElement>('.b1yw38c3').forEach(e => {
         e.classList.remove('b1yw38c3');
     });
+
+    // Automatically click on the "Show more" button
+    document.querySelector<HTMLElement>('.ShowStepsButtonContainer > :first-child')?.click();
 }
 
 // remove banner/paywalls on creation
