@@ -8,8 +8,7 @@
         "*://*.quizlet.com/*"
     ],
     "matches": [
-        "*://*.quizlet.com/explanations/textbook-solutions/*",
-        "*://*.quizlet.com/explanations/questions/*"
+        "*://*.quizlet.com/*"
     ],
     "run_at": "document_start"
 }

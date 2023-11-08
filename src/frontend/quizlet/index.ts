@@ -30,6 +30,11 @@ const consoleBigStyles = [
 console.log('%cQuizlet%c v%s', consolePrefixStyles, 'color: gray; font-style: italic;', __EXTENSION_VERSION__);
 
 async function performAccountCreation() {
+    // Act only if the user is on the textbook solutions page
+    if (!window.location.href.match(/explanations\/textbook-solutions\/[\w-]+\/[\w-]+\/?/gm)) {
+        return;
+    }
+
     if (__EXTENSION_DEBUG_PRINTS__) {
         console.log(
             '%c%s',
