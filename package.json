@@ -17,7 +17,7 @@
   "repository": "https://github.com/rospino74/Quizlet-Bypass",
   "devDependencies": {
     "@samrum/vite-plugin-web-extension": "^5.0.0",
-    "@types/chrome": "^0.0.249",
+    "@types/chrome": "^0.0.251",
     "@types/node": "^20.9.0",
     "@types/random-useragent": "^0.3.2",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
