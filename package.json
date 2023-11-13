@@ -19,7 +19,7 @@
     "@samrum/vite-plugin-web-extension": "^5.0.0",
     "@types/chrome": "^0.0.251",
     "@types/node": "^20.9.0",
-    "@types/random-useragent": "^0.3.2",
+    "@types/random-useragent": "^0.3.3",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
