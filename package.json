@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/rospino74/Quizlet-Bypass",
   "devDependencies": {
-    "@samrum/vite-plugin-web-extension": "^5.0.0",
+    "@samrum/vite-plugin-web-extension": "^5.1.0",
     "@types/chrome": "^0.0.254",
     "@types/node": "^20.10.4",
     "@types/random-useragent": "^0.3.3",
