@@ -3234,7 +3234,7 @@ __metadata:
     random-useragent: ^0.5.0
     typescript: ^5.3.3
     vite: ^4.5.1
-    vite-plugin-top-level-await: ^1.4.0
+    vite-plugin-top-level-await: ^1.4.1
   languageName: unknown
   linkType: soft
 
@@ -3922,16 +3922,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-top-level-await@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "vite-plugin-top-level-await@npm:1.4.0"
+"vite-plugin-top-level-await@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "vite-plugin-top-level-await@npm:1.4.1"
   dependencies:
     "@rollup/plugin-virtual": ^3.0.2
     "@swc/core": ^1.3.100
     uuid: ^9.0.1
   peerDependencies:
     vite: ">=2.8"
-  checksum: dcd8cb435322e48cefbe3dc95ae3b449397f37e001509a412f77d8132bf269ac650c6a01851e2052f1ebf3c2ee09c338a0d31d6359eb7062d9af96e2c359be72
+  checksum: 34fc05991ee4d34ea6d80b19d172985ba8a397016e865691ce211a1d5f47dfadfe26b873a994ac0528ac06d67cd060e3d9185508b1133dad7f016ad62a2d61fe
   languageName: node
   linkType: hard
 
