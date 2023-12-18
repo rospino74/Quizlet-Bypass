@@ -27,7 +27,7 @@
     "eslint-plugin-import": "^2.29.0",
     "typescript": "^5.3.3",
     "vite": "^4.5.1",
-    "vite-plugin-top-level-await": "^1.4.0"
+    "vite-plugin-top-level-await": "^1.4.1"
   },
   "dependencies": {
     "buffer": "^6.0.3",
