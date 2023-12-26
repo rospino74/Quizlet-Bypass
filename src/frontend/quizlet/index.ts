@@ -90,6 +90,7 @@ function handleMutation(mutation: MutationRecord | { target: Node }) {
     removeAnnoyance(target, '#toastId-Explanations-Textbook-0', false); // Remaining solutions toast
     removeAnnoyance(target, '.mnlifen.o1cv2anc.l6ngt95'); // Confirm email popup
     removeAnnoyance(target, '#toastId-confirmEmailPrompt-0'); // Confirm email toast
+    removeAnnoyance(target, '.ReactModalPortal', false); // Hide all popups
 
     // Enable scrolling on body
     document.querySelectorAll<HTMLElement>('.b1yw38c3').forEach(e => {
